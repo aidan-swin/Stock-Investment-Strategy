@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+{% block title%}Company{% endblock %}
+{% block content %}
+<table id="companyInfoTable" class="display" style="width:100%">
+    <thead>
+        <tr>
+            <th>Company Name</th>
+            <th>Price</th>
+            <th>Value Diff</th>
+            <th>Perc Diff</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for company in user.company_info %}
+        <tr>
+            <td>{{ company.companyname }}</td>
+            <td>{{ company.price }}</td>
+            <td>{{ company.value_diff }}</td>
+            <td>{{ company.perc_diff }}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+<script type="text/javascript">
+    $(document).ready(function() {
+        $('#companyInfoTable').DataTable();
+    });
+</script>
+
+{% endblock %}
