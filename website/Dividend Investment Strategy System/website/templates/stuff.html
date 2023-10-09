@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+{% block title%}Home{% endblock %}
+
+
+{% block content %}
+<h1 align="center">Notes</h1>
+<ul class="list-group list-group-flush" id="notes">
+    {% for notes in user.notes %}
+    <li class="list-group-item"> 
+        {{ notes.data }}
+        <button type="button" class="close" onClick="deleteNote({{ notes.id }})">
+            <span aria-hidden="true">&times;</button></span>
+        </button></li>
+    {% endfor %}
+</ul>
+<form method="POST">
+  <div class="form-group">
+      <label for="Companyname">Company Symbol Search:</label>
+      <div class="input-group">
+          <div class="input-group-prepend">
+              <span class="input-group-text"><i class="fa fa-user"></i></span>
+          </div>
+          <input type="text" class="form-control" id="Companyname" name="Companysymbol" placeholder="Enter Company Symbol" required>
+      </div>
+  </div>
+  
+  <div class="form-group">
+      <label for="StartDate">Start Date:</label>
+      <div class="input-group">
+          <div class="input-group-prepend">
+              <span class="input-group-text"><i class="fa fa-calendar"></i></span>
+          </div>
+          <input type="date" class="form-control" id="StartDate" name="StartDate" required>
+      </div>
+  </div>
+  
+  <button type="submit" class="btn btn-primary">Submit</button>
+</form>
+
+
+{% endblock %}

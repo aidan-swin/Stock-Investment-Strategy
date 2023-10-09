@@ -25,7 +25,19 @@ class User(db.Model, UserMixin):
 class Stocks(db.Model):
     stock_code = db.Column(db.String(50), primary_key=True)
     stock_name = db.Column(db.String(255))
-    historical_prices = db.relationship('Historical', backref='stock', lazy=True)
+    historical_prices = db.relationship('Ratio', backref='stock', lazy=True)
+
+class Ratio(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    stock_code = db.Column(db.String(255), db.ForeignKey('stocks.stock_code'), nullable=False)
+    rDY = db.Column(db.Float)
+    rPR = db.Column(db.Float)
+    rOM = db.Column(db.Float)
+    rCF = db.Column(db.Float)
+    rPE = db.Column(db.Float)
+    rROE = db.Column(db.Float)
+    rEPS = db.Column(db.Float)
+    rClass = db.Column(db.String(1))
     
 class Historical(db.Model):
     id = db.Column(db.Integer, primary_key=True)

@@ -1,6 +1,6 @@
 from flask import Blueprint, render_template, request, flash, jsonify
 from flask_login import  login_required,  current_user
-from .models import Note, CompanyInfo
+from .models import Note, CompanyInfo, Stocks
 from . import db
 import json
 import pickle
@@ -43,7 +43,7 @@ def get_stock_data(symbol, start_date):
         print(f"An error occurred: {str(e)}")
         return None
 
-@views.route('/', methods=['GET', 'POST'])
+@views.route('/companyinfo', methods=['GET', 'POST'])
 @login_required
 def home():
     if request.method == 'POST':
@@ -86,10 +86,11 @@ def delete_note():
             db.session.commit()
     return jsonify({})
 
-@views.route('/companyinfo', methods=['GET', 'POST'])
+@views.route('/', methods=['GET', 'POST'])
 @login_required
 def companyinfo():
-    user_company_info = current_user.company_info.all()
-    return render_template("companyinfo.html", user=current_user, user_company_info=user_company_info)
+    # Select all records from the Stocks table
+    all_stocks = Stocks.query.all()
+    return render_template("home.html", user=current_user, company=all_stocks)
 
 

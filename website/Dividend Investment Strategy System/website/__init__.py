@@ -22,7 +22,7 @@ def create_app():
     app.register_blueprint(views, url_prefix='/')
     app.register_blueprint(auth, url_prefix='/')
 
-    from .models import User, CompanyInfo, Stocks, Historical
+    from .models import User, CompanyInfo, Stocks, Historical, Ratio
 
     create_database(app)
 
@@ -31,6 +31,7 @@ def create_app():
     admin.add_view(ModelView(CompanyInfo, db.session))
     admin.add_view(ModelView(Stocks, db.session))
     admin.add_view(ModelView(Historical, db.session))
+    admin.add_view(ModelView(Ratio, db.session))
 
     login_manager = LoginManager()
     login_manager.login_view = 'auth.login'
@@ -50,14 +51,14 @@ def create_database(app):
         from .models import User, CompanyInfo
         with app.app_context():
             
-            csv_file_path = "stocks.csv"  # Replace with the path to your CSV file
+            csv_file_path = "csvdata/stocks.csv"  # Replace with the path to your CSV file
             df = pd.read_csv(csv_file_path)
             df.to_sql('Stocks', con=db.engine, if_exists='replace', index=False)
 
-            csv_file_path = "historicalprices.csv"
+            csv_file_path = "csvdata/stock_class_rounded.csv"
             df = pd.read_csv(csv_file_path)
             df = df.reset_index().rename(columns={'index': 'id'})
-            df.to_sql('Historical', con=db.engine, if_exists='replace', index=False)
+            df.to_sql('Ratio', con=db.engine, if_exists='replace', index=False)
             db.create_all()
            
 
