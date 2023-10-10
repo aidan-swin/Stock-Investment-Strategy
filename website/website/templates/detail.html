@@ -1,0 +1,359 @@
+{% extends "base.html" %}
+{% block title %}Details for Company{% endblock %}
+
+{% block content %}
+<head>
+  <style>
+    .chart-box {
+      max-width: max-content;
+      min-width: fit-content;
+      width: 100%;
+    }
+    .chart-container {
+      margin: 10px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: fit-content;
+      min-width: fit-content;
+      max-width: auto; 
+    }
+    .title{
+      text-align: center;
+      font-weight: bold;
+    }
+    .container{
+      padding-top: 20px;
+      min-width: fit-content; 
+      max-width: 1350px;
+    }
+    .card-header {
+      background-color: rgb(208, 35, 35);
+      text-align: center;
+      color: white;
+    }
+    .box-container {
+      background-color: white;
+      padding: 20px;
+    }
+    .btn-danger{
+      margin-top: 20px;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="content">
+    <div class="container">
+      <div class="row">
+        <div class="col">
+          <div class="card-header">
+            <h5>Details of {{company.stock_name}}</h5>
+          </div>
+            <!-- Top Chart Code -->
+            <!-- Chart 1 -->
+            <div class="box-container text-center" style="margin-bottom: 15px;">
+              <div class="chart-container d-inline-block">
+                <canvas id="myChart" width="400" height="350"></canvas>
+              </div>
+            <!-- Chart 2 -->
+            <div class="chart-container d-inline-block">
+              <canvas id="radarChart" width="600" height="350"></canvas>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- Company name -->
+      <div class="form-group">
+        <form method="POST" action="{{ url_for('views.delete_item', id=company.stock_code) }}">
+          <div class="form-group">
+            <label for="Companyname">Company Name:</label>
+            <input type="text" class="form-control" id="Companyname" name="Companyname" placeholder="Enter Company Name" value="{{company.stock_name}} ({{company.stock_code}})" disabled>
+          </div>
+      </div>
+      <!-- First row of display -->
+      <div class="form-group">
+        <div class="row">
+          <!-- Equity Ratio -->
+          <div class="col">
+            <label for="ER">Earnings Per Share:</label>
+            <div class="input-group">
+              <div class="input-group-prepend">
+                <span class="input-group-text">$</span>
+              </div>
+              <input type="text" class="form-control" id="ER" name="ER" min="0" step="0.000000001" placeholder="Enter Company's Equity Ratio" value="{{ratios.rEPS}}" disabled>
+            </div>
+          </div>
+          <!-- Liabilities Coverage -->
+          <div class="col">
+            <label for="LC">Price to Earnings:</label>
+              <div class="input-group">
+                <div class="input-group-prepend">
+                  <span class="input-group-text">$</span>
+                </div>
+                <input type="text" class="form-control" id="LC" name="LC" min="0" step="0.000000001" placeholder="Enter Company's Liabilities Coverage" value="{{ratios.rPE}}" disabled>
+              </div>
+          </div>
+          <!-- Net profit to Inventory -->
+          <div class="col">
+            <label for="NPTI">Return on Equity:</label>
+              <div class="input-group">
+                <div class="input-group-prepend">
+                  <span class="input-group-text">$</span>
+                </div>
+                <input type="text" class="form-control" id="NPTI" name="NPTI" min="0" step="0.000000001" placeholder="Enter Company's Net Profit To Inventory" value="{{ratios.rROE}}" disabled>
+              </div>
+          </div>
+        </div>
+    </div>
+        <!-- Third row of display -->
+        <div class="form-group">
+          <div class="row">
+            <!-- current_assets_without_inventories_to_long_term_liabilities -->
+            <div class="col">
+              <label for="CAWITL">Operating Margins:</label>
+              <div class="input-group">
+                <div class="input-group-prepend">
+                  <span class="input-group-text">$</span>
+                </div>
+                <input type="text" class="form-control" id="CAWITL" name="CAWITL" min="0" step="0.000000001" placeholder="Enter Company's Current Assets Without Inventories To Liabilities" value="{{ratios.rOM}}" disabled>
+              </div>
+            </div>
+            <!-- current_liabilities_by_365_by_cost_of_products_sold -->
+            <div class="col">
+              <label for="CL365">Free Cash Flow:</label>
+              <div class="input-group">
+                <div class="input-group-prepend">
+                  <span class="input-group-text">$</span>
+                </div>
+                <input type="text" class="form-control" id="CL365" name="CL365" min="0" step="0.000000001" placeholder="Enter Company's Current Liabilities Of 365 Days By Cost Of Products Sold" value="{{ratios.rCF}}" disabled>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- Fourth row of display -->
+        <div class="form-group">
+          <div class="row">
+            <!-- assets_without_inventories_and_short_term_liabilities_to_sales_without_gross_profit_and_depreciation -->
+            <div class="col">
+              <label for="AISTL">Dividend Yield:</label>
+              <div class="input-group">
+                <div class="input-group-prepend">
+                  <span class="input-group-text">$</span>
+                </div>
+                <input type="text" class="form-control" id="AISTL" name="AISTL" min="0" step="0.000000001" placeholder="Enter Company's Assets w/o Inventories & Short Term Liabilities To Sales (w/o Gross Profit and Depreciation)" value="{{ratios.rDY}}" disabled>
+              </div>
+            </div>
+            <!-- liability_to_operating_profit_ratio_per_day -->
+            <div class="col">
+              <label for="LTOPR">Payout Ratio:</label>
+              <div class="input-group">
+                <div class="input-group-prepend">
+                  <span class="input-group-text">$</span>
+                </div>
+                <input type="text" class="form-control" id="LTOPR" name="LTOPR" min="0" step="0.000000001" placeholder="Enter Company's Liability To Operating Profit Ratio Per Day" value="{{ratios.rPR}}" disabled>
+              </div>
+          </div>
+        </div>
+      </div>
+      <!-- Chart code -->
+      <div class="box-container" style="margin-top: 20px; text-align: center;">
+        <div class="chart-container" style="display: inline-block; width: fit-content; height: fit-content;">
+          <canvas id="BarChart" width="700" height="300"></canvas>
+        </div>
+      </div>    
+    </div>
+      <!-- Button code -->
+      {% if user.admin_user == True %}
+      <div class="text-center">
+          <button class="btn btn-danger" type="submit">Delete</button>
+      </div>
+      {% endif %}
+  </div>
+</body>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+  var ctx = document.getElementById('myChart').getContext('2d');
+  var chart = new Chart(ctx, {
+    type: 'doughnut',
+    data: {
+      labels: ['Bankrupt', 'No Bankrupt'],
+      datasets: [{
+        data: [{{company.Risk}}*100, 100 - {{company.Risk}}*100],
+        backgroundColor: ['#FF6961', '#6CA0DC']
+      }]
+    },
+    options: {
+      plugins: {
+        title: {
+          display: true,
+          text: '{{company.companyname}} Bankruptcy Risk Prediction', // Set the title text
+          font: {
+            size: 16, // Set the font size of the title
+          },
+        },
+      },
+      cutoutPercentage: 70,
+      responsive: true,
+      maintainAspectRatio: false,
+      tooltips: {
+        enabled: false
+      },
+      legend: {
+        display: false
+      }
+    }
+  });
+</script>
+
+<script>
+  var ctx = document.getElementById('radarChart').getContext('2d');
+  var chart = new Chart(ctx, {
+    type: 'radar',
+    data: {
+      labels: ['Working Capital To Fixed Assets', 'Operating Expenses To Total Liabilities', 'LTOPR', 'CL365', 
+      'AISTL', 'Equity Ratio', 'Liabilities Coverage', 'Net Profit To Inventory', 'Operating Profit Margin To Financial Expense'],
+      datasets: [{
+        label: 'Company Metrics',
+        data: [
+          {{company.working_capital_to_fixed_assets_i}},
+          {{company.operating_expenses_to_total_liabilities_i}},
+          {{company.liability_to_operating_profit_ratio_per_day_i}},
+          {{company.current_liabilities_by_365_by_cost_of_products_sold_i}},
+          {{company.assets_without_inventories_and_short_term_liabilities_to_sales_without_gross_profit_and_depreciation_i}},
+          {{company.equity_ratio_i}},
+          {{company.liabilities_coverage_i}},
+          {{company.net_profit_to_inventory_i}},
+          {{company.operating_profit_margin_to_financial_expense_i}}
+        ],
+        backgroundColor: 'rgba(108, 160, 220, 0.5)',
+        borderColor: 'rgba(108, 160, 220, 1)',
+        pointBackgroundColor: 'rgba(108, 160, 220, 1)',
+        pointBorderColor: '#fff',
+        pointHoverBackgroundColor: '#fff',
+        pointHoverBorderColor: 'rgba(108, 160, 220, 1)',
+        borderWidth: 2,
+      }]
+    },
+    options: {
+      plugins: {
+        title: {
+          display: true,
+          text: 'Bankruptcy Prediction Features Importance', // Set the title text
+          font: {
+            size: 16, // Set the font size of the title
+          },
+        },
+      },
+      scale: {
+        angleLines: {
+          display: false,
+        },
+        ticks: {
+          suggestedMin: 0, // Set the minimum value of the scale to 0
+          suggestedMax: 1,
+          stepSize: 0.2,
+          backdropColor: 'rgba(255, 255, 255, 0)', // Hide the scale backdrop
+          fontColor: '#333', // Scale label color
+        },
+        pointLabels: {
+          fontColor: '#333', // Legend label color
+        },
+      },
+      legend: {
+        position: 'bottom',
+        labels: {
+          fontColor: '#333', // Legend label color
+          usePointStyle: true,
+        },
+      },
+      layout: {
+        padding: {
+          top: 10,
+          bottom: 10,
+          left: 10,
+          right: 10,
+        },
+      },
+      responsive: true,
+      maintainAspectRatio: false,
+    }
+  });
+</script>
+
+<script type="text/javascript">
+  var ctx = document.getElementById('BarChart').getContext('2d');
+  var chart = new Chart(ctx, {
+    type: 'bar',
+    data: {
+      labels: ['WC -> TA', 'OE -> TL', 'LTOPR', 'CL365', 
+      'AISTL', 'Equity Ratio', 'Liabilities Coverage', 'NP -> Inventory', 'OPM -> FE'],
+      datasets: [{
+        label: 'Company Metrics',
+        data: [
+          {{company.working_capital_to_fixed_assets}},
+          {{company.operating_expenses_to_total_liabilities}},
+          {{company.liability_to_operating_profit_ratio_per_day}},
+          {{company.current_liabilities_by_365_by_cost_of_products_sold}},
+          {{company.assets_without_inventories_and_short_term_liabilities_to_sales_without_gross_profit_and_depreciation}},
+          {{company.equity_ratio}},
+          {{company.liabilities_coverage}},
+          {{company.net_profit_to_inventory}},
+          {{company.operating_profit_margin_to_financial_expense}}
+        ],
+        backgroundColor: 'rgba(108, 160, 220, 0.5)',
+        borderColor: 'rgba(108, 160, 220, 1)',
+        pointBackgroundColor: 'rgba(108, 160, 220, 1)',
+        pointBorderColor: '#fff',
+        pointHoverBackgroundColor: '#fff',
+        pointHoverBorderColor: 'rgba(108, 160, 220, 1)',
+        borderWidth: 2,
+      }]
+    },
+    options: {
+      plugins: {
+        title: {
+          display: true,
+          text: '{{company.companyname}} Bankruptcy Prediction Details', // Set the title text
+          font: {
+            size: 16, // Set the font size of the title
+          },
+        },
+      },
+      scale: {
+        angleLines: {
+          display: false,
+        },
+        ticks: {
+          suggestedMin: 0, // Set the minimum value of the scale to 0
+          suggestedMax: 1,
+          stepSize: 0.2,
+          backdropColor: 'rgba(255, 255, 255, 0)', // Hide the scale backdrop
+          fontColor: '#333', // Scale label color
+        },
+        pointLabels: {
+          fontColor: '#333', // Legend label color
+        },
+      },
+      legend: {
+        position: 'bottom',
+        labels: {
+          fontColor: '#333', // Legend label color
+          usePointStyle: true,
+        },
+      },
+      layout: {
+        padding: {
+          top: 10,
+          bottom: 10,
+          left: 10,
+          right: 10,
+        },
+      },
+      responsive: true,
+      maintainAspectRatio: false,
+    }
+  });
+</script>
+{% endblock %}
