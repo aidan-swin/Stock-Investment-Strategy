@@ -1,0 +1,105 @@
+{% extends "base.html" %}
+{% block title%}Home{% endblock %}
+
+{% block content %}
+  <style>
+    .container {
+      margin-top: 20px;
+		  width: 98%; 
+      max-width: 1400px; 
+      background-color: #fff;
+      padding: 20px;
+      border-radius: 5px;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    }
+    .card-header {
+      background-color: rgb(208, 35, 35);
+      text-align: center;
+      color: white;
+    }
+    .btn-primary {
+      background-color: rgb(208, 35, 35)!important;
+      color: #fff;
+      border: none;
+      border-radius: 5px;
+      padding: 10px 20px;
+      font-size: 16px;
+      cursor: pointer;
+    }
+    .btn-primary:hover {
+      background-color: rgb(175, 46, 46)!important;
+    }
+
+  </style>
+
+<body>
+    <div class="container mt-5">
+      <div class="card">
+        <div class="card-header">
+            <h5 class="mb-0 text-white">Field Information</h5>
+        </div>
+        <div class="card-body">
+      
+        <table class="table table-bordered">
+            <thead >
+                <tr>
+                    <th>Field</th>
+                    <th>Additional Information</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Company Name</td>
+                    <td>The name of the company</td>
+                </tr>
+                <tr>
+                    <td>Equity Ratio</td>
+                    <td>The proportion of equity (shareholder's equity or net assets) to total assets</td>
+                </tr>
+                <tr>
+                    <td>Liabilities Coverage</td>
+                    <td>The extent to which a company's earnings can cover its interest and debt obligations</td>
+                </tr>
+                <tr>
+                    <td>Net Profit to Inventory</td>
+                    <td>The ratio of net profit to inventory, indicating the profitability of inventory</td>
+                </tr>
+                <tr>
+                    <td>Working Capital to Fixed Assets</td>
+                    <td>The ratio of working capital to fixed assets, measuring liquidity and capital efficiency</td>
+                </tr>
+                <tr>
+                    <td>Operating Profit Margin to Financial Expense</td>
+                    <td>The ratio of operating profit margin to financial expense, evaluating profitability relative to financial costs</td>
+                </tr>
+                <tr>
+                    <td>Operating Expenses to Total Liabilities</td>
+                    <td>The ratio of operating expenses to total liabilities, assessing expense management in relation to liabilities</td>
+                </tr>
+                <tr>
+                    <td>Current Assets Without Inventories to Liabilities</td>
+                    <td>The ratio of current assets (excluding inventories) to liabilities, indicating short-term liquidity</td>
+                </tr>
+                <tr>
+                    <td>Current Liabilities of 365 Days By Cost of Products Sold</td>
+                    <td>The ratio of current liabilities due within 365 days to the cost of products sold, measuring short-term liability coverage</td>
+                </tr>
+                <tr>
+                    <td>Assets w/0 Inventories of Short Term Liabilities to Sales (w/o Gross Profit and Depreciation)</td>
+                    <td>The ratio of assets without inventories to short-term liabilities to sales (excluding gross profit and depreciation), assessing asset-liability management</td>
+                </tr>
+                <tr>
+                    <td>Liability to Operating Profit Ratio per Day</td>
+                    <td>The ratio of liability to operating profit per day, indicating liability burden relative to daily operating profit</td>
+                </tr>
+                <tr>
+                    <td>Forecasting Period</td>
+                    <td>The time period for which financial projections or forecasts are made</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    </div>
+    </div>
+</body>
+{% endblock %}

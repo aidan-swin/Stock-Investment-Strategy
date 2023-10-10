@@ -1,0 +1,193 @@
+{% extends "base.html" %}
+{% block title%}Home{% endblock %}
+
+{% block content %}
+  <style>
+    .container {
+      margin-top: 20px;
+		  width: 98%; 
+      max-width: 1400px; 
+      background-color: #fff;
+      padding: 20px;
+      border-radius: 5px;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    }
+    .card-header {
+      background-color: rgb(208, 35, 35);
+      text-align: center;
+      color: white;
+    }
+    .btn-primary {
+      background-color: rgb(208, 35, 35)!important;
+      color: #fff;
+      border: none;
+      border-radius: 5px;
+      padding: 10px 20px;
+      font-size: 16px;
+      cursor: pointer;
+    }
+    .btn-primary:hover {
+      background-color: rgb(175, 46, 46)!important;
+    }
+
+  </style>
+
+<body>
+  <div class="content">
+    <div class = "container">
+      <form method="post">
+        <div class ="card-header">
+          <h5>Add Company Info</h2>
+        </div>
+          <div class="form-group">
+              <label for="Companyname">Company Name:</label>
+              <div class="input-group">
+                <div class="input-group-prepend">
+                  <span class="input-group-text"><i class="fa fa-user"></i></span>
+                </div>
+                <input type="text" class="form-control" id="companyname" name="companyname" placeholder="Enter Company Name" required>
+              </div>
+          </div>
+    <!-- First rows of inputs -->
+      <div class = "form-group">
+        <div class = "form-row">
+          <div class = "col">
+              <label for="ER">Equity Ratio:</label>
+              <div class="input-group">
+                <div class="input-group-prepend">
+                  <span class="input-group-text">$</span>
+                </div>
+                <input type="number" class="form-control" id="equity_ratio" name="equity_ratio"  step="0.000000001" placeholder="Enter Company's Equity Ratio" required>
+              </div>
+          </div>
+          <div class="col">
+              <label for="LC">Liabilities Coverage:</label>
+              <div class="input-group">
+                <div class="input-group-prepend">
+                  <span class="input-group-text">$</span>
+                </div>
+                <input type="number" class="form-control" id="liabilities_coverage" name="liabilities_coverage"  step="0.000000001" placeholder="Enter Company's Liabilities Coverage" required>
+              </div>
+          </div>
+          <div class="col">
+            <label for="NPTI">Net Profit To Inventory:</label>
+            <div class="input-group">
+              <div class="input-group-prepend">
+                <span class="input-group-text">$</span>
+              </div>
+              <input type="number" class="form-control" id="net_profit_to_inventory" name="net_profit_to_inventory" step="0.000000001" placeholder="Enter Net Profit To Inventory" required>
+            </div>
+          </div>
+        </div>
+      </div>
+    <!-- Second rows of inputs -->
+      <div class="form-group">
+        <div class = "form-row">
+          <div class="col">
+              <label for="WCTFA">Working Capital To Fixed Assets:</label>
+              <div class="input-group">
+                <div class="input-group-prepend">
+                  <span class="input-group-text">$</span>
+                </div>
+                <input type="number" class="form-control" id="working_capital_to_fixed_assets" name="working_capital_to_fixed_assets" step="0.000000001" placeholder="Enter Company's Working Capital To Fixed Assets" required>
+              </div>
+          </div>
+          <div class="col">
+            <label for="OPMTFE">Operating Profit Margin To Financial Expense:</label>
+            <div class="input-group">
+              <div class="input-group-prepend">
+                <span class="input-group-text">$</span>
+              </div>
+              <input type="number" class="form-control" id="operating_profit_margin_to_financial_expense" name="operating_profit_margin_to_financial_expense" step="0.000000001" placeholder="Enter Company's Operating Profit Margin To Financial Expense" data-toggle="tooltip" data-placement="right" title="Please enter the amount after tax." required>
+            </div>
+          </div>
+          <div class="col">
+              <label for="OETTL">Operating Expenses To Total Liabilities:</label>
+              <div class="input-group">
+                  <div class="input-group-prepend">
+                      <span class="input-group-text">$</span>
+                  </div>
+                  <input type="number" class="form-control" id="operating_expenses_to_total_liabilities" name="operating_expenses_to_total_liabilities" step="0.000000001" placeholder="Enter Company's Operating Expenses To Total Liabilities" required>
+              </div>
+          </div>
+        </div>
+      </div>
+    <!-- Third rows of inputs -->
+      <div class="form-group">
+        <div class = "form-row">
+          <div class="col">
+              <label for="CAWITL">Current Assets Without Inventories To Liabilities:</label>
+              <div class="input-group">
+                <div class="input-group-prepend">
+                  <span class="input-group-text">$</span>
+                </div>
+                <input type="number" class="form-control" id="current_assets_without_inventories_to_long_term_liabilities" name="current_assets_without_inventories_to_long_term_liabilities" step="0.000000001" placeholder="Enter Company's Current Assets Without Inventories To Liabilities" required>
+              </div>
+          </div>
+          <div class="col">
+              <label for="CL365">Current Liabilities Of 365 Days By Cost Of Products Sold:</label>
+              <div class="input-group">
+                <div class="input-group-prepend">
+                  <span class="input-group-text">$</span>
+                </div>
+                <input type="number" class="form-control" id="current_liabilities_by_365_by_cost_of_products_sold" name="current_liabilities_by_365_by_cost_of_products_sold" step="0.000000001" placeholder="Enter Company's Current Liabilities Of 365 Days By Cost Of Products Sold" required>
+              </div>
+          </div>
+        </div>
+      </div>
+    <!-- Fourth rows of inputs -->
+      <div class="form-group">
+        <div class = "form-row">
+          <div class="col">
+            <label for="AISTL">Assets w/o Inventories & Short Term Liabilities To Sales (w/o Gross Profit and Depreciation):</label>
+            <div class="input-group">
+              <div class="input-group-prepend">
+                <span class="input-group-text">$</span>
+              </div>
+              <input type="number" class="form-control" id="assets_without_inventories_and_short_term_liabilities_to_sales_without_gross_profit_and_depreciation" name="assets_without_inventories_and_short_term_liabilities_to_sales_without_gross_profit_and_depreciation" step="0.000000001" placeholder="Enter Company's Assets w/o Inventories & Short Term Liabilities To Sales (w/o Gross Profit and Depreciation)" required>
+            </div>
+        </div>
+            <div class="col">
+                <label for="LTOPR">Liability To Operating Profit Ratio Per Day:</label>
+                <div class="input-group">
+                  <div class="input-group-prepend">
+                    <span class="input-group-text">$</span>
+                  </div>
+                  <input type="number" class="form-control" id="liability_to_operating_profit_ratio_per_day" name="liability_to_operating_profit_ratio_per_day" step="0.000000001" placeholder="Enter Liability To Operating Profit Ratio Per Day" required>
+                </div>
+            </div>
+        </div>
+      </div>
+    <!-- Forecasting Period -->
+      <div class="form-group">
+          <label for="forecastingPeriod">Forecasting Period:</label>
+          <div class="form-check form-check-inline">
+            <input class="form-check-input" type="radio" name="forecast_period" id="forecastingPeriod1" value="1" checked>
+            <label class="form-check-label" for="forecastingPeriod1">1</label>
+          </div>
+          <div class="form-check form-check-inline">
+            <input class="form-check-input" type="radio" name="forecast_period" id="forecastingPeriod2" value="2">
+            <label class="form-check-label" for="forecastingPeriod2">2</label>
+          </div>
+          <div class="form-check form-check-inline">
+            <input class="form-check-input" type="radio" name="forecast_period" id="forecastingPeriod3" value="3">
+            <label class="form-check-label" for="forecastingPeriod3">3</label>
+          </div>
+          <div class="form-check form-check-inline">
+            <input class="form-check-input" type="radio" name="forecast_period" id="forecastingPeriod4" value="4">
+            <label class="form-check-label" for="forecastingPeriod4">4</label>
+          </div>
+          <div class="form-check form-check-inline">
+            <input class="form-check-input" type="radio" name="forecast_period" id="forecastingPeriod5" value="5">
+            <label class="form-check-label" for="forecastingPeriod5">5</label>
+          </div>
+        </div>
+        <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
+        <br>
+        <br>
+        <p>For additional information on the fields, click <a href="{{ url_for('views.show_information') }}">here.</a> </p>
+    </div>
+  </div>
+</body>
+{% endblock %}

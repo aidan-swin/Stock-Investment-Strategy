@@ -1,0 +1,75 @@
+{% extends "base.html" %}
+{% block title %}Add CSV{% endblock %}
+{% block content %}
+<head>
+    <title>Upload CSV file</title>
+    <style>
+      .center-heading {
+        color: #fff;
+        padding-top: 5px;
+        text-align: center;
+      }
+      .container {
+        margin-top: 80px;
+		    width: 90%; 
+        max-width: 750px; 
+        background-color: #fff;
+        padding: 20px;
+        border-radius: 5px;
+        margin-top: 20px;
+      }
+      .card-header {
+        background-color: rgb(208, 35, 35);
+        color: white;
+      }
+      form {
+        max-width: 500px;
+        margin: 0 auto;
+        padding: 65px;
+        background-color: #fff;
+        border-radius: 10px;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.308);
+        
+      }
+      input[type="file"] {
+        display: block;
+        margin-bottom: 20px;
+        font-size: 16px;
+        color: #333;
+        padding: 15px;
+        border: 2px solid #ddd;
+        border-radius: 5px;
+        background-color: #fff;
+      }
+      input[type="submit"] {
+        background-color: rgb(208, 35, 35)!important;
+        color: #fff;
+        font-size: 15px;
+        padding: 10px 15px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+      }
+      input[type="submit"]:hover {
+        background-color: rgb(175, 46, 46)!important;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="content">
+      <div class="container">
+        <div class="card">
+          <div class="card-header">
+            <h5 class="center-heading">Upload CSV file</h5>
+          </div>
+          <div class="card-body">
+            <form method="POST" enctype="multipart/form-data">
+              <input type="file" name="file">
+              <input type="submit" value="Upload">
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+{% endblock %}
