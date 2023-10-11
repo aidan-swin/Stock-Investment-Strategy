@@ -40,6 +40,9 @@
                     <tr>
                         <th>Code</th>
                         <th>Company Name</th>
+                        <th>City</th>
+                        <th>Industry</th>
+                        <th>Sector</th>
                         <th>Action</t>
                     </tr>
                 </thead>
@@ -48,6 +51,9 @@
                     <tr>
                         <td>{{company.stock_code}}</td>
                         <td>{{company.stock_name}}</td>
+                        <td>{{company.city}}</td>
+                        <td>{{company.industry}}</td>
+                        <td>{{company.sector}}</td>
                         <td>
                             <a href="{{ url_for('views.detail', id=company.stock_code) }}" class="btn btn-primary">View</a>
                         </td>

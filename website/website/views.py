@@ -1,6 +1,6 @@
 from flask import Blueprint, render_template, request, flash, jsonify, redirect, url_for, Response
 from flask_login import  login_required,  current_user
-from .models import CompanyInfo, User, Stocks, Ratio
+from .models import CompanyInfo, User, Stocks, Ratio, Watchlist
 from . import db
 import json
 import pickle
@@ -92,7 +92,7 @@ def watchlist():
 @login_required
 def detail(id):
     company = Stocks.query.get_or_404(id)
-    
+        
     # Get the latest date ratio record for the stock_code
     ratios = (
         db.session.query(Ratio)
@@ -100,8 +100,38 @@ def detail(id):
         .order_by(desc(Ratio.rDate))
         .first()
     )
-    
-    return render_template('detail.html', user=current_user, company=company, ratios=ratios)
+
+    # Check if the stock is in the user's watchlist
+    is_in_watchlist = False  # Initialize as False
+    if current_user.is_authenticated:
+        watchlist_entry = Watchlist.query.filter_by(stock_code=company.stock_code, user_id=current_user.id).first()
+        if watchlist_entry:
+            is_in_watchlist = True
+        
+    return render_template('detail.html', user=current_user, company=company, ratios=ratios, is_in_watchlist=is_in_watchlist)
+
+@views.route('/add_to_watchlist/<string:id>', methods=['POST'])
+@login_required
+def add_to_watchlist(id):
+    company = Stocks.query.get_or_404(id)
+
+    # Check if the entry already exists in the Watchlist table
+    watchlist_entry = Watchlist.query.filter_by(stock_code=company.stock_code, user_id=current_user.id).first()
+
+    if watchlist_entry:
+        # If the entry exists, remove it from the watchlist
+        db.session.delete(watchlist_entry)
+        db.session.commit()
+        flash('Removed from Watchlist', 'success')
+    else:
+        # If the entry doesn't exist, add it to the watchlist
+        new_watchlist_entry = Watchlist(stock_code=company.stock_code, user_id=current_user.id)
+        db.session.add(new_watchlist_entry)
+        db.session.commit()
+        flash('Added to Watchlist', 'success')
+
+    return redirect(url_for('views.detail', id=id))
+
 
 @views.route('/delete_item/<int:id>', methods=['POST'])
 @login_required

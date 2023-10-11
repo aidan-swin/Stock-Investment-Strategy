@@ -23,7 +23,7 @@ def create_app():
     app.register_blueprint(views, url_prefix='/')
     app.register_blueprint(auth, url_prefix='/')
 
-    from .models import User, Ratio, Stocks
+    from .models import User, Ratio, Stocks, Watchlist
     
     create_database(app)
 
@@ -31,6 +31,7 @@ def create_app():
     admin.add_view(ModelView(User, db.session))
     admin.add_view(ModelView(Ratio, db.session))
     admin.add_view(ModelView(Stocks, db.session))
+    admin.add_view(ModelView(Watchlist,db.session))
 
     login_manager = LoginManager()
     login_manager.login_view = 'auth.login'
@@ -45,7 +46,7 @@ def create_app():
 def create_database(app):
     if not path.exists('website/' + DB_NAME):
         with app.app_context():
-            csv_file_path = "csvdata/stocks.csv"  # Replace with the path to your CSV file
+            csv_file_path = "csvdata/stocks_with_information.csv"  # Replace with the path to your CSV file
             df = pd.read_csv(csv_file_path)
             df.to_sql('Stocks', con=db.engine, if_exists='replace', index=False)
 

@@ -39,11 +39,27 @@ class User(db.Model, UserMixin):
     first_name = db.Column(db.String(150))
     admin_user = db.Column(db.Boolean, default=False)
     subscribed = db.Column(db.Boolean, default=False)
+    userwatchlist = db.relationship('Watchlist', backref='user', lazy=True)
 
 class Stocks(db.Model):
     stock_code = db.Column(db.String(50), primary_key=True)
     stock_name = db.Column(db.String(255))
+    address1 = db.Column(db.String(255))
+    address2 = db.Column(db.String(255))
+    city = db.Column(db.String(100))
+    zip = db.Column(db.String(50))
+    phone = db.Column(db.String(50))
+    website = db.Column(db.String(255))
+    industry = db.Column(db.String(100))
+    sector = db.Column(db.String(100))
+    fullTimeEmployees = db.Column(db.Integer)
     stockratios = db.relationship('Ratio', backref='stock', lazy=True)
+    stockwatchlists = db.relationship('Watchlist', backref='stock', lazy=True)
+
+class Watchlist(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    stock_code = db.Column(db.String(255), db.ForeignKey('stocks.stock_code'), nullable=False)
+    user_id = db.Column(db.String(255), db.ForeignKey('user.id'), nullable=False)
 
 class Ratio(db.Model):
     id = db.Column(db.Integer, primary_key=True)
