@@ -39,6 +39,10 @@
     .btn-danger{
       margin-top: 20px;
     }
+    .red-themed {
+    background-color: rgb(208, 35, 35);
+    color: white; /* Text color to ensure readability on a red background */
+    } 
   </style>
 </head>
 
@@ -166,8 +170,32 @@
       <!-- Chart code -->
       <div class="box-container" style="margin-top: 20px; text-align: center;">
         <div class="chart-container" style="display: inline-block; width: fit-content; height: fit-content;">
-          <canvas id="BarChart" width="700" height="300"></canvas>
+          <canvas id="LineChart" width="700" height="300"></canvas>
         </div>
+        <table id="example" class="table table-striped">
+          <thead>
+              <tr>
+                <th class="red-themed">Date</th>
+                <th class="red-themed">Open</th>
+                <th class="red-themed">High</th>
+                <th class="red-themed">Low</th>
+                <th class="red-themed">Close</th>
+                <th class="red-themed">Volume</th>  
+              </tr>
+          </thead>
+          <tbody>
+              {% for price in prices %}
+              <tr>
+                  <td>{{price.Date}}</td>
+                  <td>{{price.Open}}</td>
+                  <td>{{price.High}}</td>
+                  <td>{{price.Low}}</td>
+                  <td>{{price.Close}}</td>
+                  <td>{{price.Volume}}</td>
+              </tr>
+              {% endfor %}
+          </tbody>
+      </table>
       </div>    
       <br>
       <!-- Company name -->
@@ -437,39 +465,32 @@
 </script>
 
 <script type="text/javascript">
-  var ctx = document.getElementById('BarChart').getContext('2d');
-  var chart = new Chart(ctx, {
-    type: 'bar',
-    data: {
-      labels: ['WC -> TA', 'OE -> TL', 'LTOPR', 'CL365', 
-      'AISTL', 'Equity Ratio', 'Liabilities Coverage', 'NP -> Inventory', 'OPM -> FE'],
-      datasets: [{
-        label: 'Company Metrics',
-        data: [
-          {{company.working_capital_to_fixed_assets}},
-          {{company.operating_expenses_to_total_liabilities}},
-          {{company.liability_to_operating_profit_ratio_per_day}},
-          {{company.current_liabilities_by_365_by_cost_of_products_sold}},
-          {{company.assets_without_inventories_and_short_term_liabilities_to_sales_without_gross_profit_and_depreciation}},
-          {{company.equity_ratio}},
-          {{company.liabilities_coverage}},
-          {{company.net_profit_to_inventory}},
-          {{company.operating_profit_margin_to_financial_expense}}
-        ],
-        backgroundColor: 'rgba(108, 160, 220, 0.5)',
-        borderColor: 'rgba(108, 160, 220, 1)',
-        pointBackgroundColor: 'rgba(108, 160, 220, 1)',
-        pointBorderColor: '#fff',
-        pointHoverBackgroundColor: '#fff',
-        pointHoverBorderColor: 'rgba(108, 160, 220, 1)',
-        borderWidth: 2,
-      }]
-    },
+        // Get the average monthly data from your Flask code
+        var averageMonthlyData = {{ average_monthly_data | tojson }};
+
+        // Extract labels (months) and data (average Close prices)
+        var labels = Object.keys(averageMonthlyData);
+        var data = Object.values(averageMonthlyData);
+
+        // Create a Chart.js chart
+        var ctx = document.getElementById('LineChart').getContext('2d');
+        var chart = new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: labels,
+                datasets: [{
+                    label: 'Average Close Price',
+                    data: data,
+                    fill: false,
+                    borderColor: 'rgb(75, 192, 192)',
+                    tension: 0.1
+                }]
+            },
     options: {
       plugins: {
         title: {
           display: true,
-          text: '{{company.stock_name}} Details (IDK what to put here)', // Set the title text
+          text: '{{company.stock_name}} Monthly Stock Price', // Set the title text
           font: {
             size: 16, // Set the font size of the title
           },
@@ -508,6 +529,11 @@
       responsive: true,
       maintainAspectRatio: false,
     }
+  });
+</script>
+<script type="text/javascript">
+  $(document).ready(function() {
+      $('#example').DataTable();
   });
 </script>
 {% endblock %}

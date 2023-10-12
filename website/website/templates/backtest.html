@@ -45,28 +45,32 @@
                 <div class="input-group-prepend">
                   <span class="input-group-text"><i class="fa fa-user"></i></span>
                 </div>
-                <input type="text" class="form-control" id="companyname" name="companyname" placeholder="Enter Company Name" required>
+                <select class="form-control" id="stock" name="stock" required>
+                  {% for stock in stocks %}
+                  <option value="{{ stock.stock_code }}">{{ stock.stock_code }}</option>
+                  {% endfor %}
+              </select>
               </div>
           </div>
     <!-- First rows of inputs -->
       <div class = "form-group">
         <div class = "form-row">
           <div class = "col">
-              <label for="ER">Equity Ratio:</label>
+              <label for="ER">Unit Quantity:</label>
               <div class="input-group">
                 <div class="input-group-prepend">
                   <span class="input-group-text">$</span>
                 </div>
-                <input type="number" class="form-control" id="equity_ratio" name="equity_ratio"  step="0.000000001" placeholder="Enter Company's Equity Ratio" required>
+                <input type="number" class="form-control" id="unit_quantity" name="unit_quantity" step="1" placeholder="Enter Unit Quantity" required>
               </div>
           </div>
           <div class="col">
-              <label for="LC">Liabilities Coverage:</label>
+              <label for="LC">Purchase Date:</label>
               <div class="input-group">
                 <div class="input-group-prepend">
                   <span class="input-group-text">$</span>
                 </div>
-                <input type="number" class="form-control" id="liabilities_coverage" name="liabilities_coverage"  step="0.000000001" placeholder="Enter Company's Liabilities Coverage" required>
+                <input type="date" class="form-control" id="date" name="date" max="{{ max_date }}" required>
               </div>
           </div>
           <div class="col">

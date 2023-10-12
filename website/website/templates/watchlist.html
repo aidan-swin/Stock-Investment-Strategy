@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-{% block title%}Company{% endblock %}
+{% block title%}Watchlist{% endblock %}
 {% block content %}
 <style>
     .container {
@@ -32,34 +32,30 @@
         <div class="container">
             <div class="card">
                 <div class="card-header">
-                    <h5 class="mb-0 text-white">Company Information</h5>
+                    <h5 class="mb-0 text-white">Watchlist</h5>
                 </div>
                 <div class="card-body">
-                    <table id="example" class="table table-striped">
+                    <table id="example" class="table table-striped" style="width:max-content">
                         <thead>
                             <tr>
-                                <th>Record's ID</th>
+                                <th>Code</th>
                                 <th>Company Name</th>
-                                <th>Period</th>
-                                <th>Bankrupt</th>
-                                <th>Risk</th>
-                                <th>Date</th>
-                                <th>User's ID</th>
-                                <th>Action</th>
+                                <th>City</th>
+                                <th>Industry</th>
+                                <th>Sector</th>
+                                <th>Action</t>
                             </tr>
                         </thead>
                         <tbody>
                             {% for company in company %}
                             <tr>
-                                <td>{{company.id}}</td>
-                                <td>{{company.companyname}}</td>
-                                <td>{{company.forecast_period}}</td>
-                                <td>{{company.Bankrupt}}</td>
-                                <td>{{company.Risk}}</td>
-                                <td>{{company.date}}</td>
-                                <td>{{company.user_id }}</td>
+                                <td>{{company.stock_code}}</td>
+                                <td>{{company.stock_name}}</td>
+                                <td>{{company.city}}</td>
+                                <td>{{company.industry}}</td>
+                                <td>{{company.sector}}</td>
                                 <td>
-                                    <a href="{{ url_for('views.detail', id=company.id) }}" class="btn btn-primary">View</a>
+                                    <a href="{{ url_for('views.detail', id=company.stock_code) }}" class="btn btn-primary">View</a>
                                 </td>
                             </tr>
                             {% endfor %}

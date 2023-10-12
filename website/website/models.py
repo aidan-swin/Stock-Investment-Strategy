@@ -73,3 +73,13 @@ class Ratio(db.Model):
     rEPS = db.Column(db.Float)
     rClass = db.Column(db.String(1))
     rDate = db.Column(db.Date(), default=datetime.today().date()) # Use db.Date for date columns
+
+class Price(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    Date = db.Column(db.String(255))
+    Open = db.Column(db.Float)
+    High = db.Column(db.Float)
+    Low = db.Column(db.Float)
+    Close = db.Column(db.Float)
+    Volume = db.Column(db.Float)
+    stock_code = db.Column(db.String(255), db.ForeignKey('stocks.stock_code'))

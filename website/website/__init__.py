@@ -9,6 +9,8 @@ import pandas as pd
 
 db = SQLAlchemy()
 DB_NAME = "database.db"
+DB_INITIALIZED_FLAG = "db_initialized"
+
 
 def create_app():
     #initialize app. this is what runs when the program begins
@@ -23,15 +25,19 @@ def create_app():
     app.register_blueprint(views, url_prefix='/')
     app.register_blueprint(auth, url_prefix='/')
 
-    from .models import User, Ratio, Stocks, Watchlist
+    from .models import User, Ratio, Stocks, Watchlist, Price
     
-    create_database(app)
+    # Check if the database has already been initialized
+    if not app.config.get(DB_INITIALIZED_FLAG):
+        create_database(app)
+        app.config[DB_INITIALIZED_FLAG] = True
 
     admin = Admin(app, name='My App', template_mode='bootstrap3')
     admin.add_view(ModelView(User, db.session))
     admin.add_view(ModelView(Ratio, db.session))
     admin.add_view(ModelView(Stocks, db.session))
     admin.add_view(ModelView(Watchlist,db.session))
+    admin.add_view(ModelView(Price,db.session))
 
     login_manager = LoginManager()
     login_manager.login_view = 'auth.login'
@@ -54,6 +60,11 @@ def create_database(app):
             df = pd.read_csv(csv_file_path)
             df = df.reset_index().rename(columns={'index': 'id'})
             df.to_sql('Ratio', con=db.engine, if_exists='replace', index=False)
+
+            csv_file_path = "csvdata/historicalprices.csv"  # Replace with the path to your CSV file
+            df = pd.read_csv(csv_file_path)
+            df = df.reset_index().rename(columns={'index': 'id'})
+            df.to_sql('Price', con=db.engine, if_exists='replace', index=False)
             db.create_all()
             print('Created Database!')
             from .models import User

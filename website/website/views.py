@@ -1,6 +1,6 @@
 from flask import Blueprint, render_template, request, flash, jsonify, redirect, url_for, Response
 from flask_login import  login_required,  current_user
-from .models import CompanyInfo, User, Stocks, Ratio, Watchlist
+from .models import CompanyInfo, User, Stocks, Ratio, Watchlist, Price
 from . import db
 import json
 import pickle
@@ -13,6 +13,8 @@ from sqlalchemy.sql import func, desc
 from sklearn.preprocessing import StandardScaler
 from sklearn.inspection import permutation_importance
 from .custom_shap import TreeExplainer
+from collections import defaultdict
+
 
 views = Blueprint('views', __name__)
 
@@ -27,7 +29,16 @@ def home():
 @views.route('/watchlist', methods=['GET', 'POST'])
 @login_required
 def watchlist():
-    company = CompanyInfo.query.all()
+    # Get the current user's ID
+    current_user_id = current_user.id
+
+    # Filter the Watchlist table to get the stocks in the watchlist for the current user
+    user_watchlist = Watchlist.query.filter_by(user_id=current_user_id).all()
+        # Create a list of stock codes for the user's watchlist
+    user_watchlist_stock_codes = [item.stock_code for item in user_watchlist]
+
+    # Select the stocks in the watchlist for the current user from the Stocks table
+    user_watchlist_stocks = Stocks.query.filter(Stocks.stock_code.in_(user_watchlist_stock_codes)).all()
     if request.method =='POST':
         filename = 'companyinfo.csv'
         headers = [' ID',
@@ -58,7 +69,7 @@ def watchlist():
         with open(filename, 'w', newline='') as file:
             writer = csv.writer(file)
             writer.writerow(headers)
-            for item in company:
+            for item in all_stocks:
                 writer.writerow([item.id, 
                                 item.companyname, 
                                 item.equity_ratio, 
@@ -85,7 +96,7 @@ def watchlist():
                                 item.Bankrupt,
                                 item.Risk])
             return Response(open(filename, 'r'), mimetype='text/csv', headers={"Content-Disposition":"attachment;filename=my_table.csv"})
-    return render_template("watchlist.html", user=current_user, company=company)
+    return render_template("watchlist.html", user=current_user, company=user_watchlist_stocks)
 
 
 @views.route('/detail/<string:id>')
@@ -107,8 +118,34 @@ def detail(id):
         watchlist_entry = Watchlist.query.filter_by(stock_code=company.stock_code, user_id=current_user.id).first()
         if watchlist_entry:
             is_in_watchlist = True
+    
+    prices = (
+        db.session.query(Price)
+        .filter_by(stock_code=company.stock_code)
+        .order_by(Price.Date.desc())  # Order by the Date column in descending order
+        .all()
+    )
+
+
+        # Create a dictionary to store aggregated data
+    monthly_averages = defaultdict(list)
+
+    # Iterate through the Price records and group by month and year
+    for price in prices:
+        date = price.Date  # Assuming the date is in a suitable format
+        month_year = date[:7]  # Extract the month and year (e.g., 'YYYY-MM')
+        close_price = price.Close
+
+        monthly_averages[month_year].append(close_price)
+
+    # Calculate the average Close price for each month
+    average_monthly_data = {
+        month_year: sum(prices) / len(prices)
+        for month_year, prices in monthly_averages.items()
+    }
+    print(average_monthly_data)
         
-    return render_template('detail.html', user=current_user, company=company, ratios=ratios, is_in_watchlist=is_in_watchlist)
+    return render_template('detail.html', user=current_user, company=company, ratios=ratios, is_in_watchlist=is_in_watchlist, prices=prices, average_monthly_data = average_monthly_data)
 
 @views.route('/add_to_watchlist/<string:id>', methods=['POST'])
 @login_required
