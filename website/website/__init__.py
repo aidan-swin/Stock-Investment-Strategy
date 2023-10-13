@@ -25,7 +25,7 @@ def create_app():
     app.register_blueprint(views, url_prefix='/')
     app.register_blueprint(auth, url_prefix='/')
 
-    from .models import User, Ratio, Stocks, Watchlist, Price
+    from .models import User, Ratio, Stocks, Watchlist, Price, Dividend
     
     # Check if the database has already been initialized
     if not app.config.get(DB_INITIALIZED_FLAG):
@@ -38,6 +38,7 @@ def create_app():
     admin.add_view(ModelView(Stocks, db.session))
     admin.add_view(ModelView(Watchlist,db.session))
     admin.add_view(ModelView(Price,db.session))
+    admin.add_view(ModelView(Dividend,db.session))
 
     login_manager = LoginManager()
     login_manager.login_view = 'auth.login'
@@ -65,6 +66,12 @@ def create_database(app):
             df = pd.read_csv(csv_file_path)
             df = df.reset_index().rename(columns={'index': 'id'})
             df.to_sql('Price', con=db.engine, if_exists='replace', index=False)
+
+            csv_file_path = "csvdata/historicaldividends_cleaned.csv"  # Replace with the path to your CSV file
+            df = pd.read_csv(csv_file_path)
+            df = df.reset_index().rename(columns={'index': 'id'})
+            df.to_sql('Dividend', con=db.engine, if_exists='replace', index=False)
+
             db.create_all()
             print('Created Database!')
             from .models import User

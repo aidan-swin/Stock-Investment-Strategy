@@ -55,6 +55,7 @@ class Stocks(db.Model):
     fullTimeEmployees = db.Column(db.Integer)
     stockratios = db.relationship('Ratio', backref='stock', lazy=True)
     stockwatchlists = db.relationship('Watchlist', backref='stock', lazy=True)
+    stockdividends = db.relationship('Dividend', backref='stock', lazy=True)
 
 class Watchlist(db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -74,9 +75,17 @@ class Ratio(db.Model):
     rClass = db.Column(db.String(1))
     rDate = db.Column(db.Date(), default=datetime.today().date()) # Use db.Date for date columns
 
+class Dividend(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    stock_code = db.Column(db.String(255), db.ForeignKey('stocks.stock_code'), nullable=False)
+    dAnnceDate = db.Column(db.Date())
+    dExDate = db.Column(db.Date())
+    dPayDate = db.Column(db.Date())
+    dAmount = db.Column(db.Float)
+
 class Price(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    Date = db.Column(db.String(255))
+    Date = db.Column(db.Date)
     Open = db.Column(db.Float)
     High = db.Column(db.Float)
     Low = db.Column(db.Float)

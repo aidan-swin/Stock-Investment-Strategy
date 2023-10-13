@@ -1,6 +1,6 @@
 from flask import Blueprint, render_template, request, flash, jsonify, redirect, url_for, Response
 from flask_login import  login_required,  current_user
-from .models import CompanyInfo, User, Stocks, Ratio, Watchlist, Price
+from .models import CompanyInfo, User, Stocks, Ratio, Watchlist, Price, Dividend
 from . import db
 import json
 import pickle
@@ -14,6 +14,7 @@ from sklearn.preprocessing import StandardScaler
 from sklearn.inspection import permutation_importance
 from .custom_shap import TreeExplainer
 from collections import defaultdict
+from datetime import date, timedelta, datetime
 
 
 views = Blueprint('views', __name__)
@@ -133,10 +134,14 @@ def detail(id):
     # Iterate through the Price records and group by month and year
     for price in prices:
         date = price.Date  # Assuming the date is in a suitable format
-        month_year = date[:7]  # Extract the month and year (e.g., 'YYYY-MM')
+        month_year = date.strftime('%Y-%m')  # Extract the month and year (e.g., 'YYYY-MM')
         close_price = price.Close
 
+        if month_year not in monthly_averages:
+            monthly_averages[month_year] = []
+
         monthly_averages[month_year].append(close_price)
+
 
     # Calculate the average Close price for each month
     average_monthly_data = {
@@ -181,112 +186,74 @@ def delete_item(id):
 
 @views.route('/backtest', methods=['GET', 'POST'])
 @login_required
-def add_companyInfo():
-    if request.method =='POST':
-        companyname_f = request.form.get('companyname')
-        equity_ratio_f = request.form.get('equity_ratio')
-        liabilities_coverage_f = request.form.get('liabilities_coverage')
-        operating_profit_margin_to_financial_expense_f = request.form.get('operating_profit_margin_to_financial_expense')
-        working_capital_to_fixed_assets_f = request.form.get('working_capital_to_fixed_assets')
-        current_liabilities_by_365_by_cost_of_products_sold_f = request.form.get('current_liabilities_by_365_by_cost_of_products_sold')
-        operating_expenses_to_total_liabilities_f = request.form.get('operating_expenses_to_total_liabilities')
-        current_assets_without_inventories_to_long_term_liabilities_f = request.form.get('current_assets_without_inventories_to_long_term_liabilities')
-        liability_to_operating_profit_ratio_per_day_f = request.form.get('liability_to_operating_profit_ratio_per_day')
-        net_profit_to_inventory_f = request.form.get('net_profit_to_inventory')
-        assets_without_inventories_and_short_term_liabilities_to_sales_without_gross_profit_and_depreciation_f = request.form.get('assets_without_inventories_and_short_term_liabilities_to_sales_without_gross_profit_and_depreciation')
-        forecast_period_f = request.form.get('forecast_period')
+def backtest():
+    # Retrieve the list of stock codes from the user's watchlist
+    watchlist_stocks = Watchlist.query.filter_by(user_id=current_user.id).all()
+    stock_codes = [entry.stock for entry in watchlist_stocks]
 
-        if len(companyname_f) < 1:
-            flash('Required Fields not complete.', category='error')
-        else:
-            with open('D:/VisualStudioCode/BRS_Official/BRS/random_forest_model.pkl', 'rb') as f:
-                rf = pickle.load(f)
-          # Input values for prediction
-            input_values = np.array([equity_ratio_f, liabilities_coverage_f, operating_profit_margin_to_financial_expense_f,
-                                    working_capital_to_fixed_assets_f, current_liabilities_by_365_by_cost_of_products_sold_f,
-                                    operating_expenses_to_total_liabilities_f,
-                                    current_assets_without_inventories_to_long_term_liabilities_f,
-                                    liability_to_operating_profit_ratio_per_day_f, net_profit_to_inventory_f,
-                                    assets_without_inventories_and_short_term_liabilities_to_sales_without_gross_profit_and_depreciation_f,
-                                    forecast_period_f])
+    # stock_codes = Stocks.query.all()
 
-            # Load the saved scaler object
-            with open('D:/VisualStudioCode/BRS_Official/BRS/scaler.pkl', 'rb') as f:
-                scaler = pickle.load(f)
+    max_date = date.today() - timedelta(days=1) # Get the current date as the max date for the HTML date input
 
-            # Scale the input values
-            input_values_scaled = scaler.transform([input_values])
+    if request.method == 'POST':
+        stock_code = request.form.get('stock')
+        print(stock_code)
+        unit_quantity = request.form.get('unit_quantity')
+        purchase_date = datetime.strptime(request.form.get('purchase_date'), '%Y-%m-%d').date()
 
-            # Use the trained Random Forest model for prediction
-            prediction = rf.predict(input_values_scaled)
+        # Calculate the end date for the query (current_date - 1 day)
+        end_date = date.today() - timedelta(days=1)
 
-            # Print the prediction
-            print(f'Prediction: {prediction}')
-            risk=rf.predict_proba(input_values_scaled)[:, 1]
-            risk=np.round(risk,2)
-            print(risk) 
+        # Query the Price table for records that match the stock_code and date range
+        prices = (
+            Price.query
+            .filter(Price.stock_code == stock_code)
+            .filter(Price.Date >= purchase_date, Price.Date <= end_date)
+            .order_by(Price.Date)  # Order the results by Date in ascending order
+            .all()
+        )
 
-            # Get the risk probability
-            risk = rf.predict_proba(input_values_scaled)[:, 1]
-            risk = np.round(risk, 2)
+        # Now you can safely access the latest date, which will be the last item in the list
+        if prices:
+            latest_date = prices[-1].Date
+            purchase_date = prices[0].Date
 
-            # Create a TreeExplainer object with the trained model
-            explainer = shap.TreeExplainer(rf)
+        # Access the first and last record's Close column
+        purchase_price = round(prices[0].Close, 3)
+        latest_price = round(prices[-1].Close, 3)
 
-            # Get the SHAP values for the specific record
-            shap_values = explainer.shap_values(input_values_scaled, check_additivity=False)
+        price_diff = round(latest_price - purchase_price, 3)
+        price_perc = round(price_diff / purchase_price * 100, 3)
 
-            # Sum the absolute SHAP values across features for the specific record
-            feature_importances = np.abs(shap_values).mean(axis=0)
+        print("Purchase Date: " + str(purchase_date) + " Latest Date " + str(latest_date))
+        print("Purchase Price: " + str(purchase_price) + " Latest Price " + str(latest_price))
+        print("Price Difference: " + str(price_diff) + " Price Percentage " + str(price_perc))
 
-            # Normalize the feature importances so that they sum up to 1
-            normalized_importances = feature_importances / np.sum(feature_importances)
+        dividends = (
+            Dividend.query
+            .filter(Dividend.stock_code == stock_code)
+            .filter(Dividend.dExDate >= purchase_date, Dividend.dExDate <= latest_date)
+            .all()
+        )
 
-            # Print the normalized feature importances
-            for importance in normalized_importances:
-                print(f"Importance: {importance}")
+        # Calculate the dividend amount
+        dividend_amount = sum(dividend.dAmount for dividend in dividends)
 
-           # Store the normalized importances in a 1D array to be stored in database
-            importance_array = normalized_importances.flatten()
+        # Calculate the dividend yield
+        dividend_yield = dividend_amount / purchase_price
 
-            # Print the importance array
-            print(importance_array[0])
+        print("Dividend Amount: " + str(dividend_amount))
+        print("Dividend Yield: " + str(dividend_yield))
 
-            # Calculate the sum of all the elements in the normalized_importances array
-            sum_importances = np.sum(normalized_importances)
-            print(f"Sum of importances: {sum_importances}")
+        # Now, first_record_date contains the date from the first record
 
-            new_companyinfo= CompanyInfo(companyname=companyname_f,
-                                        equity_ratio=equity_ratio_f,
-                                         liabilities_coverage=liabilities_coverage_f,
-                                         operating_profit_margin_to_financial_expense=operating_profit_margin_to_financial_expense_f, 
-                                         working_capital_to_fixed_assets=working_capital_to_fixed_assets_f,
-                                         current_liabilities_by_365_by_cost_of_products_sold=current_liabilities_by_365_by_cost_of_products_sold_f,
-                                         operating_expenses_to_total_liabilities=operating_expenses_to_total_liabilities_f,
-                                         current_assets_without_inventories_to_liabilities=current_assets_without_inventories_to_long_term_liabilities_f,
-                                         liability_to_operating_profit_ratio_per_day=liability_to_operating_profit_ratio_per_day_f,
-                                         net_profit_to_inventory=net_profit_to_inventory_f,
-                                         assets_without_inventories_and_short_term_liabilities_to_sales_without_gross_profit_and_depreciation=assets_without_inventories_and_short_term_liabilities_to_sales_without_gross_profit_and_depreciation_f,
-                                         equity_ratio_i = importance_array[0],
-                                         liabilities_coverage_i = importance_array[1],
-                                        operating_profit_margin_to_financial_expense_i = importance_array[2],
-                                        working_capital_to_fixed_assets_i = importance_array[3],
-                                        current_liabilities_by_365_by_cost_of_products_sold_i = importance_array[4],
-                                        operating_expenses_to_total_liabilities_i = importance_array[5],
-                                        current_assets_without_inventories_to_liabilities_i = importance_array[6],
-                                        liability_to_operating_profit_ratio_per_day_i = importance_array[7],
-                                        net_profit_to_inventory_i = importance_array[8],
-                                        assets_without_inventories_and_short_term_liabilities_to_sales_without_gross_profit_and_depreciation_i = importance_array[9],
-                                         forecast_period = forecast_period_f,
-                                        Bankrupt=prediction, 
-                                           user_id = current_user.id, 
-                                           Risk=risk)     
-            db.session.add(new_companyinfo)
-            db.session.commit()
-            flash('New company information added!', category='success')
-            return render_template("detail.html", user=current_user, company=new_companyinfo)
+        # print(prices)
+        # Now 'prices' contains the Price records that match the criteria
 
-    return render_template("backtest.html", user=current_user)
+        flash('Backtest submitted successfully!', 'success')
+        return redirect(url_for('views.backtest'))
+
+    return render_template('backtest.html', user=current_user, stocks=stock_codes, max_date=max_date)
 
 # Route to upload CSV file
 @views.route('/forecast', methods=['GET', 'POST'])
