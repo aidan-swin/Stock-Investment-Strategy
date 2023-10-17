@@ -1,0 +1,69 @@
+HARBOUR LINK GROUP RETURN ON EQUITY COMPARISONS
+
+Problem: Why is there such a big difference between quarterly ROE and the stats ROE in KLSE Screener? Let's compare 
+
+YAHOO FINANCE
+annual net income: 149739839.0
+annual shareholder's equity: 616106015.0
+annual return on equity: 0.31785234721
+
+quarterly net income: 37091000.0
+quarterly shareholder's equity: 714396000.0 # Yahoo Finance is one quarter later, but this one is equal to the previous year released in Bursa Marketplace
+quarterly return on equity: 0.06382734505
+
+
+BURSA MALAYSIA
+annual net income: 151.35
+annual shareholder's equity: 745.26
+annual return on equity: 0.20308348764
+
+quarterly 4 net income: 	28.59
+quarterly 4 shareholder's equity: 745.26
+quarterly 4 return on equity: 0.038
+
+Conclusion: Quarterly ROE on KLSE Screener is valid. Just store that in a separate table called "Quarter_Reports"
+
+
+HARBOUR LINK GROUP OPERATING INCOME COMPARISONS
+
+Problem: KLSE Screener is missing Historical Quarterly Operating Income. Find out a way.
+
+
+BURSA MALAYSIA
+quarterly operating income: 39.30
+quarterly net sales: 261.48
+quarterly operating income: 0.15029830197
+
+
+Where to get the ratios:
+
+EPS: Scrape from KLSE Screener (Divide by final closing price in the quarter to get EY)
+EPS: 100.22 - 0 / 1,165.83 (Net income - Preferred Dividends / TOTAL COMMON SHARES OUTSTANDING) (Need to add previous 3 quarters as well)
+
+PE: Divide EPS to final closing price in the quarter
+
+ROE: Scrape from KLSE Screener (each quarter have to calculate with previous' to get the valid %... might have to be optional)
+ROE: 100.22 / 735.67 (Net income / Total Equity)
+ROE: 305.84 / 764.86 
+
+OM: Divide operating income (Scrape from Bursa' annual income statement) and net sales (also in bursa annual income statement)
+OM: 130.69 / 1,089.28 (Operating Income / Revenue)
+
+FCF: cash from operating activities - capital expenditures (bursa)
+
+
+WHAT TO SCRAPE in Bursa's Financial Statements?
+Net income (IS) //
+Preferred Dividends (IS) //
+Total Common Shares Outstanding (BS) //
+Total Equity (BS) //
+Operating Income (IS)
+Revenue (IS)
+Cash From operating activities (CF)
+Capital Expenditures (CF)
+
+The process:
+
+Start loop
+Check KLSE Screener (only proceed if new quarter reports exist, else skip)
+..
