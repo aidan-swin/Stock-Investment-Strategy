@@ -8,7 +8,7 @@ annual shareholder's equity: 616106015.0
 annual return on equity: 0.31785234721
 
 quarterly net income: 37091000.0
-quarterly shareholder's equity: 714396000.0 # Yahoo Finance is one quarter later, but this one is equal to the previous year released in Bursa Marketplace
+quarterly shareholder's equity: 714396000.0 # Yahoo Finance is one quarter later, but this one is equal to the previous' report in Bursa Marketplace
 quarterly return on equity: 0.06382734505
 
 
@@ -21,7 +21,7 @@ quarterly 4 net income: 	28.59
 quarterly 4 shareholder's equity: 745.26
 quarterly 4 return on equity: 0.038
 
-Conclusion: Quarterly ROE on KLSE Screener is valid. Just store that in a separate table called "Quarter_Reports"
+Conclusion: Scrape from Bursa Marketplace's as calculations tally with the Quarterly ROE on KLSE Screener. Yahoo Finance unfortunately delays in updating to the latest quarterly reports, better off to forgo to ensure our system gathers data from the most up to date sources.
 
 
 HARBOUR LINK GROUP OPERATING INCOME COMPARISONS
@@ -39,6 +39,9 @@ Where to get the ratios:
 
 EPS: Scrape from KLSE Screener (Divide by final closing price in the quarter to get EY)
 EPS: 100.22 - 0 / 1,165.83 (Net income - Preferred Dividends / TOTAL COMMON SHARES OUTSTANDING) (Need to add previous 3 quarters as well)
+
+DPS: Gross Dividends Common Stock / Total Common Shares outstanding
+DPS: 128.48 / 1,167.07
 
 PE: Divide EPS to final closing price in the quarter
 
@@ -58,7 +61,7 @@ Preferred Dividends (IS) //
 Total Common Shares Outstanding (BS) //
 Total Equity (BS) //
 Operating Income (IS)
-Revenue (IS)
+Revenue (IS) (done)
 Cash From operating activities (CF)
 Capital Expenditures (CF)
 
