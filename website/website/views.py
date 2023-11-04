@@ -1,6 +1,6 @@
 from flask import Blueprint, render_template, request, flash, jsonify, redirect, url_for, Response
 from flask_login import  login_required,  current_user
-from .models import CompanyInfo, User, Stocks, Ratio, Watchlist, Price, Dividend
+from .models import CompanyInfo, User, Stocks, Ratiottm, Watchlist, Price, Dividend, Quarter
 from . import db
 import json
 import pickle
@@ -9,12 +9,14 @@ import pandas as pd
 import csv
 import shap
 import datetime
-from sqlalchemy.sql import func, desc
+from sqlalchemy.sql import func, desc, literal
 from sklearn.preprocessing import StandardScaler
 from sklearn.inspection import permutation_importance
 from .custom_shap import TreeExplainer
 from collections import defaultdict
 from datetime import date, timedelta, datetime
+from sqlalchemy.orm import aliased
+from .update import get_data
 
 
 views = Blueprint('views', __name__)
@@ -107,9 +109,9 @@ def detail(id):
         
     # Get the latest date ratio record for the stock_code
     ratios = (
-        db.session.query(Ratio)
+        db.session.query(Ratiottm)
         .filter_by(stock_code=company.stock_code)
-        .order_by(desc(Ratio.rDate))
+        .order_by(desc(Ratiottm.rDate))
         .first()
     )
 
@@ -416,5 +418,73 @@ def download_template():
 @login_required
 def show_information():
     return render_template('information.html', user=current_user)
+
+@views.route('/update-stocks', methods=['GET', 'POST'])
+def update_stock():
+    if request.method =='POST':
+        flash('CSV File of records reached! Only the first records are uploaded.', category='Success')
+        # Subquery to get the latest date for each table
+
+        # Create aliases for the tables to simplify the query
+        dividend_alias = aliased(Dividend)
+        price_alias = aliased(Price)
+        quarter_alias = aliased(Quarter)
+
+        # Subquery to get the latest dates for each table
+        latest_dividend_date_subquery = (
+            db.session.query(
+                Dividend.stock_code,
+                func.max(Dividend.dExDate).label("latest_dividend_date")
+            )
+            .group_by(Dividend.stock_code)
+            .subquery()
+        )
+
+        latest_price_date_subquery = (
+            db.session.query(
+                Price.stock_code,
+                func.max(Price.Date).label("latest_price_date")
+            )
+            .group_by(Price.stock_code)
+            .subquery()
+        )
+
+        latest_quarter_date_subquery = (
+            db.session.query(
+                Quarter.stock_code,
+                func.max(Quarter.date).label("latest_quarter_date")
+            )
+            .group_by(Quarter.stock_code)
+            .subquery()
+        )
+
+        # Join the subqueries to get the latest dates for each stock code
+        latest_dates_query = (
+            db.session.query(
+                Stocks.stock_code,
+                latest_dividend_date_subquery.c.latest_dividend_date,
+                latest_price_date_subquery.c.latest_price_date,
+                latest_quarter_date_subquery.c.latest_quarter_date
+            )
+            .outerjoin(latest_dividend_date_subquery, Stocks.stock_code == latest_dividend_date_subquery.c.stock_code)
+            .outerjoin(latest_price_date_subquery, Stocks.stock_code == latest_price_date_subquery.c.stock_code)
+            .outerjoin(latest_quarter_date_subquery, Stocks.stock_code == latest_quarter_date_subquery.c.stock_code)
+        )
+
+        # Execute the query
+        # Execute the query and limit the result to the first 5 rows
+        latest_dates = latest_dates_query.limit(5).all()
+
+        # Print or use the results as needed
+        for row in latest_dates:
+            stock_code, latest_dividend_date, latest_price_date, latest_quarter_date = row
+            print(f"Stock Code: {stock_code}")
+            print(f"Latest Dividend Date: {latest_dividend_date}")
+            print(f"Latest Price Date: {latest_price_date}")
+            print(f"Latest Quarter Date: {latest_quarter_date}")
+        
+        get_data(latest_dates)
+
+    return render_template("update-stocks.html", user=current_user)
 
 

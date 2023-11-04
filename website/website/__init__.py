@@ -25,7 +25,7 @@ def create_app():
     app.register_blueprint(views, url_prefix='/')
     app.register_blueprint(auth, url_prefix='/')
 
-    from .models import User, Ratio, Stocks, Watchlist, Price, Dividend
+    from .models import User, Ratiottm, Stocks, Watchlist, Price, Dividend, Quarter
     
     # Check if the database has already been initialized
     if not app.config.get(DB_INITIALIZED_FLAG):
@@ -34,11 +34,12 @@ def create_app():
 
     admin = Admin(app, name='My App', template_mode='bootstrap3')
     admin.add_view(ModelView(User, db.session))
-    admin.add_view(ModelView(Ratio, db.session))
+    admin.add_view(ModelView(Ratiottm, db.session))
     admin.add_view(ModelView(Stocks, db.session))
     admin.add_view(ModelView(Watchlist,db.session))
     admin.add_view(ModelView(Price,db.session))
     admin.add_view(ModelView(Dividend,db.session))
+    admin.add_view(ModelView(Quarter,db.session))
 
     login_manager = LoginManager()
     login_manager.login_view = 'auth.login'
@@ -51,19 +52,14 @@ def create_app():
     return app
 
 def create_database(app):
-    if not path.exists('website/' + DB_NAME):
+    if not path.exists('instance/' + DB_NAME):
         with app.app_context():
             csv_file_path = "csvdata/stocks_with_information.csv"  # Replace with the path to your CSV file
             df = pd.read_csv(csv_file_path)
             df.to_sql('Stocks', con=db.engine, if_exists='replace', index=False)
 
-            csv_file_path = "csvdata/stock_class_rounded.csv"
-            df = pd.read_csv(csv_file_path)
-            df = df.reset_index().rename(columns={'index': 'id'})
-            df.to_sql('Ratio', con=db.engine, if_exists='replace', index=False)
-
             csv_file_path = "csvdata/historicalprices.csv"  # Replace with the path to your CSV file
-            df = pd.read_csv(csv_file_path)
+            df = pd.read_csv(csv_file_path, low_memory=False)
             df = df.reset_index().rename(columns={'index': 'id'})
             df.to_sql('Price', con=db.engine, if_exists='replace', index=False)
 
@@ -71,6 +67,16 @@ def create_database(app):
             df = pd.read_csv(csv_file_path)
             df = df.reset_index().rename(columns={'index': 'id'})
             df.to_sql('Dividend', con=db.engine, if_exists='replace', index=False)
+
+            csv_file_path = "csvdata/stock_financial_quarterly.csv"
+            df = pd.read_csv(csv_file_path)
+            df = df.reset_index().rename(columns={'index': 'id'})
+            df.to_sql('Quarter', con=db.engine, if_exists='replace', index=False)
+
+            csv_file_path = "csvdata/stock_ratio_quarterly.csv"
+            df = pd.read_csv(csv_file_path)
+            df = df.reset_index().rename(columns={'index': 'id'})
+            df.to_sql('Ratiottm', con=db.engine, if_exists='replace', index=False)
 
             db.create_all()
             print('Created Database!')

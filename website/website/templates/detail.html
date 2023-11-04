@@ -137,7 +137,7 @@
                 <div class="input-group-prepend">
                   <span class="input-group-text">💸</span>
                 </div>
-                <input type="text" class="form-control" id="CL365" name="CL365" min="0" step="0.000000001" placeholder="Enter Company's Current Liabilities Of 365 Days By Cost Of Products Sold" value="{{ratios.rCF}}" disabled>
+                <input type="text" class="form-control" id="CL365" name="CL365" min="0" step="0.000000001" placeholder="Enter Company's Current Liabilities Of 365 Days By Cost Of Products Sold" value="{{ratios.rFCF}}" disabled>
               </div>
             </div>
           </div>
@@ -350,14 +350,16 @@
       labels: ['Score'],
       datasets: [{
         data: [
-          {% if ratios.rClass == 'A' %}
+          {% if ratios.rClass == 'S' %}
           100,0
-        {% elif ratios.rClass == 'B'%}
+        {% elif ratios.rClass == 'A'%}
           75,25
-        {% elif ratios.rClass == 'C'%}
+        {% elif ratios.rClass == 'B'%}
           50,50
-          {% elif ratios.rClass == 'D'%}
+          {% elif ratios.rClass == 'C'%}
           25,75
+          {% elif ratios.rClass == 'D'%}
+          0,100
         {% endif %}],
         backgroundColor: ['#FF6961', '#D3D3D3']
       }]
@@ -396,10 +398,10 @@
       datasets: [{
         label: 'Score',
         data: [
-        {% if ratios.rEPS >= 10 %}
+        {% if ratios.rEPS >= 0.10 %}
           100
         {% else %}
-          Math.max({{ (ratios.rEPS / 10) * 100 }},0)
+          Math.max({{ (ratios.rEPS / 0.10) * 100 }},0)
         {% endif %},
         {% if (ratios.rPE <= 10) and (ratios.rPE > 0) %}
           100
@@ -408,24 +410,24 @@
         {% else %}
           0
         {% endif %},
-        {% if ratios.rROE >= 20 %}
+        {% if ratios.rROE >= 0.20 %}
           100
         {% else %}
-        Math.max({{ (ratios.rROE / 20) * 100 }},0)
+        Math.max({{ (ratios.rROE / 0.20) * 100 }},0)
         {% endif %},
-        {% if ratios.rOM >= 10 %}
+        {% if ratios.rOM >= 0.10 %}
           100
         {% else %}
-        Math.max({{ (ratios.rOM / 10) * 100 }},0)
+        Math.max({{ (ratios.rOM / 0.10) * 100 }},0)
         {% endif %},
-        {% if ratios.rDY >= 2 %}
+        {% if ratios.rDY >= 0.02 %}
           100
         {% else %}
-          {{ (ratios.rDY / 2) * 100 }}
+          {{ (ratios.rDY / 0.02) * 100 }}
         {% endif %},
-        {% if ratios.rPR >= 25 and ratios.rPR <= 75 %}
+        {% if ratios.rPR >= 0.25 and ratios.rPR <= 0.75 %}
           100
-          {% elif (ratios.rPR < 25 and ratios.rPR > 0 or ratios.rPR > 75 and ratios.rPR < 100)%}
+          {% elif (ratios.rPR < 0.25 and ratios.rPR > 0 or ratios.rPR > 0.75 and ratios.rPR < 100)%}
           50
           {% else %}
           0

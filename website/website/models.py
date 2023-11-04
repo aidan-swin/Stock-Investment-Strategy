@@ -53,25 +53,27 @@ class Stocks(db.Model):
     industry = db.Column(db.String(100))
     sector = db.Column(db.String(100))
     fullTimeEmployees = db.Column(db.Integer)
-    stockratios = db.relationship('Ratio', backref='stock', lazy=True)
+    stockratios = db.relationship('Ratiottm', backref='stock', lazy=True)
     stockwatchlists = db.relationship('Watchlist', backref='stock', lazy=True)
     stockdividends = db.relationship('Dividend', backref='stock', lazy=True)
+    stockquarterreport = db.relationship('Quarter', backref='stock', lazy=True)
 
 class Watchlist(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     stock_code = db.Column(db.String(255), db.ForeignKey('stocks.stock_code'), nullable=False)
     user_id = db.Column(db.String(255), db.ForeignKey('user.id'), nullable=False)
 
-class Ratio(db.Model):
+class Ratiottm(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     stock_code = db.Column(db.String(255), db.ForeignKey('stocks.stock_code'), nullable=False)
     rDY = db.Column(db.Float)
     rPR = db.Column(db.Float)
     rOM = db.Column(db.Float)
-    rCF = db.Column(db.Float)
+    rFCF = db.Column(db.Float)
     rPE = db.Column(db.Float)
     rROE = db.Column(db.Float)
     rEPS = db.Column(db.Float)
+    rDPS = db.Column(db.Float)
     rClass = db.Column(db.String(1))
     rDate = db.Column(db.Date(), default=datetime.today().date()) # Use db.Date for date columns
 
@@ -92,3 +94,17 @@ class Price(db.Model):
     Close = db.Column(db.Float)
     Volume = db.Column(db.Float)
     stock_code = db.Column(db.String(255), db.ForeignKey('stocks.stock_code'))
+
+class Quarter(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    date = db.Column(db.Date)
+    revenue = db.Column(db.Float)
+    capitalExpenditures = db.Column(db.Float)
+    grossDividend = db.Column(db.Float)
+    netIncome = db.Column(db.Float)
+    operatingCashFlow = db.Column(db.Float)
+    operatingIncome = db.Column(db.Float)
+    preferredDividends = db.Column(db.Float)
+    sharesOutstanding = db.Column(db.Float)
+    totalEquity = db.Column(db.Float)
+    stock_code = db.Column(db.String(50), db.ForeignKey('stocks.stock_code'))
