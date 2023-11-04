@@ -9,7 +9,8 @@ import pandas as pd
 import csv
 import shap
 import datetime
-from sqlalchemy.sql import func, desc, literal
+from sqlalchemy.sql import func, desc, literal 
+from sqlalchemy import and_
 from sklearn.preprocessing import StandardScaler
 from sklearn.inspection import permutation_importance
 from .custom_shap import TreeExplainer
@@ -474,16 +475,97 @@ def update_stock():
         # Execute the query
         # Execute the query and limit the result to the first 5 rows
         latest_dates = latest_dates_query.limit(5).all()
-
-        # Print or use the results as needed
-        for row in latest_dates:
-            stock_code, latest_dividend_date, latest_price_date, latest_quarter_date = row
-            print(f"Stock Code: {stock_code}")
-            print(f"Latest Dividend Date: {latest_dividend_date}")
-            print(f"Latest Price Date: {latest_price_date}")
-            print(f"Latest Quarter Date: {latest_quarter_date}")
         
-        get_data(latest_dates)
+
+        # # Print or use the results as needed
+        # for row in latest_dates:
+        #     stock_code, latest_dividend_date, latest_price_date, latest_quarter_date = row
+        #     print(f"Stock Code: {stock_code}")
+        #     print(f"Latest Dividend Date: {latest_dividend_date}")
+        #     print(f"Latest Price Date: {latest_price_date}")
+        #     print(f"Latest Quarter Date: {latest_quarter_date}")
+
+        ranked_quarter_subquery = (
+        db.session.query(
+            quarter_alias.stock_code,
+            quarter_alias.date,
+            func.row_number().over(
+                partition_by=quarter_alias.stock_code,
+                order_by=quarter_alias.date.desc()
+            ).label("row_num")
+        )
+        .subquery()
+         )
+
+        # Query to get the 4 latest records for each stock code
+        latest_quarter_query = (
+            db.session.query(quarter_alias)
+            .join(
+                ranked_quarter_subquery,
+                and_(
+                    quarter_alias.stock_code == ranked_quarter_subquery.c.stock_code,
+                    quarter_alias.date == ranked_quarter_subquery.c.date
+                )
+            )
+            .filter(ranked_quarter_subquery.c.row_num <= 4)
+        )
+
+        # Execute the query to get the 4 latest records for each stock code in the Quarter table
+        latest_quarter_records = latest_quarter_query.limit(80).all()
+
+        #Convert the Quarter Object returned by the query into a List
+        latest_quarter_list = [
+            {
+                'id': record.id,
+                'date': record.date,
+                'revenue': record.revenue,
+                'capitalExpenditures': record.capitalExpenditures,
+                'grossDividend': record.grossDividend,
+                'netIncome': record.netIncome,
+                'operatingCashFlow': record.operatingCashFlow,
+                'operatingIncome': record.operatingIncome,
+                'preferredDividends': record.preferredDividends,
+                'sharesOutstanding': record.sharesOutstanding,
+                'totalEquity': record.totalEquity,
+                'stock_code': record.stock_code
+            }
+            for record in latest_quarter_records
+        ]
+        
+        # Print the List for testing purposes
+        for record in latest_quarter_list:
+            stock_code = record['stock_code']  # Use 'stock_code' instead of 'id'
+            date = record['date']
+            revenue = record['revenue']
+            capitalExpenditures = record['capitalExpenditures']
+            grossDividend = record['grossDividend']
+            netIncome = record['netIncome']
+            operatingCashFlow = record['operatingCashFlow']
+            operatingIncome = record['operatingIncome']
+            preferredDividends = record['preferredDividends']
+            sharesOutstanding = record['sharesOutstanding']
+            totalEquity = record['totalEquity']
+            print(f"Stock Code: {stock_code}")
+            print(f"Date: {date}")
+            print(f"Revenue: {revenue}")
+            print(f"Capital Expenditures: {capitalExpenditures}")
+            print(f"Gross Dividend: {grossDividend}")
+            print(f"Net Income: {netIncome}")
+            print(f"Operating Cash Flow: {operatingCashFlow}")
+            print(f"Operating Income: {operatingIncome}")
+            print(f"Preferred Dividends: {preferredDividends}")
+            print(f"Shares Outstanding: {sharesOutstanding}")
+            print(f"Total Equity: {totalEquity}")
+
+        # for record in latest_quarter_records:
+        #     print(f"Stock Code: {record.stock_code}")
+        #     print(f"Revenue: {record.revenue}")
+        #     print(f"Date: {record.date}")
+        print(f"Latest Date data type {type(latest_dates)}")
+        print(f"Latest Quarter List data type {type(latest_quarter_list)}")
+
+        
+        get_data(latest_dates, latest_quarter_records)
 
     return render_template("update-stocks.html", user=current_user)
 

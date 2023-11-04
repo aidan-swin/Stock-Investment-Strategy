@@ -2,10 +2,31 @@ import yfinance as yf
 import pandas as pd
 from datetime import datetime
 from selenium import webdriver
+from selenium.webdriver.common.by import By
+from selenium.webdriver.common.keys import Keys
+from selenium.common.exceptions import NoSuchElementException
 from bs4 import BeautifulSoup as bs
 import time
 import random
 import warnings
+
+# funtion to get link
+def get_link(stock_code):
+    
+    url='https://www.bursamarketplace.com/index.php'
+    driverdiv.get(url)
+    
+    # Clicking the Search Button
+    s= driverdiv.find_element(By.XPATH,'//*[@id="newnav-mobileSearch"]')
+    driverdiv.execute_script("arguments[0].click();",s)
+    
+    # Inputting the Stock Code in the Search Bar
+    driverdiv.find_element(By.XPATH, '//*[@id="newnav-search-input"]').send_keys(stock_code)
+    
+    # Getting the Link in the appeared Search Results
+    lnks = driverdiv.find_element(By.ID,'url')
+    links=lnks.get_attribute('href')
+    return links
 
 # Define a function to scrape dividend information for a given stock code
 def scrape_dividend_info(stock_code, start_date, end_date):
@@ -15,8 +36,8 @@ def scrape_dividend_info(stock_code, start_date, end_date):
         div_info_final = pd.DataFrame()
         
         url = 'https://www.klsescreener.com/v2/stocks/view/' + stock_code
-        driver.get(url) 
-        content = driver.page_source
+        driverdiv.get(url) 
+        content = driverdiv.page_source
         soup = bs(content, 'html.parser')
 
         # Scrape table
@@ -39,12 +60,13 @@ def scrape_dividend_info(stock_code, start_date, end_date):
             div_info2 = dfs[i - 1]
 
             # Change data types    
+            div_info2['EX Date'] = pd.to_datetime(div_info2['EX Date'])
             div_info2['Financial Year'] = pd.to_datetime(div_info2['Financial Year'])
-            div_info2['Financial Year'] = pd.to_datetime(div_info2['Financial Year'].dt.strftime('%Y-%m-%d'))
+            div_info2['EX Date'] = pd.to_datetime(div_info2['EX Date'].dt.strftime('%Y-%m-%d'))
 
             # Filter data between two dates    
-            filtered_df = div_info2.loc[(div_info2['Financial Year'] >= pd.to_datetime(start_date))
-                                        & (div_info2['Financial Year'] < pd.to_datetime(end_date))]
+            filtered_df = div_info2.loc[(div_info2['EX Date'] > pd.to_datetime(start_date))
+                                        & (div_info2['EX Date'] < pd.to_datetime(end_date))]
             filtered_df.reset_index(drop=True, inplace=True)
 
             # Check whether the filtered_df is empty
@@ -80,10 +102,21 @@ def get_data(latest_dates):
     dividend_info_list = []
     error_symbols = []  # To store symbols with errors
 
+    global driverdiv
     global driver
+    global driver2
+    global driver3
+
     # Connect/open the Chrome webdriver
+    driverdiv = webdriver.Chrome()
+    driverdiv.implicitly_wait(60)
     driver = webdriver.Chrome()
-    driver.implicitly_wait(60)
+    driver.implicitly_wait(20)
+    driver2 = webdriver.Chrome()
+    driver2.implicitly_wait(20)
+    driver3 = webdriver.Chrome()
+    driver3.implicitly_wait(20)
+
 
 # Loop through each stock symbol and retrieve its historical data
     for row in latest_dates:
@@ -116,6 +149,9 @@ def get_data(latest_dates):
     price_df = pd.concat(combined_data)
     dividend_df = pd.concat(dividend_info_list)
     print(dividend_df.head())
+
+    columns_to_remove_df = ["Financial Year", "Subject", "Indicator", "Year", "Status", "Unnamed: 7"]
+    dividend_df = dividend_df.drop(columns=columns_to_remove_df)
     # print(price_df.head())
 
     # The 'final_df' DataFrame contains the combined historical data for all successful stock symbols
