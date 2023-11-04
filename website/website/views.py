@@ -507,10 +507,10 @@ def update_stock():
                     quarter_alias.date == ranked_quarter_subquery.c.date
                 )
             )
-            .filter(ranked_quarter_subquery.c.row_num <= 4)
+            .filter(ranked_quarter_subquery.c.row_num <= 3)
         )
 
-        # Execute the query to get the 4 latest records for each stock code in the Quarter table
+        # Execute the query to get the 3 latest records for each stock code in the Quarter table
         latest_quarter_records = latest_quarter_query.limit(80).all()
 
         #Convert the Quarter Object returned by the query into a List
@@ -531,41 +531,15 @@ def update_stock():
             }
             for record in latest_quarter_records
         ]
-        
-        # Print the List for testing purposes
-        for record in latest_quarter_list:
-            stock_code = record['stock_code']  # Use 'stock_code' instead of 'id'
-            date = record['date']
-            revenue = record['revenue']
-            capitalExpenditures = record['capitalExpenditures']
-            grossDividend = record['grossDividend']
-            netIncome = record['netIncome']
-            operatingCashFlow = record['operatingCashFlow']
-            operatingIncome = record['operatingIncome']
-            preferredDividends = record['preferredDividends']
-            sharesOutstanding = record['sharesOutstanding']
-            totalEquity = record['totalEquity']
-            print(f"Stock Code: {stock_code}")
-            print(f"Date: {date}")
-            print(f"Revenue: {revenue}")
-            print(f"Capital Expenditures: {capitalExpenditures}")
-            print(f"Gross Dividend: {grossDividend}")
-            print(f"Net Income: {netIncome}")
-            print(f"Operating Cash Flow: {operatingCashFlow}")
-            print(f"Operating Income: {operatingIncome}")
-            print(f"Preferred Dividends: {preferredDividends}")
-            print(f"Shares Outstanding: {sharesOutstanding}")
-            print(f"Total Equity: {totalEquity}")
 
-        # for record in latest_quarter_records:
-        #     print(f"Stock Code: {record.stock_code}")
-        #     print(f"Revenue: {record.revenue}")
-        #     print(f"Date: {record.date}")
+        # Convert the list of dictionaries to a DataFrame
+        latest_quarter_df = pd.DataFrame(latest_quarter_list)
+        
         print(f"Latest Date data type {type(latest_dates)}")
         print(f"Latest Quarter List data type {type(latest_quarter_list)}")
 
         
-        get_data(latest_dates, latest_quarter_records)
+        get_data(latest_dates, latest_quarter_df)
 
     return render_template("update-stocks.html", user=current_user)
 
