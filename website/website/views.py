@@ -1,6 +1,6 @@
 from flask import Blueprint, render_template, request, flash, jsonify, redirect, url_for, Response
 from flask_login import  login_required,  current_user
-from .models import CompanyInfo, User, Stocks, Ratiottm, Watchlist, Price, Dividend, Quarter
+from .models import CompanyInfo, User, Stocks, Ratiottm, Watchlist, Price, Dividend, Quarter, Portfolio
 from . import db
 import json
 import pickle
@@ -9,7 +9,7 @@ import pandas as pd
 import csv
 import shap
 import datetime
-from sqlalchemy.sql import func, desc, literal 
+from sqlalchemy.sql import func, desc, literal , join
 from sqlalchemy import and_
 from sklearn.preprocessing import StandardScaler
 from sklearn.inspection import permutation_importance
@@ -23,7 +23,6 @@ from .update import get_data
 views = Blueprint('views', __name__)
 
 @views.route('/', methods=['GET', 'POST'])
-@login_required
 def home():
     # Select all records from the Stocks table
     all_stocks = Stocks.query.all()
@@ -102,9 +101,17 @@ def watchlist():
             return Response(open(filename, 'r'), mimetype='text/csv', headers={"Content-Disposition":"attachment;filename=my_table.csv"})
     return render_template("watchlist.html", user=current_user, company=user_watchlist_stocks)
 
+# Function to get the first day (Monday) of a week based on year and week number
+def first_day_of_week(year, week_number):
+    d = datetime.fromisocalendar(year, week_number, 1)
+    if d.weekday() != 0:
+        # Move back to the previous Monday if not already Monday
+        d -= timedelta(days=d.weekday())
+    
+    # Subtract one day to get the date before and format it
+    return (d - timedelta(days=1)).strftime('%Y-%m-%d')
 
 @views.route('/detail/<string:id>')
-@login_required
 def detail(id):
     company = Stocks.query.get_or_404(id)
         
@@ -114,7 +121,45 @@ def detail(id):
         .filter_by(stock_code=company.stock_code)
         .order_by(desc(Ratiottm.rDate))
         .first()
+    )   
+
+      # Get the latest date ratio record for the stock_code
+    pastratios = (
+        db.session.query(Ratiottm)
+        .filter_by(stock_code=company.stock_code)
+        .order_by(desc(Ratiottm.rDate))
+        .all()
     )
+    print(f"Past Ratio Stock Code {pastratios[0].stock_code}")
+
+    # Calculate the average of the first 3 records for each ratio column and round to 3 decimal places
+    average_eps = round(sum(r.rEPS for r in pastratios[:3]) / 3, 3)
+    average_pe = round(sum(r.rPE for r in pastratios[:3]) / 3, 3)
+    average_roe = round(sum(r.rROE for r in pastratios[:3]) / 3, 3)
+    average_om = round(sum(r.rOM for r in pastratios[:3]) / 3, 3)
+    average_dy = round(sum(r.rDY for r in pastratios[:3]) / 3, 3)
+    average_pr = round(sum(r.rPR for r in pastratios[:3]) / 3, 3)
+    average_class = 'Forecast'  # You can set this as 'Forecast' or any other value you prefer.
+
+
+
+    # Create a dictionary with the averages
+    forecast_data = {
+        'rDate': "Forecast",
+        'rEPS': average_eps,
+        'rPE': average_pe,
+        'rROE': average_roe,
+        'rOM': average_om,
+        'rDY': average_dy,
+        'rPR': average_pr,
+        'rClass': average_class,
+    }
+    pastratios.insert(0, forecast_data)
+    dividend_records = (
+    db.session.query(Dividend)
+    .filter_by(stock_code=company.stock_code)
+    .all()  # Execute the query and retrieve all matching records
+)
 
     # Check if the stock is in the user's watchlist
     is_in_watchlist = False  # Initialize as False
@@ -126,9 +171,9 @@ def detail(id):
     prices = (
         db.session.query(Price)
         .filter_by(stock_code=company.stock_code)
-        .order_by(Price.Date.desc())  # Order by the Date column in descending order
         .all()
     )
+    print(prices[0].stock_code)
 
 
         # Create a dictionary to store aggregated data
@@ -147,13 +192,115 @@ def detail(id):
 
 
     # Calculate the average Close price for each month
-    average_monthly_data = {
-        month_year: sum(prices) / len(prices)
-        for month_year, prices in monthly_averages.items()
-    }
-    print(average_monthly_data)
+    average_monthly_data = [
+    {'x': month_year, 'y': sum(prices) / len(prices)}
+    for month_year, prices in monthly_averages.items()
+]
+
+
+    # Retrieve the 14 latest records with the Date and Close columns
+    latest_14_prices = (
+        db.session.query(Price.Date, Price.Close)
+        .filter_by(stock_code=company.stock_code)
+        .order_by(Price.Date.desc())  # Sort by Date in descending order
+        .limit(20)
+        .all()
+    )
+
+    # Convert the result into a list of dictionaries
+    price_14 = [
+        {'x': price.Date.strftime('%Y-%m-%d'), 'y': price.Close}
+        for price in latest_14_prices
+    ]
+    # Calculate the date for 5 weeks ago from today
+    five_weeks_ago = datetime.now() - timedelta(weeks=20)
+
+    # Retrieve the last five weeks of records with the Date and Close columns
+    last_five_weeks_prices = (
+        db.session.query(Price.Date, Price.Close)
+        .filter_by(stock_code=company.stock_code)
+        .filter(Price.Date >= five_weeks_ago)
+        .all()
+    )
+
+    # Group the data by week and calculate the weekly averages
+    weekly_averages = defaultdict(list)
+
+    for price in last_five_weeks_prices:
+        date = price.Date
+        year, week, _ = date.isocalendar()
+        week_key = f'{year}-{week}'
+
+        weekly_averages[week_key].append(price.Close)
+
+    # Calculate the average Close price for each week with the first day of the week as 'x'
+    weekly_average_data = [
+        {'x': first_day_of_week(int(week_key.split('-')[0]), int(week_key.split('-')[1])), 'y': sum(prices) / len(prices)}
+        for week_key, prices in weekly_averages.items()
+    ]
+    print(price_14)
+
+    # Retrieve the first 8 records with rPE and rDate columns
+    first_8_ratios = (
+        db.session.query(Ratiottm.rDate, Ratiottm.rPE, Ratiottm.rEPS, Ratiottm.rROE, Ratiottm.rOM, Ratiottm.rDY, Ratiottm.rPR, Ratiottm.rFCF)
+        .filter_by(stock_code=company.stock_code)
+        .order_by(Ratiottm.rDate)
+        .limit(8)
+        .all()
+    )
+
+    # Convert the result into a list of dictionaries with 'x' and 'y' keys
+    rEPS_data = [
+    {'x': ratio.rDate.strftime('%Y-%m-%d'), 'y': ratio.rEPS}
+    for ratio in first_8_ratios
+    ]
+    rPE_data = [
+        {'x': ratio.rDate.strftime('%Y-%m-%d'), 'y': ratio.rPE}
+        for ratio in first_8_ratios
+    ]
+    rROE_data = [
+        {'x': ratio.rDate.strftime('%Y-%m-%d'), 'y': ratio.rROE}
+        for ratio in first_8_ratios
+    ]
+    rOM_data = [
+        {'x': ratio.rDate.strftime('%Y-%m-%d'), 'y': ratio.rOM}
+        for ratio in first_8_ratios
+    ]
+    rDY_data = [
+        {'x': ratio.rDate.strftime('%Y-%m-%d'), 'y': ratio.rDY}
+        for ratio in first_8_ratios
+    ]
+    rPR_data = [
+        {'x': ratio.rDate.strftime('%Y-%m-%d'), 'y': ratio.rPR}
+        for ratio in first_8_ratios
+    ]
+    rFCF_data = [
+        {'x': ratio.rDate.strftime('%Y-%m-%d'), 'y': ratio.rFCF}
+        for ratio in first_8_ratios
+    ]
+    # Retrieve the first 8 records with the dExDate and dAmount columns
+    first_8_dividends = (
+        db.session.query(Dividend.dExDate, Dividend.dAmount)
+        .filter_by(stock_code=company.stock_code)
+        .order_by(Dividend.dExDate)
+        .limit(8)
+        .all()
+    )
+
+    # Convert the result into a list of dictionaries with 'x' and 'y' keys
+    dividend_data = [
+        {'x': dividend.dExDate.strftime('%Y-%m-%d'), 'y': dividend.dAmount}
+        for dividend in first_8_dividends
+    ]
+
+    if current_user.is_authenticated:
+    # Check if the user has 5 or more entries in their watchlist
+        watchlist_count = db.session.query(Watchlist).filter_by(user_id=current_user.id).count()
+    else:
+        watchlist_count = 5
+
         
-    return render_template('detail.html', user=current_user, company=company, ratios=ratios, is_in_watchlist=is_in_watchlist, prices=prices, average_monthly_data = average_monthly_data)
+    return render_template('detail.html', user=current_user, company=company, ratios=ratios, pastratios=pastratios, price_14=price_14, dividend_records=dividend_records,is_in_watchlist=is_in_watchlist, prices=prices, average_monthly_data = average_monthly_data,weekly_average_data=weekly_average_data, rEPS_data=rEPS_data,rPE_data=rPE_data,rROE_data=rROE_data,rOM_data=rOM_data, rDY_data=rDY_data, rPR_data=rPR_data, rFCF_data=rFCF_data, dividend_data=dividend_data, watchlist_count=watchlist_count)
 
 @views.route('/add_to_watchlist/<string:id>', methods=['POST'])
 @login_required
@@ -201,7 +348,7 @@ def backtest():
     if request.method == 'POST':
         stock_code = request.form.get('stock')
         print(stock_code)
-        unit_quantity = request.form.get('unit_quantity')
+        unit_quantity = float(request.form.get('unit_quantity'))
         purchase_date = datetime.strptime(request.form.get('purchase_date'), '%Y-%m-%d').date()
 
         # Calculate the end date for the query (current_date - 1 day)
@@ -222,8 +369,8 @@ def backtest():
             purchase_date = prices[0].Date
 
         # Access the first and last record's Close column
-        purchase_price = round(prices[0].Close, 3)
-        latest_price = round(prices[-1].Close, 3)
+        purchase_price = round(prices[0].Close * unit_quantity, 3)
+        latest_price = round(prices[-1].Close * unit_quantity, 3)
 
         price_diff = round(latest_price - purchase_price, 3)
         price_perc = round(price_diff / purchase_price * 100, 3)
@@ -240,7 +387,9 @@ def backtest():
         )
 
         # Calculate the dividend amount
-        dividend_amount = sum(dividend.dAmount for dividend in dividends)
+        dividend_amount = sum(dividend.dAmount for dividend in dividends) * unit_quantity
+
+
 
         # Calculate the dividend yield
         dividend_yield = dividend_amount / purchase_price
@@ -252,11 +401,86 @@ def backtest():
 
         # print(prices)
         # Now 'prices' contains the Price records that match the criteria
+        new_portfolio = Portfolio(stock_code=stock_code, unitQuantity=unit_quantity, purchaseDate=purchase_date,user_id=current_user.id)
+        db.session.add(new_portfolio)
+        db.session.commit()
+    
 
         flash('Backtest submitted successfully!', 'success')
         return redirect(url_for('views.backtest'))
+    
+    # Query the Portfolio records for the current user
+        # Query the Portfolio records and join with Stocks to get stock_name
+   # Query the Portfolio records for the current user, including the stock_name
+    portfolio_results = db.session.query(Portfolio, Stocks.stock_name).join(Stocks).filter(Portfolio.user_id == current_user.id).all()
+        # Print the query results
+    for result in portfolio_results:
+        print(result)  # Print the entire result tuple
+    
+        # Process each stock in the portfolio
+    results = []  # Store the results for each stock
+    for portfolio, stock_name in portfolio_results:
+        stock_code = portfolio.stock_code
+        unit_quantity = portfolio.unitQuantity
+        purchase_date = portfolio.purchaseDate
 
-    return render_template('backtest.html', user=current_user, stocks=stock_codes, max_date=max_date)
+        # Calculate the end date for the query (current_date - 1 day)
+        end_date = date.today() - timedelta(days=1)
+
+        # Query the Price table for records that match the stock_code and date range
+        prices = (
+            Price.query
+            .filter(Price.stock_code == stock_code)
+            .filter(Price.Date >= purchase_date, Price.Date <= end_date)
+            .order_by(Price.Date)  # Order the results by Date in ascending order
+            .all()
+        )
+
+        # Now you can safely access the latest date, which will be the last item in the list
+        if prices:
+            latest_date = prices[-1].Date
+            purchase_date = prices[0].Date
+
+        # Access the first and last record's Close column
+        purchase_price = round(prices[0].Close * unit_quantity, 3)
+        latest_price = round(prices[-1].Close * unit_quantity, 3)
+
+        price_diff = round(latest_price - purchase_price, 3)
+        price_perc = round(price_diff / purchase_price * 100, 3)
+
+        dividends = (
+            Dividend.query
+            .filter(Dividend.stock_code == stock_code)
+            .filter(Dividend.dExDate >= purchase_date, Dividend.dExDate <= latest_date)
+            .all()
+        )
+
+        # Calculate the dividend amount
+        dividend_amount = sum(dividend.dAmount for dividend in dividends) * unit_quantity
+
+        # Calculate the dividend yield
+        dividend_yield = dividend_amount / purchase_price
+
+        # Store the results for this stock
+        result = {
+            "stock_name": stock_name,
+            "stock_code": stock_code,
+            "purchase_date": purchase_date,
+            "latest_date": latest_date,
+            "purchase_price": purchase_price,
+            "latest_price": latest_price,
+            "price_diff": price_diff,
+            "price_perc": price_perc,
+            "dividend_amount": dividend_amount,
+            "dividend_yield": dividend_yield
+        }
+        results.append(result)
+
+    # Print or return the results, depending on your needs
+    for result in results:
+        print(result)
+
+    return render_template('backtest.html', user=current_user, stocks=stock_codes, max_date=max_date, portfolio_results = portfolio_results)
 
 # Route to upload CSV file
 @views.route('/forecast', methods=['GET', 'POST'])
@@ -543,4 +767,12 @@ def update_stock():
 
     return render_template("update-stocks.html", user=current_user)
 
-
+@views.route('/export_csv', methods=['POST'])
+def export_csv():
+    data = request.form.get('table_data')
+    # Parse the data and write it to a CSV file
+    # You can use the `csv` module to write the data to a CSV file
+    # Create a Response object to serve the CSV file as a download
+    response = Response(data, content_type='text/csv')
+    response.headers["Content-Disposition"] = "attachment; filename=table_data.csv"
+    return response

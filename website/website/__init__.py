@@ -25,7 +25,7 @@ def create_app():
     app.register_blueprint(views, url_prefix='/')
     app.register_blueprint(auth, url_prefix='/')
 
-    from .models import User, Ratiottm, Stocks, Watchlist, Price, Dividend, Quarter
+    from .models import User, Ratiottm, Stocks, Watchlist, Price, Dividend, Quarter, Portfolio
     
     # Check if the database has already been initialized
     if not app.config.get(DB_INITIALIZED_FLAG):
@@ -40,6 +40,7 @@ def create_app():
     admin.add_view(ModelView(Price,db.session))
     admin.add_view(ModelView(Dividend,db.session))
     admin.add_view(ModelView(Quarter,db.session))
+    admin.add_view(ModelView(Portfolio,db.session))
 
     login_manager = LoginManager()
     login_manager.login_view = 'auth.login'

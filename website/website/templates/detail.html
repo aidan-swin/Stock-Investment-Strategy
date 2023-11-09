@@ -43,6 +43,18 @@
     background-color: rgb(208, 35, 35);
     color: white; /* Text color to ensure readability on a red background */
     } 
+    .btn-primary {
+      background-color: rgb(208, 35, 35)!important;
+      color: #fff;
+      border: none;
+      border-radius: 5px;
+      padding: 10px 20px;
+      font-size: 16px;
+      cursor: pointer;
+    }
+    .btn-primary:hover {
+      background-color: rgb(175, 46, 46)!important;
+    }
   </style>
 </head>
 
@@ -168,11 +180,16 @@
         </div>
       </div>
       <!-- Chart code -->
-      <div class="box-container" style="margin-top: 20px; text-align: center;">
+      <div class="box-container" style="margin-top: 200px; text-align: center;">
         <div class="chart-container" style="display: inline-block; width: fit-content; height: fit-content;">
-          <canvas id="LineChart" width="700" height="300"></canvas>
+          <canvas id="LineChart" width="1400" height="500"></canvas>
         </div>
-        <table id="example" class="table table-striped">
+<br>
+<button class="btn btn-primary" style="width: 100px;" onclick="timeFrame(this)" value="day">Day</button>
+<button class="btn btn-primary" style="width: 100px;" onclick="timeFrame(this)" value="week">Week</button>
+<button class="btn btn-primary" style="width: 100px;" onclick="timeFrame(this)" value="month">Month</button>
+<br><br><br>
+        <table id="example" class="table table-striped table-hover">
           <thead>
               <tr>
                 <th class="red-themed">Date</th>
@@ -196,7 +213,90 @@
               {% endfor %}
           </tbody>
       </table>
+
+      <form method="POST" action="/export_csv">
+        <input type="hidden" id="tableData" name="table_data" value="">
+        <button type="submit" class="btn btn-primary" id="exportButton">Export to CSV</button>
       </div>    
+    </form>
+      <div class="box-container" style="margin-top: 200px; text-align: center;">
+        <div class="chart-container" style="display: inline-block; width: fit-content; height: fit-content;">
+          <canvas id="LineChartRatio" width="1400" height="500"></canvas>
+        </div>
+        <br>
+        <button class="btn btn-primary" style="width: 80px;" onclick="ratioFrame(this)" value="eps">EPS</button>
+        <button class="btn btn-primary" style="width: 80px;" onclick="ratioFrame(this)" value="pe">PE</button>
+        <button class="btn btn-primary" style="width: 80px;" onclick="ratioFrame(this)" value="roe">ROE</button>
+        <button class="btn btn-primary" style="width: 80px;" onclick="ratioFrame(this)" value="om">OM</button>
+        <button class="btn btn-primary" style="width: 80px;" onclick="ratioFrame(this)" value="dy">DY</button>
+        <button class="btn btn-primary" style="width: 80px;" onclick="ratioFrame(this)" value="pr">PR</button>
+        <button class="btn btn-primary" style="width: 80px;" onclick="ratioFrame(this)" value="fcf">FCF</button>
+<br><br><br>
+        <table id="example2" class="table table-striped table-hover">
+          <thead>
+              <tr>
+                <th class="red-themed">Date</th>
+                <th class="red-themed">EPS</th>
+                <th class="red-themed">PE</th>
+                <th class="red-themed">ROE</th>
+                <th class="red-themed">OM</th>
+                <th class="red-themed">DY</th>
+                <th class="red-themed">PR</th>  
+                <th class="red-themed">Class</th>  
+              </tr>
+          </thead>
+          <tbody>
+              {% for pastratio in pastratios %}
+              <tr>
+                  <td>{{pastratio.rDate}}</td>
+                  <td>{{pastratio.rEPS}}</td>
+                  <td>{{pastratio.rPE}}</td>
+                  <td>{{pastratio.rROE}}</td>
+                  <td>{{pastratio.rOM}}</td>
+                  <td>{{pastratio.rDY}}</td>
+                  <td>{{pastratio.rPR}}</td>
+                  <td>{{pastratio.rClass}}</td>
+              </tr>
+              {% endfor %}
+          </tbody>
+      </table>
+      <form method="POST" action="/export_csv">
+        <input type="hidden" id="tableData2" name="table_data" value="">
+        <button type="submit" class="btn btn-primary" id="exportButtonRatio">Export to CSV</button>
+      </form>
+      </div>   
+      <div class="box-container" style="margin-top: 200px; text-align: center;">
+        <div class="chart-container" style="display: inline-block; width: fit-content; height: fit-content;">
+          <canvas id="LineChartDividend" width="1400" height="500"></canvas>
+        </div>
+        <table id="example3" class="table table-striped table-hover">
+          <thead>
+              <tr>
+                <th class="red-themed">Announce Date</th>
+                <th class="red-themed">Ex Date</th>
+                <th class="red-themed">Pay Date</th>
+                <th class="red-themed">Amount</th>
+
+              </tr>
+          </thead>
+          <tbody>
+              {% for dividend_record in dividend_records %}
+              <tr>
+                  <td>{{dividend_record.dAnnceDate}}</td>
+                  <td>{{dividend_record.dExDate}}</td>
+                  <td>{{dividend_record.dPayDate}}</td>
+                  <td>{{dividend_record.dAmount}}</td>
+
+              </tr>
+              {% endfor %}
+          </tbody>
+        
+      </table>
+      <form method="POST" action="/export_csv">
+        <input type="hidden" id="tableData3" name="table_data" value="">
+        <button type="submit" class="btn btn-primary" id="exportButtonDividend">Export to CSV</button>
+    </form>
+      </div>   
       <br>
       <!-- Company name -->
       <div class="form-group">
@@ -322,26 +422,58 @@
 </div>
     </div>
     
+    {% if user.is_authenticated %}
+    {% if not user.subscribed and watchlist_count < 5 or user.admin_user  or user.subscribed%}
       <!-- Button code -->
-      {% if user.admin_user == True %}
-<!-- Button code -->
-<div class="text-center">
-  <form method="POST" action="/add_to_watchlist/{{ company.stock_code }}">
+      <div class="text-center">
+        <br>
+        {% if not is_in_watchlist %}
+        <form method="POST" action="/add_to_watchlist/{{ company.stock_code }}">
+          <input type="hidden" name="stock_code" value="{{ company.stock_code }}">
+          <input type="hidden" name="user_id" value="{{ user.id }}">
+            <button class="btn btn-success" type="submit">Add to Watch List</button>
+          </form>
+{% endif %}
+      </div>
+    {% elif not user.subscribed and watchlist_count >= 5 %}
+      <!-- Button code with a tooltip -->
+      <div class="text-center">
+        <br>
+        <button type="button" class="btn btn-secondary" data-toggle="tooltip" data-placement="top" title="You already have 5 items in your watchlist">
+          Watchlist Maximum Reached
+        </button>
+      </div>
+    {% else %}
+      <!-- Default action when user is authenticated but doesn't meet other conditions -->
+      <!-- You can add code for this case here -->
+    {% endif %}
+  {% else %}
+    <!-- Button for login -->
+    <div class="text-center">
+      <br>
+      <a href="/login" class="btn btn-primary">Login to Add to Watchlist</a>
+    
+  {% endif %}
+  {% if is_in_watchlist %}
+  <div class="text-center">
+    <form method="POST" action="/add_to_watchlist/{{ company.stock_code }}">
       <input type="hidden" name="stock_code" value="{{ company.stock_code }}">
       <input type="hidden" name="user_id" value="{{ user.id }}">
-      {% if is_in_watchlist %}
-          <button class="btn btn-danger" type="submit">Remove from Watch List</button>
-      {% else %}
-          <button class="btn btn-success" type="submit">Add to Watch List</button>
-      {% endif %}
-  </form>
-</div>
+  <button class="btn btn-danger" type="submit">Remove from Watch List</button>
+</form>
 
-      {% endif %}
+{% endif %}
+    </div>
+  
+
   </div>
 </body>
 
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chartjs-adapter-date-fns/dist/chartjs-adapter-date-fns.bundle.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/hammer.js/2.0.8/hammer.min.js" integrity="sha512-UXumZrZNiOwnTcZSHLOfcTs0aos2MzBWHXOHOuB0J/R44QB0dwY5JgfbvljXcklVf65Gc4El6RjZ+lnwd2az2g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/chartjs-plugin-zoom/2.0.1/chartjs-plugin-zoom.min.js" integrity="sha512-wUYbRPLV5zs6IqvWd88HIqZU/b8TBx+I8LEioQ/UC0t5EMCLApqhIAnUg7EsAzdbhhdgW07TqYDdH3QEXRcPOQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
 <script>
   var ctx = document.getElementById('myChart').getContext('2d');
   var chart = new Chart(ctx, {
@@ -382,7 +514,7 @@
       },
       legend: {
         display: false
-      }
+      },
     }
   });
 </script>
@@ -433,9 +565,9 @@
           0
         {% endif %}
       ],
-        backgroundColor: 'rgba(108, 160, 220, 0.5)',
-        borderColor: 'rgba(108, 160, 220, 1)',
-        pointBackgroundColor: 'rgba(108, 160, 220, 1)',
+        backgroundColor: 'rgba(208, 35, 35, 0.85)',
+        borderColor: 'rgba(255, 204, 0, 1)',
+        pointBackgroundColor: 'rgba(208, 35, 35, 1)',
         pointBorderColor: '#fff',
         pointHoverBackgroundColor: '#fff',
         pointHoverBorderColor: 'rgba(108, 160, 220, 1)',
@@ -447,6 +579,11 @@
        maintainAspectRatio: false,
        scales: {
           r: {
+            pointLabels: {
+          font: {
+            size: 15
+          }
+        },
           min: 0, // MIN
           max: 100, // MAX
           beginAtZero: true,
@@ -460,8 +597,8 @@
           ticks: {
            stepSize: 50, // the number of step
           },
-        },
-      },
+        }
+      }
      }
   });
 </script>
@@ -469,22 +606,40 @@
 <script type="text/javascript">
         // Get the average monthly data from your Flask code
         var averageMonthlyData = {{ average_monthly_data | tojson }};
-
-        // Extract labels (months) and data (average Close prices)
-        var labels = Object.keys(averageMonthlyData);
-        var data = Object.values(averageMonthlyData);
+        var averageDailyData = {{ price_14 | tojson }};
+        var averageWeeklyData = {{ weekly_average_data | tojson }};
+        
 
         // Create a Chart.js chart
         var ctx = document.getElementById('LineChart').getContext('2d');
-        var chart = new Chart(ctx, {
+        var chart1 = new Chart(ctx, {
             type: 'line',
             data: {
-                labels: labels,
+                //labels: labels,
                 datasets: [{
                     label: 'Average Close Price',
-                    data: data,
+                    data: averageWeeklyData,
+                    backgroundColor: [
+          'rgba(255, 26, 104, 0.2)',
+          'rgba(54, 162, 235, 0.2)',
+          'rgba(255, 206, 86, 0.2)',
+          'rgba(75, 192, 192, 0.2)',
+          'rgba(153, 102, 255, 0.2)',
+          'rgba(255, 159, 64, 0.2)',
+          'rgba(0, 0, 0, 0.2)'
+        ],
+        borderColor: [
+          'rgba(255, 26, 104, 1)',
+          'rgba(54, 162, 235, 1)',
+          'rgba(255, 206, 86, 1)',
+          'rgba(75, 192, 192, 1)',
+          'rgba(153, 102, 255, 1)',
+          'rgba(255, 159, 64, 1)',
+          'rgba(0, 0, 0, 1)'
+        ],
+        borderWidth: 1,
                     fill: false,
-                    borderColor: 'rgb(75, 192, 192)',
+                    
                     tension: 0.1
                 }]
             },
@@ -497,22 +652,28 @@
             size: 16, // Set the font size of the title
           },
         },
+        zoom:{
+      zoom:{
+        wheel:{
+          enabled: true
+        }
       },
-      scale: {
-        angleLines: {
-          display: false,
-        },
-        ticks: {
-          suggestedMin: 0, // Set the minimum value of the scale to 0
-          suggestedMax: 1,
-          stepSize: 0.2,
-          backdropColor: 'rgba(255, 255, 255, 0)', // Hide the scale backdrop
-          fontColor: '#333', // Scale label color
-        },
-        pointLabels: {
-          fontColor: '#333', // Legend label color
-        },
+      pan:{
+        enabled:true
+      }
+    }
       },
+      scales: {
+		x: {
+			type: 'time',
+			time: {
+				unit: 'week'
+			}
+		},
+          y: {
+            beginAtZero: false
+          }
+        },
       legend: {
         position: 'bottom',
         labels: {
@@ -532,10 +693,300 @@
       maintainAspectRatio: false,
     }
   });
+  function timeFrame(period){
+		console.log(period.value);
+		if(period.value == 'day'){
+			chart1.data.datasets[0].data = averageDailyData;
+      chart1.options.scales.x.time.unit = period.value;
+		}
+		if(period.value == 'week'){
+			chart1.data.datasets[0].data = averageWeeklyData;
+      chart1.options.scales.x.time.unit = period.value;
+		}
+		if(period.value == 'month'){
+			chart1.data.datasets[0].data = averageMonthlyData;
+      chart1.options.scales.x.time.unit = period.value;
+		}			
+    
+
+    // chart1.options.plugins.zoom.zoom.wheel.enabled = false;
+          chart1.resetZoom();
+        chart1.update();
+    // Wait for 3 seconds
+    // setTimeout(function() {
+    //     // Re-enable zoom
+    //     chart1.options.plugins.zoom.zoom.wheel.enabled = true;
+    //     chart1.update();
+    // }, 1000);
+	}
+
+</script>
+
+<script type="text/javascript">
+  // Get the average monthly data from your Flask code
+  var rEPSdata = {{ rEPS_data | tojson }};
+  var rPEdata = {{ rPE_data | tojson }};
+  var rROEdata = {{ rROE_data | tojson }};
+  var rOMdata = {{ rOM_data | tojson }};
+  var rDYdata = {{ rDY_data | tojson }};
+  var rPRdata = {{ rPR_data | tojson }};
+  var rFCFdata = {{ rFCF_data | tojson }};
+  var averageDailyData2 = {{ price_14 | tojson }};
+  var averageWeeklyData2 = {{ weekly_average_data | tojson }};
+  
+
+  // Create a Chart.js chart
+  var ctx = document.getElementById('LineChartRatio').getContext('2d');
+  var chart2 = new Chart(ctx, {
+      type: 'bar',
+      data: {
+          //labels: labels,
+          datasets: [{
+              label: 'eps',
+              data: rEPSdata,
+              backgroundColor: [
+    'rgba(255, 26, 104, 0.2)',
+    'rgba(54, 162, 235, 0.2)',
+    'rgba(255, 206, 86, 0.2)',
+    'rgba(75, 192, 192, 0.2)',
+    'rgba(153, 102, 255, 0.2)',
+    'rgba(255, 159, 64, 0.2)',
+    'rgba(0, 0, 0, 0.2)'
+  ],
+  borderColor: [
+    'rgba(255, 26, 104, 1)',
+    'rgba(54, 162, 235, 1)',
+    'rgba(255, 206, 86, 1)',
+    'rgba(75, 192, 192, 1)',
+    'rgba(153, 102, 255, 1)',
+    'rgba(255, 159, 64, 1)',
+    'rgba(0, 0, 0, 1)'
+  ],
+  borderWidth: 1,
+              fill: false,
+              
+              tension: 0.1
+          }]
+      },
+options: {
+plugins: {
+  title: {
+    display: true,
+    text: '{{company.stock_name}} Monthly Stock Price', // Set the title text
+    font: {
+      size: 16, // Set the font size of the title
+    },
+  },
+},
+scales: {
+
+    y: {
+      beginAtZero: false
+    }
+  },
+legend: {
+  position: 'bottom',
+  labels: {
+    fontColor: '#333', // Legend label color
+    usePointStyle: true,
+  },
+},
+layout: {
+  padding: {
+    top: 10,
+    bottom: 10,
+    left: 10,
+    right: 10,
+  },
+},
+responsive: true,
+maintainAspectRatio: false,
+}
+});
+
+function ratioFrame(ratiotype){
+		console.log(ratiotype.value);
+		if(ratiotype.value == 'eps'){
+			chart2.data.datasets[0].data = rEPSdata;
+		}
+		if(ratiotype.value == 'pe'){
+			chart2.data.datasets[0].data = rPEdata;
+		}
+		if(ratiotype.value == 'roe'){
+			chart2.data.datasets[0].data = rROEdata;
+		}
+		if(ratiotype.value == 'om'){
+			chart2.data.datasets[0].data = rOMdata;
+		}
+    if(ratiotype.value == 'dy'){
+			chart2.data.datasets[0].data = rDYdata;
+		}
+		if(ratiotype.value == 'pr'){
+			chart2.data.datasets[0].data = rPRdata;
+		}
+    if(ratiotype.value == 'fcf'){
+			chart2.data.datasets[0].data = rFCFdata;
+		}
+    chart2.data.datasets[0].label = ratiotype.value;
+		chart2.update()	
+	}
+
+</script>
+<script type="text/javascript">
+  // Get the average monthly data from your Flask code
+  var rDividenddata = {{ dividend_data | tojson }};
+
+
+  // Create a Chart.js chart
+  var ctx = document.getElementById('LineChartDividend').getContext('2d');
+  var chart3 = new Chart(ctx, {
+      type: 'line',
+      data: {
+          //labels: labels,
+          datasets: [{
+              label: 'Dividend Amount',
+              data: rDividenddata,
+              backgroundColor: [
+    'rgba(255, 26, 104, 0.2)',
+    'rgba(54, 162, 235, 0.2)',
+    'rgba(255, 206, 86, 0.2)',
+    'rgba(75, 192, 192, 0.2)',
+    'rgba(153, 102, 255, 0.2)',
+    'rgba(255, 159, 64, 0.2)',
+    'rgba(0, 0, 0, 0.2)'
+  ],
+  borderColor: [
+    'rgba(255, 26, 104, 1)',
+    'rgba(54, 162, 235, 1)',
+    'rgba(255, 206, 86, 1)',
+    'rgba(75, 192, 192, 1)',
+    'rgba(153, 102, 255, 1)',
+    'rgba(255, 159, 64, 1)',
+    'rgba(0, 0, 0, 1)'
+  ],
+  borderWidth: 1,
+              fill: false,
+              
+              tension: 0.1
+          }]
+      },
+options: {
+plugins: {
+  title: {
+    display: true,
+    text: '{{company.stock_name}} Monthly Stock Price', // Set the title text
+    font: {
+      size: 16, // Set the font size of the title
+    },
+  },
+  zoom:{
+      zoom:{
+        wheel:{
+          enabled: true
+        }
+      },
+      pan:{
+        enabled:true
+      }
+    }
+},
+scales: {
+x: {
+type: 'time',
+time: {
+  unit: 'year'
+}
+},
+    y: {
+      beginAtZero: false
+    }
+  },
+legend: {
+  position: 'bottom',
+  labels: {
+    fontColor: '#333', // Legend label color
+    usePointStyle: true,
+  },
+},
+layout: {
+  padding: {
+    top: 10,
+    bottom: 10,
+    left: 10,
+    right: 10,
+  },
+},
+responsive: true,
+maintainAspectRatio: false,
+}
+});
+
 </script>
 <script type="text/javascript">
   $(document).ready(function() {
-      $('#example').DataTable();
+      $('#example').DataTable({
+          "order": [[0, "desc"]] // Sort the first column (Date) in descending order
+      });
+  });
+</script>
+<script type="text/javascript">
+  $(document).ready(function() {
+      $('#example2').DataTable({
+          "order": [[0, "desc"]] // Sort the first column (Date) in descending order
+      });
+  });
+</script>
+<script type="text/javascript">
+  $(document).ready(function() {
+      $('#example3').DataTable({
+          "order": [[0, "desc"]] // Sort the first column (Date) in descending order
+      });
+  });
+</script>
+<script>
+  document.getElementById('exportButton').addEventListener('click', function() {
+      var tableData = 'stock_code,Date,Open,High,Low,Close,Volume\n';
+      var stockCode = "{{ company.stock_code }}"; // Get the stock code from Jinja template
+
+      var table = $('#example').DataTable();
+      table.rows().every(function() {
+          var data = this.data();
+          tableData += stockCode + ',' + data.join(',') + '\n';
+      });
+
+      document.getElementById('tableData').value = tableData;
+  });
+</script>
+
+<script>
+document.getElementById('exportButtonRatio').addEventListener('click', function() {
+    var tableData2 = 'stock_code,rDate,rEPS,rPE,rROE,rOM,rDY,rPR,rClass\n';
+
+    var table2 = $('#example2').DataTable();
+    table2.rows().every(function() {
+        var data = this.data();
+        var stockCode2 = "{{ company.stock_code }}".padStart(4, '0'); // Ensure it has leading zeroes
+        tableData2 += stockCode2 + ',' + data.join(',') + '\n';
+    });
+
+    document.getElementById('tableData2').value = tableData2;
+});
+</script>
+
+<script>
+  document.getElementById('exportButtonDividend').addEventListener('click', function() {
+  
+      var tableData3 = 'stock_code,dAnnceDate,dExDate,dPayDate,dAmount\n';
+      var stockCode3 = "{{ company.stock_code }}"; // Get the stock code from Jinja template
+
+      var table3 = $('#example3').DataTable();
+      table3.rows().every(function() {
+          var data3 = this.data();
+          tableData3 += stockCode3 + ',' + data3.join(',') + '\n';
+      });
+
+      document.getElementById('tableData3').value = tableData3;
   });
 </script>
 {% endblock %}
+

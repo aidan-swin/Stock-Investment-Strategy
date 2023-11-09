@@ -40,6 +40,7 @@ class User(db.Model, UserMixin):
     admin_user = db.Column(db.Boolean, default=False)
     subscribed = db.Column(db.Boolean, default=False)
     userwatchlist = db.relationship('Watchlist', backref='user', lazy=True)
+    userportfolio = db.relationship('Portfolio', backref='user', lazy=True)
 
 class Stocks(db.Model):
     stock_code = db.Column(db.String(50), primary_key=True)
@@ -57,6 +58,7 @@ class Stocks(db.Model):
     stockwatchlists = db.relationship('Watchlist', backref='stock', lazy=True)
     stockdividends = db.relationship('Dividend', backref='stock', lazy=True)
     stockquarterreport = db.relationship('Quarter', backref='stock', lazy=True)
+    stockportfolio = db.relationship('Portfolio', backref='stock', lazy=True)
 
 class Watchlist(db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -108,3 +110,10 @@ class Quarter(db.Model):
     sharesOutstanding = db.Column(db.Float)
     totalEquity = db.Column(db.Float)
     stock_code = db.Column(db.String(50), db.ForeignKey('stocks.stock_code'))
+
+class Portfolio(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    stock_code = db.Column(db.String(50), db.ForeignKey('stocks.stock_code'))
+    user_id = db.Column(db.String(255), db.ForeignKey('user.id'), nullable=False)
+    unitQuantity = db.Column(db.Integer)
+    purchaseDate = db.Column(db.Date)
