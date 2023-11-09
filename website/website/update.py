@@ -9,6 +9,11 @@ from bs4 import BeautifulSoup as bs
 import time
 import random
 import warnings
+from .models import CompanyInfo, User, Stocks, Ratiottm, Watchlist, Price, Dividend, Quarter, Portfolio
+from . import db
+from datetime import date, timedelta
+from sqlalchemy import and_
+
 
 # funtion to get link
 def get_link(stock_code):
@@ -95,7 +100,7 @@ def scrape_dividend_info(stock_code, start_date, end_date):
             print(f'Stock code: {stock_code} - no dividend info')
 
     except Exception as e:
-        print(f'Stock code: {stock_code} - Loading failed due to Timeout')
+        print(f'Stock code: {stock_code} - Has never provided dividends')
         print(e)
 
     return div_info_final
@@ -293,7 +298,6 @@ def get_data(latest_dates, latest_quarter_df):
                 print("\n")
                 print("Latest Quarter DF")
                 print(filtered_df)
-                break
 
                 results_df['stock_code'] = results_df['stock_code'].astype(str)
                 results_df['Date'] = pd.to_datetime(results_df['Date'])
@@ -335,16 +339,33 @@ def get_data(latest_dates, latest_quarter_df):
                     
                     try:
                         # print(f"Current i {i}")
-                        last_recorded_date = historical_prices_df[
-                            (historical_prices_df['stock_code'] == stock_code) &
-                            (historical_prices_df['MonthPeriod'] == filtered_df['Date'].iloc[i-1].to_period('M'))
-                        ].sort_values(by='Date').iloc[-1]['Date']
-                        # print(f"Last Date: {last_recorded_date} \n")
+                        # last_recorded_date = historical_prices_df[
+                        #     (historical_prices_df['stock_code'] == stock_code) &
+                        #     (historical_prices_df['MonthPeriod'] == filtered_df['Date'].iloc[i-1].to_period('M'))
+                        # ].sort_values(by='Date').iloc[-1]['Date']
+                        # # print(f"Last Date: {last_recorded_date} \n")
                         
-                        closing_price = historical_prices_df[
-                            (historical_prices_df['stock_code'] == stock_code) &
-                            (historical_prices_df['Date'] == last_recorded_date)
-                        ]['Close'].values[0]
+                        # closing_price = historical_prices_df[
+                        #     (historical_prices_df['stock_code'] == stock_code) &
+                        #     (historical_prices_df['Date'] == last_recorded_date)
+                        # ]['Close'].values[0]
+                        # Calculate the last recorded date
+                        last_recorded_date = db.session.query(Price.Date)\
+                            .filter(Price.stock_code == stock_code)\
+                            .filter(Price.Date == (filtered_df['Date'].iloc[i-1].to_period('M').end_time - timedelta(days=1)))\
+                            .order_by(Price.Date.desc())\
+                            .first()
+
+                        if last_recorded_date:
+                            last_recorded_date = last_recorded_date[0]
+
+                        # Calculate the closing price
+                        closing_price = db.session.query(Price.Close)\
+                            .filter(and_(Price.stock_code == stock_code, Price.Date == last_recorded_date))\
+                            .first()
+
+                        if closing_price:
+                            closing_price = closing_price[0]
                         # print(f"Closing Price: {closing_price} \n")
                         # Rest of your code that depends on last_recorded_date and closing_price
                     except IndexError:

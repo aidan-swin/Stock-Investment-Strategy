@@ -368,16 +368,19 @@ def backtest():
             latest_date = prices[-1].Date
             purchase_date = prices[0].Date
 
-        # Access the first and last record's Close column
-        purchase_price = round(prices[0].Close * unit_quantity, 3)
-        latest_price = round(prices[-1].Close * unit_quantity, 3)
+        purchase_price = round(prices[0].Close,3)
+        latest_price = round(prices[-1].Close,3)
 
-        price_diff = round(latest_price - purchase_price, 3)
-        price_perc = round(price_diff / purchase_price * 100, 3)
+        # Access the first and last record's Close column
+        purchase_value = round(prices[0].Close * unit_quantity, 3)
+        latest_value = round(prices[-1].Close * unit_quantity, 3)
+
+        value_diff = round(latest_value - purchase_value, 3)
+        value_perc = round(value_diff / purchase_value * 100, 3)
 
         print("Purchase Date: " + str(purchase_date) + " Latest Date " + str(latest_date))
-        print("Purchase Price: " + str(purchase_price) + " Latest Price " + str(latest_price))
-        print("Price Difference: " + str(price_diff) + " Price Percentage " + str(price_perc))
+        print("Purchase Price: " + str(purchase_value) + " Latest Price " + str(latest_value))
+        print("Price Difference: " + str(value_diff) + " Price Percentage " + str(value_perc))
 
         dividends = (
             Dividend.query
@@ -392,7 +395,7 @@ def backtest():
 
 
         # Calculate the dividend yield
-        dividend_yield = dividend_amount / purchase_price
+        dividend_yield = dividend_amount / purchase_value
 
         print("Dividend Amount: " + str(dividend_amount))
         print("Dividend Yield: " + str(dividend_yield))
@@ -408,79 +411,10 @@ def backtest():
 
         flash('Backtest submitted successfully!', 'success')
         return redirect(url_for('views.backtest'))
-    
-    # Query the Portfolio records for the current user
-        # Query the Portfolio records and join with Stocks to get stock_name
-   # Query the Portfolio records for the current user, including the stock_name
-    portfolio_results = db.session.query(Portfolio, Stocks.stock_name).join(Stocks).filter(Portfolio.user_id == current_user.id).all()
-        # Print the query results
-    for result in portfolio_results:
-        print(result)  # Print the entire result tuple
-    
-        # Process each stock in the portfolio
-    results = []  # Store the results for each stock
-    for portfolio, stock_name in portfolio_results:
-        stock_code = portfolio.stock_code
-        unit_quantity = portfolio.unitQuantity
-        purchase_date = portfolio.purchaseDate
 
-        # Calculate the end date for the query (current_date - 1 day)
-        end_date = date.today() - timedelta(days=1)
 
-        # Query the Price table for records that match the stock_code and date range
-        prices = (
-            Price.query
-            .filter(Price.stock_code == stock_code)
-            .filter(Price.Date >= purchase_date, Price.Date <= end_date)
-            .order_by(Price.Date)  # Order the results by Date in ascending order
-            .all()
-        )
+    return render_template('backtest.html', user=current_user, stocks=stock_codes, max_date=max_date)
 
-        # Now you can safely access the latest date, which will be the last item in the list
-        if prices:
-            latest_date = prices[-1].Date
-            purchase_date = prices[0].Date
-
-        # Access the first and last record's Close column
-        purchase_price = round(prices[0].Close * unit_quantity, 3)
-        latest_price = round(prices[-1].Close * unit_quantity, 3)
-
-        price_diff = round(latest_price - purchase_price, 3)
-        price_perc = round(price_diff / purchase_price * 100, 3)
-
-        dividends = (
-            Dividend.query
-            .filter(Dividend.stock_code == stock_code)
-            .filter(Dividend.dExDate >= purchase_date, Dividend.dExDate <= latest_date)
-            .all()
-        )
-
-        # Calculate the dividend amount
-        dividend_amount = sum(dividend.dAmount for dividend in dividends) * unit_quantity
-
-        # Calculate the dividend yield
-        dividend_yield = dividend_amount / purchase_price
-
-        # Store the results for this stock
-        result = {
-            "stock_name": stock_name,
-            "stock_code": stock_code,
-            "purchase_date": purchase_date,
-            "latest_date": latest_date,
-            "purchase_price": purchase_price,
-            "latest_price": latest_price,
-            "price_diff": price_diff,
-            "price_perc": price_perc,
-            "dividend_amount": dividend_amount,
-            "dividend_yield": dividend_yield
-        }
-        results.append(result)
-
-    # Print or return the results, depending on your needs
-    for result in results:
-        print(result)
-
-    return render_template('backtest.html', user=current_user, stocks=stock_codes, max_date=max_date, portfolio_results = portfolio_results)
 
 # Route to upload CSV file
 @views.route('/forecast', methods=['GET', 'POST'])
@@ -731,7 +665,7 @@ def update_stock():
                     quarter_alias.date == ranked_quarter_subquery.c.date
                 )
             )
-            .filter(ranked_quarter_subquery.c.row_num <= 3)
+            .filter(ranked_quarter_subquery.c.row_num <= 3) # This gets 3 latest quarterly reports of each stock codes for calculating TTM ratios. When at least one new quarterly report (n) is found in Bursa, proceed to calculate TTM ratio with at least 3+n latest records then.
         )
 
         # Execute the query to get the 3 latest records for each stock code in the Quarter table
@@ -776,3 +710,103 @@ def export_csv():
     response = Response(data, content_type='text/csv')
     response.headers["Content-Disposition"] = "attachment; filename=table_data.csv"
     return response
+
+@views.route('/delete_portfolio/<int:portfolio_id>', methods=['POST'])
+@login_required
+def delete_portfolio(portfolio_id):
+    # Find and delete the portfolio row with the given ID from the database
+    portfolio = Portfolio.query.get(portfolio_id)
+    if portfolio:
+        db.session.delete(portfolio)
+        db.session.commit()
+        flash("Row deleted successfully", "success")  # Optionally, you can use Flask flash messages
+    else:
+        flash("Row not found", "error")
+    
+    # Redirect back to the page displaying the table
+    return redirect(url_for('views.backtest'))  # Replace with the correct route name
+
+@views.route('/portfolio', methods=['GET', 'POST'])
+def profile():
+    # Select all records from the Stocks table
+       
+    # Query the Portfolio records for the current user
+        # Query the Portfolio records and join with Stocks to get stock_name
+   # Query the Portfolio records for the current user, including the stock_name
+    portfolio_results = db.session.query(Portfolio, Stocks.stock_name).join(Stocks).filter(Portfolio.user_id == current_user.id).all()
+        # Print the query results
+    for result in portfolio_results:
+        print(result)  # Print the entire result tuple
+    
+        # Process each stock in the portfolio
+    calculation_results = []  # Store the results for each stock
+    for portfolio, stock_name in portfolio_results:
+        stock_code = portfolio.stock_code
+        unit_quantity = portfolio.unitQuantity
+        purchase_date = portfolio.purchaseDate
+
+        # Calculate the end date for the query (current_date - 1 day)
+        end_date = date.today() - timedelta(days=1)
+
+        # Query the Price table for records that match the stock_code and date range
+        prices = (
+            Price.query
+            .filter(Price.stock_code == stock_code)
+            .filter(Price.Date >= purchase_date, Price.Date <= end_date)
+            .order_by(Price.Date)  # Order the results by Date in ascending order
+            .all()
+        )
+
+        # Now you can safely access the latest date, which will be the last item in the list
+        if prices:
+            latest_date = prices[-1].Date
+            purchase_date = prices[0].Date
+
+        purchase_price = round(prices[0].Close,3)
+        latest_price = round(prices[-1].Close,3)
+
+        price_diff = round(latest_price - purchase_price, 3)
+
+
+        # Access the first and last record's Close column
+        purchase_amount = round(prices[0].Close * unit_quantity, 3)
+        latest_amount = round(prices[-1].Close * unit_quantity, 3)
+
+        amount_diff = round(latest_amount - purchase_amount, 3)
+        amount_perc = round(amount_diff / purchase_amount * 100, 3)
+
+        dividends = (
+            Dividend.query
+            .filter(Dividend.stock_code == stock_code)
+            .filter(Dividend.dExDate >= purchase_date, Dividend.dExDate <= latest_date)
+            .all()
+        )
+
+        # Calculate the dividend amount
+        dividend_amount = round(sum(dividend.dAmount for dividend in dividends) * unit_quantity, 3)
+
+        # Calculate the dividend yield
+        dividend_yield = round(dividend_amount / purchase_price,3)
+
+        # Store the results for this stock
+        calculation_result = {
+            "stock_name": stock_name,
+            "stock_code": stock_code,
+            "purchase_date": purchase_date,
+            "latest_date": latest_date,
+            "purchase_price": purchase_price,
+            "latest_price": latest_price,
+            "price_diff": price_diff,
+            "purchase_amount": purchase_amount,
+            "latest_amount": latest_amount,
+            "amount_diff": amount_diff,
+            "amount_perc": amount_perc,
+            "dividend_amount": dividend_amount,
+            "dividend_yield": dividend_yield
+        }
+        calculation_results.append(calculation_result)
+
+    # Print or return the results, depending on your needs
+    for calculation_result in calculation_results:
+        print(calculation_result)
+    return render_template("portfolio.html", user=current_user,  portfolio_and_calculation_results=zip(portfolio_results, calculation_results))

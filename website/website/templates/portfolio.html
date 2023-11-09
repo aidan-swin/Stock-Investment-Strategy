@@ -1,0 +1,114 @@
+{% extends "base.html" %}
+{% block title %}All Stocks{% endblock %}
+{% block content %}
+<style>
+  .container {
+      margin-top: 20px;
+      max-width: max-content;
+  border-radius: 5px;
+      justify-content: center;
+      align-items: flex-start;
+      padding-top: 20px;
+      padding-bottom: 20px;
+      background-color: white;
+  }
+  .card-header {
+      background-color: rgb(208, 35, 35);
+      text-align: center;
+      color: white;
+  }
+  .btn-primary {
+      background-color: rgb(208, 35, 35)!important;
+      border-color: rgb(208, 35, 35)!important;
+      margin-top: 10px;
+  }
+  .btn-primary:hover {
+      background-color: rgb(175, 46, 46)!important;
+      border-color: rgb(175, 46, 46)!important;
+  }
+  .red-themed {
+    background-color: rgb(208, 35, 35);
+    color: white; /* Text color to ensure readability on a red background */
+    } 
+</style>
+<body>
+  <div class="content">
+
+<!-- Chart code -->
+<div class="container" style="text-align: center;">
+  <div class="chart-container" style="display: inline-block; width: fit-content; height: fit-content;">
+    <canvas id="LineChart" width="1400" height="500"></canvas>
+  </div>
+<br>
+<button class="btn btn-primary" style="width: 100px;" onclick="timeFrame(this)" value="day">Day</button>
+<button class="btn btn-primary" style="width: 100px;" onclick="timeFrame(this)" value="week">Week</button>
+<button class="btn btn-primary" style="width: 100px;" onclick="timeFrame(this)" value="month">Month</button>
+<br><br><br>
+<table id="example2" class="table table-striped table-hover">
+<thead>
+<tr>
+    <th class="red-themed">Code</th>
+    <th class="red-themed">Name</th>
+    <th class="red-themed">Unit Quantity</th>
+    <th class="red-themed">Purchase Date</th>
+    <th class="red-themed">Purchase Price</th>
+    <th class="red-themed">Latest Price</th>
+    <th class="red-themed">Price Difference</th>
+    <th class="red-themed">Purchase Value</th>
+    <th class="red-themed">Latest Value</th>
+    <th class="red-themed">Value Percentage</th>
+    <th class="red-themed">Dividend Amount</th>
+    <th class="red-themed">Dividend Yield</th>
+
+</tr>
+</thead>
+<tbody>
+{% for portfolio, calculation_result in portfolio_and_calculation_results %}
+<tr>
+    <td>{{ portfolio[0].stock_code }}</td> {# Access the stock_code attribute of the Portfolio object in the tuple. #}
+    <td>{{ portfolio[1] }}</td> {# Access the stock_name directly from the tuple. #}
+    <td>{{ portfolio[0].unitQuantity }}</td> {# Access the unitQuantity attribute of the Portfolio object in the tuple. #}
+    <td>{{ portfolio[0].purchaseDate }}</td> {# Access the purchaseDate attribute of the Portfolio object in the tuple. #}
+    <td>{{ calculation_result.purchase_price }}</td>
+    <td>{{ calculation_result.latest_price }}</td>
+    <td>{{ calculation_result.price_diff }}</td>
+    <td>{{ calculation_result.purchase_amount }}</td>
+    <td>{{ calculation_result.latest_amount }}</td>
+    <td>{{ calculation_result.amount_perc }}</td>
+    <td>{{ calculation_result.dividend_amount }}</td>
+    <td>{{ calculation_result.dividend_yield }}</td>
+</tr>
+{% endfor %}
+</tbody>
+</table>
+
+
+<form method="POST" action="/export_csv">
+  <input type="hidden" id="tableData" name="table_data" value="">
+  <button type="submit" class="btn btn-primary" id="exportButton">Export to CSV</button>
+</div>    
+
+        <script type="text/javascript">
+            $(document).ready(function() {
+                $('#example2').DataTable();
+            });
+        </script>
+</div>
+<script>
+    document.getElementById('exportButton').addEventListener('click', function() {
+        var tableData = 'stock_code,stock_name,unitQuantity,purchaseDate,purchasePrice,latestPrice,priceDifference,purchaseAmount,latestAmount,amountPercentage,dividendAmount,dividendYield\n';
+    
+        var table2 = $('#example2').DataTable();
+        table2.rows().every(function() {
+            var data = this.data();
+            // Exclude the last column (containing the delete button)
+            tableData += data.join(',') + '\n'; // Append the data to the tableData
+        });
+    
+        document.getElementById('tableData').value = tableData;
+    });
+    </script>
+</body>
+
+
+{% endblock %}
