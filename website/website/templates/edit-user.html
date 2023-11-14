@@ -83,10 +83,10 @@
                 <input type="password" class="form-control" id="password2" name="password2" placeholder="Confirm password">
             </div>
             {% if user.id == 1 %}
-            <div class="form-check">
+            <!-- <div class="form-check">
                 <input type="checkbox" class="form-check-input" id="admin" name="admin" {% if edituser.admin_user %}checked{% endif %}>
                 <label class="form-check-label" for="admin">Admin Privilege</label>
-            </div>
+            </div> -->
             {% endif %}
             <br>
             <button type="submit" class="btn btn-primary">Submit</button>
@@ -96,7 +96,7 @@
       </div>
       <br>
       <br>
-      <p style="color:red">Note: Deleted User will remove references to related Company Info</p>
+      <p style="color:red">Note: Deleted User will remove references to related Portfolios</p>
       {% if user.id != edituser.id %}
       <a href="{{ url_for('auth.delete_user', user_id=edituser.id) }}" class="download-btn">Delete User</a>
       {% endif %}

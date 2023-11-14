@@ -727,6 +727,7 @@ def delete_portfolio(portfolio_id):
     return redirect(url_for('views.backtest'))  # Replace with the correct route name
 
 @views.route('/portfolio', methods=['GET', 'POST'])
+@login_required
 def profile():
     # Select all records from the Stocks table
        
@@ -734,12 +735,18 @@ def profile():
         # Query the Portfolio records and join with Stocks to get stock_name
    # Query the Portfolio records for the current user, including the stock_name
     portfolio_results = db.session.query(Portfolio, Stocks.stock_name).join(Stocks).filter(Portfolio.user_id == current_user.id).all()
-        # Print the query results
-    for result in portfolio_results:
-        print(result)  # Print the entire result tuple
+
+
     
-        # Process each stock in the portfolio
+     # Process each stock in the portfolio
     calculation_results = []  # Store the results for each stock
+    price_diff_data = {}  # Store the total daily price difference for all stocks
+    combined_dividends = []
+
+        # Gather all dividend records within the specified date range
+
+    end_date = date.today() - timedelta(days=1)
+
     for portfolio, stock_name in portfolio_results:
         stock_code = portfolio.stock_code
         unit_quantity = portfolio.unitQuantity
@@ -762,6 +769,27 @@ def profile():
             latest_date = prices[-1].Date
             purchase_date = prices[0].Date
 
+            # Calculate the daily price difference for the last 30 days for each stock
+            price_diff_data_per_stock = []
+            for i in range(120):
+                date_range_start = latest_date - timedelta(days=i)
+                date_range_end = date_range_start + timedelta(days=1)
+
+                # Filter prices for the specific date range
+                prices_in_range = [price.Close for price in prices if date_range_start <= price.Date < date_range_end]
+
+                if prices_in_range:
+                    price_diff = round(prices_in_range[-1] - prices[0].Close, 3)
+                    price_diff_data_per_stock.append({"date": date_range_start, "price_diff": price_diff})
+
+            # Add the daily price differences for the current stock to the total
+            for item in price_diff_data_per_stock:
+                date_key = item['date'].strftime("%Y-%m-%d")
+                if date_key not in price_diff_data:
+                    price_diff_data[date_key] = 0
+                price_diff_data[date_key] += item['price_diff']
+
+
         purchase_price = round(prices[0].Close,3)
         latest_price = round(prices[-1].Close,3)
 
@@ -781,12 +809,16 @@ def profile():
             .filter(Dividend.dExDate >= purchase_date, Dividend.dExDate <= latest_date)
             .all()
         )
+            # Multiply each dividend amount by the unit quantity and store it in combined_dividends
+        for dividend in dividends:
+            dividend_amount2 = round(dividend.dAmount * unit_quantity, 3)
+            combined_dividends.append({"date": dividend.dExDate, "dividend_amount": dividend_amount2})
 
         # Calculate the dividend amount
         dividend_amount = round(sum(dividend.dAmount for dividend in dividends) * unit_quantity, 3)
 
         # Calculate the dividend yield
-        dividend_yield = round(dividend_amount / purchase_price,3)
+        dividend_yield = round(dividend_amount / purchase_amount,3)
 
         # Store the results for this stock
         calculation_result = {
@@ -805,8 +837,32 @@ def profile():
             "dividend_yield": dividend_yield
         }
         calculation_results.append(calculation_result)
+    
+    # Sort combined_dividends by date
+    combined_dividends.sort(key=lambda x: x['date'])
+
+    # Calculate the cumulative sum of dividend amounts
+    cumulative_dividend_sum = 0
+    for dividend in combined_dividends:
+        cumulative_dividend_sum += dividend['dividend_amount']
+        dividend['cumulative_sum'] = cumulative_dividend_sum
 
     # Print or return the results, depending on your needs
-    for calculation_result in calculation_results:
-        print(calculation_result)
-    return render_template("portfolio.html", user=current_user,  portfolio_and_calculation_results=zip(portfolio_results, calculation_results))
+    # for calculation_result in calculation_results:
+    #     print(calculation_result)
+
+    # Print or return the results, depending on your needs
+    price_diff_x_y_format = [
+        {'x': date_key, 'y': total_price_diff}
+        for date_key, total_price_diff in price_diff_data.items()
+    ]
+    # Print the combined dividends
+    for dividend in combined_dividends:
+        print(f"Date: {dividend['date']}, Dividend Amount: {dividend['dividend_amount']}, Cumulative Sum: {dividend['cumulative_sum']}")
+    # for date_key, total_price_diff in price_diff_data.items():
+    #     print(f"Date: {date_key}, Total PriceDiff: {total_price_diff}")
+    # Print the x and y format for the total daily price difference
+    # for item in price_diff_x_y_format:
+    #     print(f"Date: {item['x']}, Total PriceDiff: {item['y']}")
+    
+    return render_template("portfolio.html", user=current_user,  portfolio_and_calculation_results=zip(portfolio_results, calculation_results), price_diff_x_y_format=price_diff_x_y_format)
