@@ -40,9 +40,8 @@
     <canvas id="LineChart" width="1600" height="600"></canvas>
   </div>
 <br>
-<button class="btn btn-primary" style="width: 100px;" onclick="timeFrame(this)" value="day">Day</button>
-<button class="btn btn-primary" style="width: 100px;" onclick="timeFrame(this)" value="week">Week</button>
-<button class="btn btn-primary" style="width: 100px;" onclick="timeFrame(this)" value="month">Month</button>
+<button class="btn btn-primary" style="width: 100px;" onclick="timeFrame(this)" value="Price">Price</button>
+<button class="btn btn-primary" style="width: 100px;" onclick="timeFrame(this)" value="Dividend">Dividend</button>
 <br><br><br>
 <div class="table-responsive">
 <table id="example2" class="table table-striped table-hover">
@@ -116,6 +115,7 @@
     </script>
     <script type="text/javascript">
         // Get the average monthly data from your Flask code
+        var cumulative_dividend_x_y = {{ cumulative_dividend_x_y_format | tojson }};
         var price_diff_x_y = {{ price_diff_x_y_format | tojson }};
 
 
@@ -204,18 +204,12 @@
   });
   function timeFrame(period){
 		console.log(period.value);
-		if(period.value == 'day'){
-			chart1.data.datasets[0].data = averageDailyData;
-      chart1.options.scales.x.time.unit = period.value;
+		if(period.value == 'Price'){
+			chart1.data.datasets[0].data = price_diff_x_y;
 		}
-		if(period.value == 'week'){
-			chart1.data.datasets[0].data = averageWeeklyData;
-      chart1.options.scales.x.time.unit = period.value;
+		if(period.value == 'Dividend'){
+			chart1.data.datasets[0].data = cumulative_dividend_x_y;
 		}
-		if(period.value == 'month'){
-			chart1.data.datasets[0].data = averageMonthlyData;
-      chart1.options.scales.x.time.unit = period.value;
-		}			
     
 
     // chart1.options.plugins.zoom.zoom.wheel.enabled = false;

@@ -18,6 +18,10 @@ from collections import defaultdict
 from datetime import date, timedelta, datetime
 from sqlalchemy.orm import aliased
 from .update import get_data
+from backtesting import Strategy
+from backtesting.lib import crossover
+from backtesting import Backtest
+from pandas import DataFrame, to_datetime
 
 
 views = Blueprint('views', __name__)
@@ -812,7 +816,7 @@ def profile():
             # Multiply each dividend amount by the unit quantity and store it in combined_dividends
         for dividend in dividends:
             dividend_amount2 = round(dividend.dAmount * unit_quantity, 3)
-            combined_dividends.append({"date": dividend.dExDate, "dividend_amount": dividend_amount2})
+            combined_dividends.append({"date": dividend.dExDate.strftime("%Y-%m-%d"), "dividend_amount": dividend_amount2})
 
         # Calculate the dividend amount
         dividend_amount = round(sum(dividend.dAmount for dividend in dividends) * unit_quantity, 3)
@@ -845,7 +849,7 @@ def profile():
     cumulative_dividend_sum = 0
     for dividend in combined_dividends:
         cumulative_dividend_sum += dividend['dividend_amount']
-        dividend['cumulative_sum'] = cumulative_dividend_sum
+        dividend['cumulative_sum'] = round(cumulative_dividend_sum, 3)
 
     # Print or return the results, depending on your needs
     # for calculation_result in calculation_results:
@@ -856,13 +860,79 @@ def profile():
         {'x': date_key, 'y': total_price_diff}
         for date_key, total_price_diff in price_diff_data.items()
     ]
+    cumulative_dividend_x_y_format = [
+    {'x': dividend['date'], 'y': dividend['cumulative_sum']}
+    for dividend in combined_dividends
+    ]
+    # Print or return the results, depending on your needs
+    for cumulative_dividend in cumulative_dividend_x_y_format:
+        print(f"Date: {cumulative_dividend['x']}, Cumulative Dividend: {cumulative_dividend['y']}")
     # Print the combined dividends
-    for dividend in combined_dividends:
-        print(f"Date: {dividend['date']}, Dividend Amount: {dividend['dividend_amount']}, Cumulative Sum: {dividend['cumulative_sum']}")
+    # for dividend in combined_dividends:
+    #     print(f"Date: {dividend['date']}, Dividend Amount: {dividend['dividend_amount']}, Cumulative Sum: {dividend['cumulative_sum']}")
     # for date_key, total_price_diff in price_diff_data.items():
     #     print(f"Date: {date_key}, Total PriceDiff: {total_price_diff}")
     # Print the x and y format for the total daily price difference
-    # for item in price_diff_x_y_format:
-    #     print(f"Date: {item['x']}, Total PriceDiff: {item['y']}")
+    for item in price_diff_x_y_format:
+        print(f"Date: {item['x']}, Total PriceDiff: {item['y']}")
     
-    return render_template("portfolio.html", user=current_user,  portfolio_and_calculation_results=zip(portfolio_results, calculation_results), price_diff_x_y_format=price_diff_x_y_format)
+    return render_template("portfolio.html", user=current_user,  portfolio_and_calculation_results=zip(portfolio_results, calculation_results), price_diff_x_y_format=price_diff_x_y_format, cumulative_dividend_x_y_format=cumulative_dividend_x_y_format)
+
+
+def SMA(values, n):
+    """
+    Return simple moving average of `values`, at
+    each step taking into account `n` previous values.
+    """
+    return pd.Series(values).rolling(n).mean()
+
+class SingleSma(Strategy):
+    # Define the moving average lag as a *class variable*
+    n = 100
+    
+    def init(self):
+        # Precompute the moving average
+        self.sma = self.I(SMA, self.data.Close, self.n)
+    
+    def next(self):
+        # If the close price crosses above the 200-day moving average,
+        # close any existing short trades, and buy the asset
+        if crossover(self.data.Close, self.sma):
+            self.position.close()
+            self.buy()
+
+        # Else, if the close price crosses below the 200-day moving average,
+        # close any existing long trades, and sell the asset
+        elif crossover(self.sma, self.data.Close):
+            self.position.close()
+            self.sell()
+
+@views.route('/technical_analysis/<stock_code>', methods=['GET'])
+@login_required
+def technical_analysis(stock_code):
+    # Query historical prices for the selected stock code
+    start_date = datetime(2021, 6, 1)
+
+    # Query historical prices for the selected stock code between start_date and today
+    historical_prices = Price.query.filter(
+        (Price.stock_code == stock_code) &
+        (Price.Date >= start_date)
+    ).order_by(Price.Date).all()
+
+    # Convert historical_prices to a pandas DataFrame
+    df_columns = ['Date', 'Open', 'High', 'Low', 'Close', 'Volume', 'stock_code']
+    df_data = [(price.Date, price.Open, price.High, price.Low, price.Close, price.Volume, price.stock_code) for price in historical_prices]
+    historical_prices_df = DataFrame(data=df_data, columns=df_columns)
+
+    historical_prices_df['Date'] = to_datetime(historical_prices_df['Date'])
+    historical_prices_df.set_index('Date', inplace=True)
+
+    bt = Backtest(historical_prices_df, SingleSma, cash=10000, commission=0)
+    stats = bt.run()
+    print(stats)
+
+    bt.plot()
+   
+
+    # Render the detail.html template with the necessary data
+    return redirect(url_for('views.detail', id=stock_code))
