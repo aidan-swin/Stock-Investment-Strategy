@@ -87,7 +87,7 @@ def create_database(app):
             admin_user = User.query.filter_by(email='admin@ambank.com').first()
             if not admin_user:
                 # If the admin user does not exist, create a new user
-                new_user = User(email="admin@ambank.com", first_name="Admin", password=generate_password_hash("testing", method='sha256'), admin_user = True)
+                new_user = User(email="admin@ambank.com", first_name="Admin", password=generate_password_hash("testing", method='sha256'), admin_user = True, subscribed=True)
                 db.session.add(new_user)
                 db.session.commit()
                 print('Created Admin User!')

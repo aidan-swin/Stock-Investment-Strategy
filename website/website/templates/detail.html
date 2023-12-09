@@ -69,6 +69,14 @@
             <!-- Top Chart Code -->
             <!-- Chart 1 -->
             <div class="box-container text-center" style="margin-bottom: 15px;">
+              {% if user.subscribed == False %}
+              <div class="alert alert-danger alert-dismissable fade show" role="alert">
+                Recommendation only Available to Subscribed Users
+                <button type="button" class="close" data-dismiss="alert">
+                  <span area-hidden="true">&times;</span>
+                </button>
+              </div>
+              {% else %}
               <div class="chart-container d-inline-block">
                 <canvas id="myChart" width="400" height="350"></canvas>
               </div>
@@ -76,7 +84,22 @@
             <div class="chart-container d-inline-block">
               <canvas id="radarChart" width="600" height="350"></canvas>
             </div>
+            <br>
+            <br>
+            {% if ratios.rClass == 'S' %}
+            <h4 style="color:darkgreen">Outperforming</h4>
+            {% elif ratios.rClass == 'A' %}
+            <h4 style="color:green">Highly Recommended</h4>
+            {%elif ratios.rClass == 'B' %}
+            <h4 style="color:green">Good</h4>
+            {%elif ratios.rClass == 'C' %}
+            <h4 style="color:yellow">Warning</h4>
+            {%elif ratios.rClass == 'D' %}
+            <h4 style="color:red">Not Recommended</h4>
+            {%endif%}
+            {%endif%}
           </div>
+          
         </div>
       </div>
       <!-- Company name -->
@@ -124,7 +147,7 @@
                 <div class="input-group-prepend">
                   <span class="input-group-text">💹</span>
                 </div>
-                <input type="text" class="form-control" id="NPTI" name="NPTI" min="0" step="0.000000001" placeholder="Enter Company's Net Profit To Inventory" value="{{ratios.rROE}}" disabled>
+                <input type="text" class="form-control" id="NPTI" name="NPTI" min="0" step="0.000000001" placeholder="Enter Company's Net Profit To Inventory" value="{{(ratios.rROE * 100)|round(2)}}" disabled>
               </div>
           </div>
         </div>
@@ -139,7 +162,7 @@
                 <div class="input-group-prepend">
                   <span class="input-group-text">🏭</span>
                 </div>
-                <input type="text" class="form-control" id="CAWITL" name="CAWITL" min="0" step="0.000000001" placeholder="Enter Company's Current Assets Without Inventories To Liabilities" value="{{ratios.rOM}}" disabled>
+                <input type="text" class="form-control" id="CAWITL" name="CAWITL" min="0" step="0.000000001" placeholder="Enter Company's Current Assets Without Inventories To Liabilities" value="{{(ratios.rOM * 100)|round(2)}}" disabled>
               </div>
             </div>
             <!-- current_liabilities_by_365_by_cost_of_products_sold -->
@@ -164,7 +187,7 @@
                 <div class="input-group-prepend">
                   <span class="input-group-text">📊</span>
                 </div>
-                <input type="text" class="form-control" id="AISTL" name="AISTL" min="0" step="0.000000001" placeholder="Enter Company's Assets w/o Inventories & Short Term Liabilities To Sales (w/o Gross Profit and Depreciation)" value="{{ratios.rDY}}" disabled>
+                <input type="text" class="form-control" id="AISTL" name="AISTL" min="0" step="0.000000001" placeholder="Enter Company's Assets w/o Inventories & Short Term Liabilities To Sales (w/o Gross Profit and Depreciation)" value="{{(ratios.rDY * 100) |round(2)}}" disabled>
               </div>
             </div>
             <!-- liability_to_operating_profit_ratio_per_day -->
@@ -174,11 +197,12 @@
                 <div class="input-group-prepend">
                   <span class="input-group-text">📊</span>
                 </div>
-                <input type="text" class="form-control" id="LTOPR" name="LTOPR" min="0" step="0.000000001" placeholder="Enter Company's Liability To Operating Profit Ratio Per Day" value="{{ratios.rPR}}" disabled>
+                <input type="text" class="form-control" id="LTOPR" name="LTOPR" min="0" step="0.000000001" placeholder="Enter Company's Liability To Operating Profit Ratio Per Day" value="{{(ratios.rPR * 100)  |round(2)}}" disabled>
               </div>
           </div>
         </div>
       </div>
+      {% if user.subscribed == True %}
       <!-- Chart code -->
       <div class="box-container" style="margin-top: 200px; text-align: center;">
         <div class="chart-container" style="display: inline-block; width: fit-content; height: fit-content;">
@@ -223,6 +247,14 @@
       </div>    
     </form>
       <div class="box-container" style="margin-top: 200px; text-align: center;">
+        {% if user.subscribed == False %}
+        <div class="alert alert-danger alert-dismissable fade show" role="alert">
+          Forecasting only Available to Subscribed Users
+          <button type="button" class="close" data-dismiss="alert">
+            <span area-hidden="true">&times;</span>
+          </button>
+        </div>
+        {% else %}
         <div class="chart-container" style="display: inline-block; width: fit-content; height: fit-content;">
           <canvas id="LineChartRatio" width="1400" height="500"></canvas>
         </div>
@@ -245,19 +277,21 @@
                 <th class="red-themed">OM</th>
                 <th class="red-themed">DY</th>
                 <th class="red-themed">PR</th>  
+                <th class="red-themed">FCF</th>  
                 <th class="red-themed">Class</th>  
               </tr>
           </thead>
           <tbody>
-              {% for pastratio in pastratios %}
+              {% for pastratio in pastratios_data %}
               <tr>
                   <td>{{pastratio.rDate}}</td>
                   <td>{{pastratio.rEPS}}</td>
                   <td>{{pastratio.rPE}}</td>
-                  <td>{{pastratio.rROE}}</td>
-                  <td>{{pastratio.rOM}}</td>
-                  <td>{{pastratio.rDY}}</td>
-                  <td>{{pastratio.rPR}}</td>
+                  <td>{{(pastratio.rROE*100)|round(3)}}</td>
+                  <td>{{(pastratio.rOM*100)|round(3)}}</td>
+                  <td>{{(pastratio.rDY*100)|round(3)}}</td>
+                  <td>{{(pastratio.rPR*100)|round(3)}}</td>
+                  <td>{{pastratio.rFCF}}</td>
                   <td>{{pastratio.rClass}}</td>
               </tr>
               {% endfor %}
@@ -267,8 +301,17 @@
         <input type="hidden" id="tableData2" name="table_data" value="">
         <button type="submit" class="btn btn-primary" id="exportButtonRatio">Export to CSV</button>
       </form>
+      {%endif%}
       </div>   
       <div class="box-container" style="margin-top: 200px; text-align: center;">
+                {% if user.subscribed == False %}
+        <div class="alert alert-danger alert-dismissable fade show" role="alert">
+          Dividend List only Available to Subscribed Users
+          <button type="button" class="close" data-dismiss="alert">
+            <span area-hidden="true">&times;</span>
+          </button>
+        </div>
+        {% else %}
         <div class="chart-container" style="display: inline-block; width: fit-content; height: fit-content;">
           <canvas id="LineChartDividend" width="1400" height="500"></canvas>
         </div>
@@ -299,6 +342,7 @@
         <input type="hidden" id="tableData3" name="table_data" value="">
         <button type="submit" class="btn btn-primary" id="exportButtonDividend">Export to CSV</button>
     </form>
+    {%endif%}
       </div>   
       <br>
       <!-- Company name -->
@@ -468,8 +512,10 @@
 {% endif %}
     </div>
   
-
+    {%endif%}
   </div>
+  </div>
+
 </body>
 
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
@@ -621,7 +667,7 @@
                 //labels: labels,
                 datasets: [{
                     label: 'Average Close Price',
-                    data: averageWeeklyData,
+                    data: averageMonthlyData,
                     backgroundColor: [
           'rgba(255, 26, 104, 0.2)',
           'rgba(54, 162, 235, 0.2)',
@@ -658,7 +704,7 @@
         zoom:{
       zoom:{
         wheel:{
-          enabled: true
+          enabled: false
         }
       },
       pan:{
@@ -885,7 +931,7 @@ plugins: {
   zoom:{
       zoom:{
         wheel:{
-          enabled: true
+          enabled: false
         }
       },
       pan:{

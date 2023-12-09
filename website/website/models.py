@@ -80,7 +80,7 @@ class Ratiottm(db.Model):
     rDate = db.Column(db.Date(), default=datetime.today().date()) # Use db.Date for date columns
 
 class Dividend(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
+    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     stock_code = db.Column(db.String(255), db.ForeignKey('stocks.stock_code'), nullable=False)
     dAnnceDate = db.Column(db.Date())
     dExDate = db.Column(db.Date())

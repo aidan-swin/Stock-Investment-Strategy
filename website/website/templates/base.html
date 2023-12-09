@@ -163,9 +163,9 @@
                   <li><a class="nav-item nav-link" id="login" href="/watchlist">Watch List</a></li>
                   <li><a class="nav-item nav-link" id="login" href="/backtest">Backtest</a></li>
                   <li><a class="nav-item nav-link" id="login" href="/portfolio">Your Portfolio</a></li>
+                  <li><a class="nav-item nav-link" id="login" href="/manage-account">Manage Account</a></li>
                     {% if user.admin_user == True %}
                     <li><a class="nav-item nav-link" id="login" href="/sign-up">Add Account</a></li>
-                    <li><a class="nav-item nav-link" id="login" href="/manage-account">Manage Account</a></li>
                     <li><a class="nav-item nav-link" id="login" href="/update-stocks">Update Stocks</a></li>
                     {% endif %}
                   <li><a class="nav-item nav-link" id="login" href="/logout">Logout</a></li>
@@ -185,9 +185,12 @@
                   <p style="text-align: right; color: black; position: absolute; top: 0; right: 0; margin:20px; margin-top: 15px;">Welcome, {{ user.first_name }}</p>
                   {% if user.admin_user == True %}
                   <p style="text-align: right; color: black; position: absolute; top: 0; right: 0; margin:20px; margin-top: 35px;">Admin Account</p>
-                  {% endif %}
-                  {% if user.admin_user == False %}
-                  <p style="text-align: right; color: black; position: absolute; top: 0; right: 0; margin:20px; margin-top: 35px;">Staff Account</p>
+
+                  {% elif user.subscribed == False %}
+                  <p style="text-align: right; color: black; position: absolute; top: 0; right: 0; margin:20px; margin-top: 35px;">Free Account</p>
+
+                  {% elif user.subscribed == True %}
+                  <p style="text-align: right; color: black; position: absolute; top: 0; right: 0; margin:20px; margin-top: 35px;">Subscribed Account</p>
                   {% endif %}
                 </div>
               </nav>

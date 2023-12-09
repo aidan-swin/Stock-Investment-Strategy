@@ -2,22 +2,14 @@ from flask import Blueprint, render_template, request, flash, jsonify, redirect,
 from flask_login import  login_required,  current_user
 from .models import CompanyInfo, User, Stocks, Ratiottm, Watchlist, Price, Dividend, Quarter, Portfolio
 from . import db
-import json
-import pickle
-import numpy as np
 import pandas as pd
-import csv
-import shap
 import datetime
-from sqlalchemy.sql import func, desc, literal , join
+from sqlalchemy.sql import func, desc , join
 from sqlalchemy import and_
-from sklearn.preprocessing import StandardScaler
-from sklearn.inspection import permutation_importance
-from .custom_shap import TreeExplainer
 from collections import defaultdict
 from datetime import date, timedelta, datetime
 from sqlalchemy.orm import aliased
-from .update import get_data
+from .update import get_data, assess_and_update_class
 from backtesting import Strategy
 from backtesting.lib import crossover
 from backtesting import Backtest
@@ -29,8 +21,37 @@ views = Blueprint('views', __name__)
 @views.route('/', methods=['GET', 'POST'])
 def home():
     # Select all records from the Stocks table
-    all_stocks = Stocks.query.all()
-    return render_template("home.html", user=current_user, company=all_stocks)
+
+    latest_quarterly_reports = (
+    db.session.query(
+        Ratiottm.stock_code,
+        func.max(Ratiottm.rDate).label('latest_rDate')
+    )
+    .group_by(Ratiottm.stock_code)
+    .subquery()
+)
+    all_stocks = (
+        db.session.query(Stocks)
+        .join(latest_quarterly_reports, and_(
+            Stocks.stock_code == latest_quarterly_reports.c.stock_code,
+            Ratiottm.stock_code == latest_quarterly_reports.c.stock_code,
+            Ratiottm.rDate == latest_quarterly_reports.c.latest_rDate
+        ))
+        .filter(Ratiottm.rClass.in_(['A', 'S','B','C','D']))
+        .all()
+)
+
+    selected_stocks = (
+        db.session.query(Stocks)
+        .join(latest_quarterly_reports, and_(
+            Stocks.stock_code == latest_quarterly_reports.c.stock_code,
+            Ratiottm.stock_code == latest_quarterly_reports.c.stock_code,
+            Ratiottm.rDate == latest_quarterly_reports.c.latest_rDate
+        ))
+        .filter(Ratiottm.rClass.in_(['A', 'S']))
+        .all()
+)
+    return render_template("home.html", user=current_user, company=all_stocks, attention=selected_stocks)
 
 
 @views.route('/watchlist', methods=['GET', 'POST'])
@@ -46,63 +67,7 @@ def watchlist():
 
     # Select the stocks in the watchlist for the current user from the Stocks table
     user_watchlist_stocks = Stocks.query.filter(Stocks.stock_code.in_(user_watchlist_stock_codes)).all()
-    if request.method =='POST':
-        filename = 'companyinfo.csv'
-        headers = [' ID',
-        ' companyname',
-        ' equity_ratio', 
-        ' importance_equity_ratio', 
-        ' liabilities_coverage',
-        ' importance_liabilities_coverage',
-        ' operating_profit_margin_to_financial_expense', 
-        ' importance_operating_profit_margin_to_financial_expense', 
-        ' working_capital_to_fixed_assets', 
-        ' importance_working_capital_to_fixed_assets', 
-        ' current_liabilities_by_365_by_cost_of_products_sold', 
-        ' importance_current_liabilities_by_365_by_cost_of_products_sold', 
-        ' operating_expenses_to_total_liabilities', 
-        ' importance_operating_expenses_to_total_liabilities', 
-        ' current_assets_without_inventories_to_liabilities', 
-        ' importance_current_assets_without_inventories_to_liabilities', 
-        ' liability_to_operating_profit_ratio_per_day', 
-        ' importance_liability_to_operating_profit_ratio_per_day',
-        ' net_profit_to_inventory', 
-        ' importance_net_profit_to_inventory',
-        ' assets_without_inventories_and_short_term_liabilities_to_sales_without_gross_profit_and_depreciation',
-        ' importance_assets_without_inventories_and_short_term_liabilities_to_sales_without_gross_profit_and_depreciation',
-        ' forecast_period',
-        ' Bankrupt',
-        ' Risk']
-        with open(filename, 'w', newline='') as file:
-            writer = csv.writer(file)
-            writer.writerow(headers)
-            for item in all_stocks:
-                writer.writerow([item.id, 
-                                item.companyname, 
-                                item.equity_ratio, 
-                                item.equity_ratio_i,
-                                item.liabilities_coverage, 
-                                item.liabilities_coverage_i, 
-                                item.operating_profit_margin_to_financial_expense, 
-                                item.operating_profit_margin_to_financial_expense_i, 
-                                item.working_capital_to_fixed_assets, 
-                                item.working_capital_to_fixed_assets_i, 
-                                item.current_liabilities_by_365_by_cost_of_products_sold,
-                                item.current_liabilities_by_365_by_cost_of_products_sold_i,
-                                item.operating_expenses_to_total_liabilities, 
-                                item.operating_expenses_to_total_liabilities_i, 
-                                item.current_assets_without_inventories_to_liabilities, 
-                                item.current_assets_without_inventories_to_liabilities_i, 
-                                item.liability_to_operating_profit_ratio_per_day, 
-                                item.liability_to_operating_profit_ratio_per_day_i, 
-                                item.net_profit_to_inventory, 
-                                item.net_profit_to_inventory_i, 
-                                item.assets_without_inventories_and_short_term_liabilities_to_sales_without_gross_profit_and_depreciation, 
-                                item.assets_without_inventories_and_short_term_liabilities_to_sales_without_gross_profit_and_depreciation_i, 
-                                item.forecast_period,
-                                item.Bankrupt,
-                                item.Risk])
-            return Response(open(filename, 'r'), mimetype='text/csv', headers={"Content-Disposition":"attachment;filename=my_table.csv"})
+   
     return render_template("watchlist.html", user=current_user, company=user_watchlist_stocks)
 
 # Function to get the first day (Monday) of a week based on year and week number
@@ -115,7 +80,9 @@ def first_day_of_week(year, week_number):
     # Subtract one day to get the date before and format it
     return (d - timedelta(days=1)).strftime('%Y-%m-%d')
 
+
 @views.route('/detail/<string:id>')
+@login_required
 def detail(id):
     company = Stocks.query.get_or_404(id)
         
@@ -134,6 +101,24 @@ def detail(id):
         .order_by(desc(Ratiottm.rDate))
         .all()
     )
+    # Convert the list of objects to a list of dictionaries
+    pastratios_data = [
+        {
+            'stock_code': ratio.stock_code,
+            'rDate': ratio.rDate,
+            'rEPS': ratio.rEPS,
+            'rPE': ratio.rPE,
+            'rROE': ratio.rROE,
+            'rOM': ratio.rOM,
+            'rDY': ratio.rDY,
+            'rPR': ratio.rPR,
+            'rClass': ratio.rClass,
+            'rFCF': ratio.rFCF,
+            # Add other fields as needed
+        }
+        for ratio in pastratios
+    ]
+
     print(f"Past Ratio Stock Code {pastratios[0].stock_code}")
 
     # Calculate the average of the first 3 records for each ratio column and round to 3 decimal places
@@ -144,8 +129,8 @@ def detail(id):
     average_dy = round(sum(r.rDY for r in pastratios[:3]) / 3, 3)
     average_pr = round(sum(r.rPR for r in pastratios[:3]) / 3, 3)
     average_class = 'Forecast'  # You can set this as 'Forecast' or any other value you prefer.
-
-
+    average_fcf = round(sum(r.rFCF for r in pastratios[:3]) / 3, 3)
+    
 
     # Create a dictionary with the averages
     forecast_data = {
@@ -157,8 +142,29 @@ def detail(id):
         'rDY': average_dy,
         'rPR': average_pr,
         'rClass': average_class,
+        'rFCF': average_fcf
     }
-    pastratios.insert(0, forecast_data)
+
+    # Calculate the 'rClass' based on the choices
+    dividend_condition = (forecast_data['rDY'] >= 0.02) & (forecast_data['rPR'] >= 0.1) & (forecast_data['rPR'] <= 0.75)
+    foundation_condition = (forecast_data['rOM'] >= 0.1) & (forecast_data['rFCF'] >= 0) & (forecast_data['rPE'] <= 10) & (forecast_data['rROE'] >= 0.20) & (forecast_data['rEPS'] >= 0.1)
+
+    if dividend_condition & foundation_condition:
+        forecast_data['rClass'] = 'A'
+        a_class = True
+    elif foundation_condition:
+        forecast_data['rClass'] = 'B'
+    elif dividend_condition:
+        forecast_data['rClass'] = 'C'
+    else:
+        forecast_data['rClass'] = 'D'
+
+    pastratios_data.insert(0, forecast_data)
+    print("Past Ratios:")
+    print(pastratios_data)
+    pastratios_data = pastratios_data[::-1]
+    assess_and_update_class(pastratios_data)
+
     dividend_records = (
     db.session.query(Dividend)
     .filter_by(stock_code=company.stock_code)
@@ -304,7 +310,7 @@ def detail(id):
         watchlist_count = 5
 
         
-    return render_template('detail.html', user=current_user, company=company, ratios=ratios, pastratios=pastratios, price_14=price_14, dividend_records=dividend_records,is_in_watchlist=is_in_watchlist, prices=prices, average_monthly_data = average_monthly_data,weekly_average_data=weekly_average_data, rEPS_data=rEPS_data,rPE_data=rPE_data,rROE_data=rROE_data,rOM_data=rOM_data, rDY_data=rDY_data, rPR_data=rPR_data, rFCF_data=rFCF_data, dividend_data=dividend_data, watchlist_count=watchlist_count)
+    return render_template('detail.html', user=current_user, company=company, ratios=ratios, pastratios_data=pastratios_data, price_14=price_14, dividend_records=dividend_records,is_in_watchlist=is_in_watchlist, prices=prices, average_monthly_data = average_monthly_data,weekly_average_data=weekly_average_data, rEPS_data=rEPS_data,rPE_data=rPE_data,rROE_data=rROE_data,rOM_data=rOM_data, rDY_data=rDY_data, rPR_data=rPR_data, rFCF_data=rFCF_data, dividend_data=dividend_data, watchlist_count=watchlist_count)
 
 @views.route('/add_to_watchlist/<string:id>', methods=['POST'])
 @login_required
@@ -419,163 +425,6 @@ def backtest():
 
     return render_template('backtest.html', user=current_user, stocks=stock_codes, max_date=max_date)
 
-
-# Route to upload CSV file
-@views.route('/forecast', methods=['GET', 'POST'])
-@login_required
-def upload_file():
-    if request.method == 'POST':
-        # Save the uploaded file
-        file = request.files['file']
-        filename = file.filename
-        file.save(filename)
-
-        # Read the CSV file into a Pandas dataframe
-        df = pd.read_csv(filename)
-
-        with open('D:/VisualStudioCode/BRS_Official/BRS/random_forest_model.pkl', 'rb') as f:
-            rf = pickle.load(f)
-        
-        with open('D:/VisualStudioCode/BRS_Official/BRS/scaler.pkl', 'rb') as f:
-            scaler = pickle.load(f)
-        
-        counter=0
-        for index, row in df.iterrows():
-            input_values = [row[' equity_ratio'], 
-                    row[' liabilities_coverage'], 
-                    row[' operating_profit_margin_to_financial_expense'], 
-                    row[' working_capital_to_fixed_assets'], 
-                    row[' current_liabilities_by_365_by_cost_of_products_sold'], 
-                    row[' operating_expenses_to_total_liabilities'], 
-                    row[' current_assets_without_inventories_to_liabilities'], 
-                    row[' liability_to_operating_profit_ratio_per_day'], 
-                    row[' net_profit_to_inventory'], 
-                    row[' assets_without_inventories_and_short_term_liabilities_to_sales_without_gross_profit_and_depreciation'],
-                    row[' forecast_period']]
-            
-            # Scale the input values
-            input_values_scaled = scaler.transform([input_values])
-
-            # Use the trained Random Forest model for prediction
-            prediction = rf.predict(input_values_scaled)
-            
-            risk=rf.predict_proba(input_values_scaled)[:, 1]
-            risk=np.round(risk,2)
-            print(prediction)  
-            print(risk) 
-
-             # Get the risk probability
-            risk = rf.predict_proba(input_values_scaled)[:, 1]
-            risk = np.round(risk, 2)
-
-            # Create a TreeExplainer object with the trained model
-            explainer = shap.TreeExplainer(rf)
-
-            # Get the SHAP values for the specific record
-            shap_values = explainer.shap_values(input_values_scaled)
-
-            # Sum the absolute SHAP values across features for the specific record
-            feature_importances = np.abs(shap_values).mean(axis=0)
-
-            # Normalize the feature importances so that they sum up to 1
-            normalized_importances = feature_importances / np.sum(feature_importances)
-
-            # Print the normalized feature importances
-            for importance in normalized_importances:
-                print(f"Importance: {importance}")
-
-
-           # Store the normalized importances in a 1D array to be stored in database
-            importance_array = normalized_importances.flatten()
-
-            counter += 1
-            # prediction = rf.predict([[row[' Operating Gross Margin'], OperatingProfitRate=row[' Operating Profit Rate'], row[' Continuous interest rate (after tax)'], row[' Operating Expense Rate'], row[' Cash flow rate'], row[' Gross Profit to Sales'], row[' Continuous Net Profit Growth Rate'], row[' Total debt/Total net worth'], row[' Cash Turnover Rate'], row[' Current Liability to Current Assets']]])
-            new_data = CompanyInfo(companyname=row[' companyname'], 
-                                   equity_ratio=row[' equity_ratio'],
-                                   liabilities_coverage=row[' liabilities_coverage'], 
-                                   operating_profit_margin_to_financial_expense=row[' operating_profit_margin_to_financial_expense'],
-                                   working_capital_to_fixed_assets=row[' working_capital_to_fixed_assets'],
-                                   current_liabilities_by_365_by_cost_of_products_sold=row[' current_liabilities_by_365_by_cost_of_products_sold'], 
-                                   operating_expenses_to_total_liabilities=row[' operating_expenses_to_total_liabilities'],
-                                   current_assets_without_inventories_to_liabilities=row[' current_assets_without_inventories_to_liabilities'],
-                                   liability_to_operating_profit_ratio_per_day=row[' liability_to_operating_profit_ratio_per_day'],
-                                   net_profit_to_inventory=row[' net_profit_to_inventory'],
-                                   assets_without_inventories_and_short_term_liabilities_to_sales_without_gross_profit_and_depreciation=row[' assets_without_inventories_and_short_term_liabilities_to_sales_without_gross_profit_and_depreciation'],
-                                   equity_ratio_i = importance_array[0],
-                                    liabilities_coverage_i = importance_array[1],
-                                    operating_profit_margin_to_financial_expense_i = importance_array[2],
-                                    working_capital_to_fixed_assets_i = importance_array[3],
-                                    current_liabilities_by_365_by_cost_of_products_sold_i = importance_array[4],
-                                    operating_expenses_to_total_liabilities_i = importance_array[5],
-                                    current_assets_without_inventories_to_liabilities_i = importance_array[6],
-                                    liability_to_operating_profit_ratio_per_day_i = importance_array[7],
-                                    net_profit_to_inventory_i = importance_array[8],
-                                    assets_without_inventories_and_short_term_liabilities_to_sales_without_gross_profit_and_depreciation_i = importance_array[9],
-                                   forecast_period=row[' forecast_period'],
-                                   Bankrupt=prediction, 
-                                   user_id = current_user.id, 
-                                   Risk=risk)
-            db.session.add(new_data)
-            if counter >= 1000:
-                flash(f'CSV File of {counter} records reached! Only the first {counter} records are uploaded.', category='Success')
-                break
-        
-            
-        db.session.commit()
-        flash(f'CSV File Uploaded! {counter} records are uploaded.', category='success')
-        results=CompanyInfo.query.all()
-
-        # Return a message indicating success
-        return render_template('forecast.html',user=current_user,results=results)
-
-    # Render the upload form if GET request
-    return render_template('add_csv.html',user=current_user)
-
-
-@views.route('/add_csv')
-@login_required
-def add_csv():
-    return render_template("add_csv.html", user=current_user)
-
-# Route to download the template file
-@views.route('/download_template')
-@login_required
-def download_template():
-    filename = 'companyinfo_template.csv'
-    headers = [
-        'ID',
-        'companyname',
-        'equity_ratio',
-        'importance_equity_ratio',
-        'liabilities_coverage',
-        'importance_liabilities_coverage',
-        'operating_profit_margin_to_financial_expense',
-        'importance_operating_profit_margin_to_financial_expense',
-        'working_capital_to_fixed_assets',
-        'importance_working_capital_to_fixed_assets',
-        'current_liabilities_by_365_by_cost_of_products_sold',
-        'importance_current_liabilities_by_365_by_cost_of_products_sold',
-        'operating_expenses_to_total_liabilities',
-        'importance_operating_expenses_to_total_liabilities',
-        'current_assets_without_inventories_to_liabilities',
-        'importance_current_assets_without_inventories_to_liabilities',
-        'liability_to_operating_profit_ratio_per_day',
-        'importance_liability_to_operating_profit_ratio_per_day',
-        'net_profit_to_inventory',
-        'importance_net_profit_to_inventory',
-        'assets_without_inventories_and_short_term_liabilities_to_sales_without_gross_profit_and_depreciation',
-        'importance_assets_without_inventories_and_short_term_liabilities_to_sales_without_gross_profit_and_depreciation',
-        'forecast_period',
-        'Bankrupt',
-        'Risk'
-    ]
-
-    # Create the template file and write the headers
-    with open(filename, 'w', newline='') as file:
-        writer = csv.writer(file)
-        writer.writerow(headers)
-
-    return Response(open(filename, 'r'), mimetype='text/csv', headers={"Content-Disposition":"attachment;filename=my_table.csv"})
 
 @views.route('/information')
 @login_required
@@ -728,7 +577,7 @@ def delete_portfolio(portfolio_id):
         flash("Row not found", "error")
     
     # Redirect back to the page displaying the table
-    return redirect(url_for('views.backtest'))  # Replace with the correct route name
+    return redirect(url_for('views.profile'))  # Replace with the correct route name
 
 @views.route('/portfolio', methods=['GET', 'POST'])
 @login_required
@@ -911,7 +760,7 @@ class SingleSma(Strategy):
 @login_required
 def technical_analysis(stock_code):
     # Query historical prices for the selected stock code
-    start_date = datetime(2021, 6, 1)
+    start_date = datetime(2021, 11,20)
 
     # Query historical prices for the selected stock code between start_date and today
     historical_prices = Price.query.filter(

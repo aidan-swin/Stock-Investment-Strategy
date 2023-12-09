@@ -107,7 +107,7 @@ def scrape_dividend_info(stock_code, start_date, end_date):
 
 def assess_and_update_class(liststock):
     # Iterate through the list elements
-    for i in range(4, len(liststock)+1):
+    for i in range(4, len(liststock)+1):    
         current_row = liststock[i-1]
         previous_rows = liststock[i - 4:i]  # Get the previous 4 quarters, including the current one
 

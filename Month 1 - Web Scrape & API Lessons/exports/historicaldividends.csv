@@ -51,8 +51,8 @@ Announced,Financial Year,Subject,EX Date,Payment Date,Amount,Indicator,Stock Cod
 29 Apr 2019,2018-12-31,Final Dividend,13 Jun 2019,11 Jul 2019,0.04,Currency,6599,2018,Y
 11 Apr 2023,2023-02-28,Final Dividend,04 Jul 2023,20 Jul 2023,0.21,Currency,5139,2023,Y
 29 Sep 2022,2023-02-28,Interim Dividend,14 Oct 2022,03 Nov 2022,0.285,Currency,5139,2023,Y
-05 Apr 2022,2022-02-28,Special Dividend,06 Jul 2022,21 Jul 2022,0.05,Currency,5139,2022,Y
 05 Apr 2022,2022-02-28,Final Dividend,06 Jul 2022,21 Jul 2022,0.15,Currency,5139,2022,Y
+05 Apr 2022,2022-02-28,Special Dividend,06 Jul 2022,21 Jul 2022,0.05,Currency,5139,2022,Y
 28 Sep 2021,2022-02-28,Interim Dividend,13 Oct 2021,03 Nov 2021,0.285,Currency,5139,2022,Y
 08 Apr 2021,2021-02-28,Final Dividend,30 Jun 2021,15 Jul 2021,0.2,Currency,5139,2021,Y
 29 Sep 2020,2021-02-28,Interim Dividend,14 Oct 2020,05 Nov 2020,0.092,Currency,5139,2021,Y
@@ -63,8 +63,8 @@ Announced,Financial Year,Subject,EX Date,Payment Date,Amount,Indicator,Stock Cod
 27 Apr 2018,2018-02-28,Final Dividend,27 Jun 2018,19 Jul 2018,0.2,Currency,5139,2018,Y
 05 Oct 2017,2018-02-28,Interim Dividend,17 Oct 2017,07 Nov 2017,0.2113,Currency,5139,2018,Y
 25 May 2023,2022-12-31,Final Dividend (with Dividend Re-Investment Plan),09 Jun 2023,11 Jul 2023,0.0777,Currency,5185,2022,Y
-15 Nov 2022,2022-12-31,Interim Dividend (with Dividend Re-Investment Plan),30 Nov 2022,29 Dec 2022,0.0453,Currency,5185,2022,Y
 15 Nov 2022,2022-12-31,Special Dividend (with Dividend Re-Investment Plan),30 Nov 2022,29 Dec 2022,0.1809,Currency,5185,2022,Y
+15 Nov 2022,2022-12-31,Interim Dividend (with Dividend Re-Investment Plan),30 Nov 2022,29 Dec 2022,0.0453,Currency,5185,2022,Y
 25 May 2022,2021-12-31,Final Dividend (with Dividend Re-Investment Plan),09 Jun 2022,07 Jul 2022,0.125,Currency,5185,2021,Y
 09 Mar 2021,2020-12-31,Interim Dividend (with Dividend Re-Investment Plan),22 Mar 2021,19 Apr 2021,0.035,Currency,5185,2020,Y
 28 Jul 2020,2019-12-31,Interim Dividend (with Dividend Re-Investment Plan),11 Aug 2020,09 Sep 2020,0.07,Currency,5185,2019,Y
@@ -208,17 +208,17 @@ Announced,Financial Year,Subject,EX Date,Payment Date,Amount,Indicator,Stock Cod
 29 Apr 2019,2018-12-31,Others,07 May 2019,24 May 2019,0.06,Currency,6556,2018,Y
 27 Aug 2018,2018-12-31,Interim Dividend,07 Sep 2018,27 Sep 2018,0.06,Currency,6556,2018,Y
 15 Aug 2022,2022-09-30,First Interim Dividend,30 Aug 2022,15 Sep 2022,0.1,Currency,5568,2022,Y
-21 Feb 2022,2021-12-31,Interim Dividend,21 Mar 2022,06 Apr 2022,0.01,Currency,5088,2021,Y
 21 Feb 2022,2021-12-31,Special Dividend,21 Mar 2022,06 Apr 2022,0.09,Currency,5088,2021,Y
+21 Feb 2022,2021-12-31,Interim Dividend,21 Mar 2022,06 Apr 2022,0.01,Currency,5088,2021,Y
 29 Nov 2021,2021-12-31,Interim Dividend,13 Dec 2021,28 Dec 2021,0.01,Currency,5088,2021,Y
 20 Aug 2021,2021-12-31,Interim Dividend,08 Sep 2021,30 Sep 2021,0.01,Currency,5088,2021,Y
 21 May 2021,2021-12-31,Interim Dividend,09 Jun 2021,30 Jun 2021,0.01,Currency,5088,2021,Y
 29 May 2019,2019-12-31,Interim Dividend,17 Jun 2019,08 Jul 2019,0.02,Currency,5088,2019,Y
-22 Feb 2023,2022-12-31,Special Dividend,01 Jun 2023,16 Jun 2023,0.02,Currency,7090,2022,Y
 22 Feb 2023,2022-12-31,Final Dividend,01 Jun 2023,16 Jun 2023,0.035,Currency,7090,2022,Y
+22 Feb 2023,2022-12-31,Special Dividend,01 Jun 2023,16 Jun 2023,0.02,Currency,7090,2022,Y
 16 Aug 2022,2022-12-31,Interim Dividend,05 Sep 2022,15 Sep 2022,0.03,Currency,7090,2022,Y
-23 Feb 2022,2021-12-31,Special Dividend,01 Jun 2022,16 Jun 2022,0.06,Currency,7090,2021,Y
 23 Feb 2022,2021-12-31,Final Dividend,01 Jun 2022,16 Jun 2022,0.03,Currency,7090,2021,Y
+23 Feb 2022,2021-12-31,Special Dividend,01 Jun 2022,16 Jun 2022,0.06,Currency,7090,2021,Y
 19 Aug 2021,2021-12-31,Interim Dividend,03 Sep 2021,15 Sep 2021,0.025,Currency,7090,2021,Y
 25 Feb 2021,2020-12-31,Final Dividend,01 Jun 2021,16 Jun 2021,0.028,Currency,7090,2020,Y
 26 Aug 2020,2020-12-31,Interim Dividend,11 Sep 2020,30 Sep 2020,0.017,Currency,7090,2020,Y
@@ -242,6 +242,7 @@ Announced,Financial Year,Subject,EX Date,Payment Date,Amount,Indicator,Stock Cod
 27 Nov 2020,2020-04-30,First and Final Dividend,10 Dec 2020,08 Jan 2021,0.2,Currency,6432,2020,Y
 27 Jun 2019,2019-04-30,First and Final Dividend,11 Dec 2019,08 Jan 2020,0.2,Currency,6432,2019,Y
 28 Jun 2018,2018-04-30,First and Final Dividend,10 Dec 2018,09 Jan 2019,0.2,Currency,6432,2018,Y
+02 Nov 2023,2023-07-31,First and Final Dividend,07 Dec 2023,20 Dec 2023,0.025,Currency,7214,2023,Y
 03 Nov 2022,2022-07-31,First and Final Dividend,08 Dec 2022,21 Dec 2022,0.0275,Currency,7214,2022,Y
 03 Nov 2021,2021-07-31,First and Final Dividend,09 Dec 2021,22 Dec 2021,0.0225,Currency,7214,2021,Y
 05 Nov 2020,2020-07-31,First and Final Dividend,10 Dec 2020,22 Dec 2020,0.02,Currency,7214,2020,Y
@@ -399,6 +400,7 @@ Announced,Financial Year,Subject,EX Date,Payment Date,Amount,Indicator,Stock Cod
 08 Dec 2020,2020-12-31,Interim Dividend (with Dividend Re-Investment Plan),21 Dec 2020,18 Jan 2021,0.126,Currency,5258,2020,Y
 10 Dec 2019,2019-12-31,Interim Dividend (with Dividend Re-Investment Plan),23 Dec 2019,21 Jan 2020,0.16,Currency,5258,2019,Y
 13 Dec 2018,2018-12-31,Interim Dividend (with Dividend Re-Investment Plan),27 Dec 2018,29 Jan 2019,0.155,Currency,5258,2018,Y
+24 May 2023,2023-09-30,Interim Dividend,10 Jul 2023,03 Aug 2023,0.2,Currency,1899,2023,Y
 09 Dec 2022,2022-09-30,Final Dividend,17 Feb 2023,02 Mar 2023,0.9,Currency,1899,2022,Y
 24 May 2022,2022-09-30,Interim Dividend,08 Jul 2022,04 Aug 2022,0.2,Currency,1899,2022,Y
 10 Dec 2021,2021-09-30,Final Dividend,18 Feb 2022,03 Mar 2022,0.9,Currency,1899,2021,Y
@@ -443,8 +445,8 @@ Announced,Financial Year,Subject,EX Date,Payment Date,Amount,Indicator,Stock Cod
 10 Mar 2022,2022-04-30,Third Interim Dividend,14 Apr 2022,05 May 2022,0.0225,Currency,5248,2022,Y
 13 Dec 2021,2022-04-30,Second Interim Dividend,12 Jan 2022,04 Feb 2022,0.015,Currency,5248,2022,Y
 13 Sep 2021,2022-04-30,First Interim Dividend,15 Oct 2021,05 Nov 2021,0.005,Currency,5248,2022,Y
-18 Jun 2021,2021-04-30,Special Dividend,14 Jul 2021,05 Aug 2021,0.0175,Currency,5248,2021,Y
 18 Jun 2021,2021-04-30,Fourth Interim Dividend,14 Jul 2021,05 Aug 2021,0.015,Currency,5248,2021,Y
+18 Jun 2021,2021-04-30,Special Dividend,14 Jul 2021,05 Aug 2021,0.0175,Currency,5248,2021,Y
 10 Mar 2021,2021-04-30,Third Interim Dividend,16 Apr 2021,06 May 2021,0.015,Currency,5248,2021,Y
 10 Dec 2020,2021-04-30,Second Interim Dividend,15 Jan 2021,05 Feb 2021,0.0125,Currency,5248,2021,Y
 10 Sep 2020,2021-04-30,First Interim Dividend,27 Oct 2020,18 Nov 2020,0.005,Currency,5248,2021,Y
@@ -548,12 +550,12 @@ Announced,Financial Year,Subject,EX Date,Payment Date,Amount,Indicator,Stock Cod
 15 Aug 2022,2022-12-31,Second Interim Dividend,19 Sep 2022,07 Oct 2022,0.015,Currency,5100,2022,Y
 23 May 2022,2022-12-31,First Interim Dividend,21 Jun 2022,07 Jul 2022,0.015,Currency,5100,2022,Y
 21 Feb 2022,2021-12-31,Fourth Interim Dividend,10 Mar 2022,08 Apr 2022,0.02,Currency,5100,2021,Y
-22 Nov 2021,2021-12-31,Special Dividend,06 Dec 2021,06 Jan 2022,0.01,Currency,5100,2021,Y
 22 Nov 2021,2021-12-31,Third Interim Dividend,06 Dec 2021,06 Jan 2022,0.02,Currency,5100,2021,Y
-20 Aug 2021,2021-12-31,Special Dividend,21 Sep 2021,08 Oct 2021,0.01,Currency,5100,2021,Y
+22 Nov 2021,2021-12-31,Special Dividend,06 Dec 2021,06 Jan 2022,0.01,Currency,5100,2021,Y
 20 Aug 2021,2021-12-31,Second Interim Dividend,21 Sep 2021,08 Oct 2021,0.02,Currency,5100,2021,Y
-27 May 2021,2021-12-31,First Interim Dividend,16 Jun 2021,07 Jul 2021,0.02,Currency,5100,2021,Y
+20 Aug 2021,2021-12-31,Special Dividend,21 Sep 2021,08 Oct 2021,0.01,Currency,5100,2021,Y
 27 May 2021,2021-12-31,Special Dividend,16 Jun 2021,07 Jul 2021,0.01,Currency,5100,2021,Y
+27 May 2021,2021-12-31,First Interim Dividend,16 Jun 2021,07 Jul 2021,0.02,Currency,5100,2021,Y
 24 Feb 2021,2020-12-31,Fourth Interim Dividend,11 Mar 2021,26 Mar 2021,0.02,Currency,5100,2020,Y
 23 Nov 2020,2020-12-31,Third Interim Dividend,10 Dec 2020,23 Dec 2020,0.02,Currency,5100,2020,Y
 10 Aug 2020,2020-12-31,Second Interim Dividend,02 Sep 2020,25 Sep 2020,0.02,Currency,5100,2020,Y
@@ -602,8 +604,8 @@ Announced,Financial Year,Subject,EX Date,Payment Date,Amount,Indicator,Stock Cod
 30 Jan 2020,2019-12-31,Final Dividend,18 Feb 2020,28 Feb 2020,0.104,Currency,1818,2019,Y
 01 Aug 2019,2019-12-31,Interim Dividend,16 Aug 2019,30 Aug 2019,0.104,Currency,1818,2019,Y
 30 Jan 2019,2018-12-31,Second interim dividend,15 Feb 2019,28 Feb 2019,0.116,Currency,1818,2018,Y
-30 Jul 2018,2018-12-31,First Interim Dividend,14 Aug 2018,29 Aug 2018,0.14,Currency,1818,2018,Y
 30 Jul 2018,2018-12-31,Special Dividend,14 Aug 2018,29 Aug 2018,0.08,Currency,1818,2018,Y
+30 Jul 2018,2018-12-31,First Interim Dividend,14 Aug 2018,29 Aug 2018,0.14,Currency,1818,2018,Y
 23 Aug 2023,2023-06-30,Final Dividend,21 Sep 2023,10 Oct 2023,0.15,Currency,2828,2023,Y
 23 Aug 2022,2022-06-30,Final Dividend,23 Sep 2022,11 Oct 2022,0.12,Currency,2828,2022,Y
 27 Sep 2021,2021-06-30,Final Dividend,26 Oct 2021,11 Nov 2021,0.12,Currency,2828,2021,Y
@@ -622,8 +624,8 @@ Announced,Financial Year,Subject,EX Date,Payment Date,Amount,Indicator,Stock Cod
 27 Apr 2023,2022-12-31,First and Final Dividend,17 Jul 2023,28 Jul 2023,0.04,Currency,5105,2022,Y
 27 Apr 2022,2021-12-31,First and Final Dividend,18 Jul 2022,29 Jul 2022,0.04,Currency,5105,2021,Y
 27 Apr 2021,2020-12-31,First and Final Dividend,16 Jul 2021,30 Jul 2021,0.04,Currency,5105,2020,Y
-28 May 2020,2019-12-31,Special Dividend,17 Jul 2020,30 Jul 2020,0.02,Currency,5105,2019,Y
 28 May 2020,2019-12-31,First and Final Dividend,17 Jul 2020,30 Jul 2020,0.04,Currency,5105,2019,Y
+28 May 2020,2019-12-31,Special Dividend,17 Jul 2020,30 Jul 2020,0.02,Currency,5105,2019,Y
 29 Apr 2019,2018-12-31,First and Final Dividend,15 Jul 2019,26 Jul 2019,0.04,Currency,5105,2018,Y
 03 Jul 2019,2019-12-31,Special Dividend,29 Jul 2019,29 Aug 2019,0.9,Currency,5099,2019,Y
 27 Feb 2019,2018-12-31,Interim Dividend,11 Mar 2019,10 Apr 2019,0.12,Currency,5099,2018,Y
@@ -667,14 +669,14 @@ Announced,Financial Year,Subject,EX Date,Payment Date,Amount,Indicator,Stock Cod
 20 Aug 2021,2021-12-31,Interim Dividend,15 Oct 2021,17 Nov 2021,0.1,Currency,2836,2021,Y
 08 Mar 2021,2020-12-31,Final Dividend,16 Apr 2021,18 May 2021,0.3,Currency,2836,2020,Y
 18 Feb 2021,2020-12-31,Interim Dividend,04 Mar 2021,12 Apr 2021,0.1,Currency,2836,2020,Y
-13 May 2020,2019-12-31,Special Dividend,04 Sep 2020,30 Sep 2020,0.048,Currency,2836,2019,Y
 13 May 2020,2019-12-31,Final Dividend,04 Sep 2020,30 Sep 2020,0.236,Currency,2836,2019,Y
+13 May 2020,2019-12-31,Special Dividend,04 Sep 2020,30 Sep 2020,0.048,Currency,2836,2019,Y
 21 Feb 2020,2019-12-31,Interim Dividend,26 Mar 2020,10 Apr 2020,0.17,Currency,2836,2019,Y
 26 Nov 2019,2019-12-31,Interim Dividend,02 Jan 2020,22 Jan 2020,0.17,Currency,2836,2019,Y
 15 Aug 2019,2019-12-31,Interim Dividend,18 Oct 2019,31 Oct 2019,0.161,Currency,2836,2019,Y
 16 May 2019,2019-12-31,Interim Dividend,17 Jul 2019,31 Jul 2019,0.215,Currency,2836,2019,Y
-29 Apr 2019,2018-12-31,Final Dividend,16 May 2019,31 May 2019,0.224,Currency,2836,2018,Y
 29 Apr 2019,2018-12-31,Special Dividend,16 May 2019,31 May 2019,0.093,Currency,2836,2018,Y
+29 Apr 2019,2018-12-31,Final Dividend,16 May 2019,31 May 2019,0.224,Currency,2836,2018,Y
 14 Feb 2019,2018-12-31,Interim Dividend,27 Mar 2019,08 Apr 2019,0.166,Currency,2836,2018,Y
 30 Nov 2018,2018-12-31,Interim Dividend,08 Jan 2019,30 Jan 2019,0.16,Currency,2836,2018,Y
 16 Aug 2018,2018-12-31,Interim Dividend,18 Sep 2018,17 Oct 2018,0.157,Currency,2836,2018,Y
@@ -733,20 +735,20 @@ Announced,Financial Year,Subject,EX Date,Payment Date,Amount,Indicator,Stock Cod
 21 Feb 2019,2018-12-31,First Interim Dividend,01 Apr 2019,15 Apr 2019,0.015,Currency,5273,2018,Y
 28 Jul 2023,2023-08-31,Second Interim Dividend,14 Aug 2023,30 Aug 2023,0.08,Currency,1929,2023,Y
 28 Jul 2023,2023-08-31,Special Dividend,14 Aug 2023,30 Aug 2023,0.02,Currency,1929,2023,Y
-28 Dec 2022,2023-08-31,First Interim Dividend,13 Jan 2023,31 Jan 2023,0.08,Currency,1929,2023,Y
 28 Dec 2022,2023-08-31,Special Dividend,13 Jan 2023,31 Jan 2023,0.02,Currency,1929,2023,Y
-28 Jul 2022,2022-08-31,Special Dividend,12 Aug 2022,30 Aug 2022,0.21,Currency,1929,2022,Y
+28 Dec 2022,2023-08-31,First Interim Dividend,13 Jan 2023,31 Jan 2023,0.08,Currency,1929,2023,Y
 28 Jul 2022,2022-08-31,Second Interim Dividend,12 Aug 2022,30 Aug 2022,0.08,Currency,1929,2022,Y
-27 Dec 2021,2022-08-31,Special Dividend,11 Jan 2022,28 Jan 2022,0.05,Currency,1929,2022,Y
+28 Jul 2022,2022-08-31,Special Dividend,12 Aug 2022,30 Aug 2022,0.21,Currency,1929,2022,Y
 27 Dec 2021,2022-08-31,First Interim Dividend,11 Jan 2022,28 Jan 2022,0.08,Currency,1929,2022,Y
+27 Dec 2021,2022-08-31,Special Dividend,11 Jan 2022,28 Jan 2022,0.05,Currency,1929,2022,Y
 30 Jul 2021,2021-08-31,Special Dividend,17 Aug 2021,30 Aug 2021,0.11,Currency,1929,2021,Y
 30 Jul 2021,2021-08-31,Second Interim Dividend,17 Aug 2021,30 Aug 2021,0.08,Currency,1929,2021,Y
 06 Jan 2021,2021-08-31,Special Dividend,21 Jan 2021,05 Feb 2021,0.03,Currency,1929,2021,Y
 06 Jan 2021,2021-08-31,First Interim Dividend,21 Jan 2021,05 Feb 2021,0.08,Currency,1929,2021,Y
 28 Jul 2020,2020-08-31,Second Interim Dividend,13 Aug 2020,28 Aug 2020,0.08,Currency,1929,2020,Y
 30 Dec 2019,2020-08-31,First Interim Dividend,15 Jan 2020,23 Jan 2020,0.08,Currency,1929,2020,Y
-31 Jul 2019,2019-08-31,Second interim dividend,16 Aug 2019,30 Aug 2019,0.08,Currency,1929,2019,Y
 31 Jul 2019,2019-08-31,Special Dividend,16 Aug 2019,30 Aug 2019,0.02,Currency,1929,2019,Y
+31 Jul 2019,2019-08-31,Second interim dividend,16 Aug 2019,30 Aug 2019,0.08,Currency,1929,2019,Y
 04 Jan 2019,2019-08-31,Special Dividend,18 Jan 2019,31 Jan 2019,0.02,Currency,1929,2019,Y
 04 Jan 2019,2019-08-31,First Interim Dividend,18 Jan 2019,31 Jan 2019,0.08,Currency,1929,2019,Y
 30 Jul 2018,2018-08-31,Second interim dividend,13 Aug 2018,30 Aug 2018,0.1,Currency,1929,2018,Y
@@ -764,8 +766,8 @@ Announced,Financial Year,Subject,EX Date,Payment Date,Amount,Indicator,Stock Cod
 27 Aug 2018,2018-06-30,Second interim dividend,07 Sep 2018,27 Sep 2018,0.041,Currency,5007,2018,Y
 27 Feb 2018,2018-06-30,Interim Dividend,24 Apr 2018,24 May 2018,0.039,Currency,5007,2018,Y
 26 Apr 2023,2022-12-31,Final Dividend,18 Jul 2023,03 Aug 2023,0.025,Currency,5797,2022,Y
-28 Apr 2022,2021-12-31,Special Dividend,19 Jul 2022,03 Aug 2022,0.025,Currency,5797,2021,Y
 28 Apr 2022,2021-12-31,Final Dividend,19 Jul 2022,03 Aug 2022,0.05,Currency,5797,2021,Y
+28 Apr 2022,2021-12-31,Special Dividend,19 Jul 2022,03 Aug 2022,0.025,Currency,5797,2021,Y
 03 Jun 2021,2020-12-31,Final Dividend,08 Jul 2021,23 Jul 2021,0.03,Currency,5797,2020,Y
 29 Apr 2019,2018-12-31,Final Dividend,07 Aug 2019,28 Aug 2019,0.05,Currency,5797,2018,Y
 30 Nov 2021,2021-06-30,First and Final Dividend,15 Dec 2021,28 Dec 2021,0.0181,Currency,7016,2021,Y
@@ -837,6 +839,7 @@ Announced,Financial Year,Subject,EX Date,Payment Date,Amount,Indicator,Stock Cod
 21 Jan 2022,2021-12-31,Third Interim Dividend,09 Feb 2022,25 Feb 2022,0.0033,Currency,5301,2021,Y
 15 Oct 2021,2021-12-31,Second Interim Dividend,11 Nov 2021,10 Dec 2021,0.0032,Currency,5301,2021,Y
 16 Jul 2021,2021-12-31,First Interim Dividend,05 Aug 2021,03 Sep 2021,0.0053,Currency,5301,2021,Y
+16 Oct 2023,2023-06-30,Final Dividend,29 Nov 2023,15 Dec 2023,0.005,Currency,9423,2023,Y
 22 Feb 2023,2023-06-30,Interim Dividend,09 Mar 2023,20 Mar 2023,0.0025,Currency,9423,2023,Y
 21 Oct 2022,2022-06-30,First and Final Dividend,02 Dec 2022,23 Dec 2022,0.005,Currency,9423,2022,Y
 26 Oct 2020,2020-06-30,First and Final Dividend,04 Dec 2020,23 Dec 2020,0.005,Currency,9423,2020,Y
@@ -906,6 +909,7 @@ Announced,Financial Year,Subject,EX Date,Payment Date,Amount,Indicator,Stock Cod
 22 Aug 2019,2019-12-31,First Interim Dividend,06 Sep 2019,20 Sep 2019,0.014,Currency,5132,2019,Y
 25 Feb 2019,2018-12-31,Second interim dividend,11 Mar 2019,22 Mar 2019,0.0225,Currency,5132,2018,Y
 21 Aug 2018,2018-12-31,First Interim Dividend,07 Sep 2018,25 Sep 2018,0.0125,Currency,5132,2018,Y
+16 Oct 2023,2023-06-30,Final Dividend,01 Dec 2023,21 Dec 2023,0.024,Currency,7277,2023,Y
 18 May 2023,2023-06-30,Interim Dividend,12 Jun 2023,27 Jun 2023,0.013,Currency,7277,2023,Y
 17 Oct 2022,2022-06-30,Final Dividend,30 Nov 2022,20 Dec 2022,0.021,Currency,7277,2022,Y
 17 May 2022,2022-06-30,Interim Dividend,13 Jun 2022,28 Jun 2022,0.013,Currency,7277,2022,Y
@@ -952,8 +956,8 @@ Announced,Financial Year,Subject,EX Date,Payment Date,Amount,Indicator,Stock Cod
 28 Feb 2023,2023-03-31,Third Interim Dividend,13 Mar 2023,30 Mar 2023,0.005,Currency,7169,2023,Y
 24 Nov 2022,2023-03-31,Second Interim Dividend,08 Dec 2022,22 Dec 2022,0.005,Currency,7169,2023,Y
 29 Aug 2022,2023-03-31,First Interim Dividend,30 Sep 2022,27 Oct 2022,0.01,Currency,7169,2023,Y
-05 Jul 2022,2022-03-31,Final Dividend,08 Sep 2022,22 Sep 2022,0.01,Currency,7169,2022,Y
 05 Jul 2022,2022-03-31,Special Dividend,08 Sep 2022,22 Sep 2022,0.01,Currency,7169,2022,Y
+05 Jul 2022,2022-03-31,Final Dividend,08 Sep 2022,22 Sep 2022,0.01,Currency,7169,2022,Y
 24 Feb 2022,2022-03-31,Third Interim Dividend,09 Mar 2022,25 Mar 2022,0.01,Currency,7169,2022,Y
 25 Nov 2021,2022-03-31,Second Interim Dividend,09 Dec 2021,24 Dec 2021,0.01,Currency,7169,2022,Y
 23 Aug 2021,2022-03-31,First Interim Dividend,30 Sep 2021,22 Oct 2021,0.01,Currency,7169,2022,Y
@@ -978,8 +982,8 @@ Announced,Financial Year,Subject,EX Date,Payment Date,Amount,Indicator,Stock Cod
 23 Dec 2021,2022-05-31,First Interim Dividend,13 Jan 2022,28 Jan 2022,0.0015,Currency,0205,2022,Y
 29 Jul 2021,2021-05-31,Fourth Interim Dividend,18 Aug 2021,09 Sep 2021,0.0015,Currency,0205,2021,Y
 23 Mar 2021,2021-05-31,Third Interim Dividend,07 Apr 2021,22 Apr 2021,0.002,Currency,0205,2021,Y
-06 Jan 2021,2021-05-31,Special Dividend,20 Jan 2021,03 Feb 2021,0.0025,Currency,0205,2021,Y
 06 Jan 2021,2021-05-31,Second Interim Dividend,20 Jan 2021,03 Feb 2021,0.002,Currency,0205,2021,Y
+06 Jan 2021,2021-05-31,Special Dividend,20 Jan 2021,03 Feb 2021,0.0025,Currency,0205,2021,Y
 24 Sep 2020,2021-05-31,First Interim Dividend,09 Oct 2020,30 Oct 2020,0.002,Currency,0205,2021,Y
 29 May 2020,2020-05-31,Second Interim Dividend,15 Jun 2020,07 Jul 2020,0.0015,Currency,0205,2020,Y
 22 Jan 2020,2020-05-31,First Interim Dividend,11 Feb 2020,05 Mar 2020,0.0025,Currency,0205,2020,Y
@@ -1029,12 +1033,15 @@ Announced,Financial Year,Subject,EX Date,Payment Date,Amount,Indicator,Stock Cod
 14 Aug 2020,2020-03-31,First and Final Dividend,07 Sep 2020,28 Sep 2020,0.01,Currency,3417,2020,Y
 29 Jul 2019,2019-03-31,First and Final Dividend,11 Sep 2019,01 Oct 2019,0.03,Currency,3417,2019,Y
 13 Apr 2018,2018-12-31,Special Dividend,25 Apr 2018,08 May 2018,0.1597,Currency,2143,2018,Y
+21 Sep 2023,2023-10-31,Second Interim Dividend,06 Oct 2023,19 Oct 2023,0.02,Currency,8206,2023,Y
+22 Jun 2023,2023-10-31,First Interim Dividend,07 Jul 2023,20 Jul 2023,0.02,Currency,8206,2023,Y
 16 Dec 2022,2022-10-31,Third Interim Dividend,03 Jan 2023,19 Jan 2023,0.02,Currency,8206,2022,Y
 15 Sep 2022,2022-10-31,Second Interim Dividend,04 Oct 2022,20 Oct 2022,0.01,Currency,8206,2022,Y
 16 Jun 2022,2022-10-31,First Interim Dividend,06 Jul 2022,21 Jul 2022,0.02,Currency,8206,2022,Y
 27 Jan 2022,2021-10-31,Second Interim Dividend,14 Feb 2022,28 Feb 2022,0.02,Currency,8206,2021,Y
 24 Jun 2021,2021-10-31,First Interim Dividend,08 Jul 2021,23 Jul 2021,0.02,Currency,8206,2021,Y
 14 Jan 2021,2020-10-31,First Interim Dividend,27 Jan 2021,10 Feb 2021,0.02,Currency,8206,2020,Y
+24 Aug 2023,2023-10-31,First Interim Dividend,08 Sep 2023,29 Sep 2023,0.33,Currency,5283,2023,Y
 24 Jun 2021,2021-10-31,Special Dividend,08 Jul 2021,23 Jul 2021,0.05,Currency,5283,2021,Y
 25 Mar 2021,2021-10-31,First Interim Dividend,08 Apr 2021,28 Apr 2021,0.01,Currency,5283,2021,Y
 25 Apr 2022,2023-02-28,Interim Dividend,12 May 2022,03 Jun 2022,0.005,Currency,0239,2023,Y
@@ -1046,6 +1053,7 @@ Announced,Financial Year,Subject,EX Date,Payment Date,Amount,Indicator,Stock Cod
 30 Dec 2022,2023-06-30,Interim Dividend,17 Jan 2023,03 Feb 2023,0.0175,Currency,5036,2023,Y
 17 Jan 2022,2022-06-30,Interim Dividend,04 Feb 2022,18 Feb 2022,0.0175,Currency,5036,2022,Y
 24 Feb 2021,2021-06-30,Interim Dividend,11 Mar 2021,26 Mar 2021,0.0175,Currency,5036,2021,Y
+26 May 2023,2023-09-30,Interim Dividend,15 Jun 2023,07 Jul 2023,0.01,Currency,5208,2023,Y
 24 Nov 2022,2022-09-30,Interim Dividend,15 Dec 2022,12 Jan 2023,0.015,Currency,5208,2022,Y
 25 May 2022,2022-09-30,Interim Dividend,15 Jun 2022,07 Jul 2022,0.0175,Currency,5208,2022,Y
 25 Nov 2021,2021-09-30,Interim Dividend,15 Dec 2021,12 Jan 2022,0.015,Currency,5208,2021,Y
@@ -1055,8 +1063,8 @@ Announced,Financial Year,Subject,EX Date,Payment Date,Amount,Indicator,Stock Cod
 21 Jan 2020,2019-09-30,Final Dividend,28 Feb 2020,16 Mar 2020,0.03,Currency,5208,2019,Y
 27 Aug 2019,2019-09-30,First Interim Dividend,11 Sep 2019,27 Sep 2019,0.03,Currency,5208,2019,Y
 13 Feb 2019,2018-09-30,Final Dividend,15 Mar 2019,02 Apr 2019,0.03,Currency,5208,2018,Y
-20 Aug 2018,2018-09-30,First Interim Dividend,07 Sep 2018,28 Sep 2018,0.02,Currency,5208,2018,Y
 20 Aug 2018,2018-09-30,Special Dividend,07 Sep 2018,28 Sep 2018,0.02,Currency,5208,2018,Y
+20 Aug 2018,2018-09-30,First Interim Dividend,07 Sep 2018,28 Sep 2018,0.02,Currency,5208,2018,Y
 27 Oct 2020,2020-06-30,First and Final Dividend,27 Nov 2020,10 Dec 2020,0.005,Currency,8877,2020,Y
 29 Oct 2019,2019-06-30,First and Final Dividend,28 Nov 2019,12 Dec 2019,0.01,Currency,8877,2019,Y
 29 Oct 2018,2018-06-30,First and Final Dividend,27 Dec 2018,22 Jan 2019,0.01,Currency,8877,2018,Y
@@ -1109,6 +1117,7 @@ Announced,Financial Year,Subject,EX Date,Payment Date,Amount,Indicator,Stock Cod
 11 Sep 2019,2020-05-31,Ordinary Dividend,27 Sep 2019,24 Oct 2019,0.006,Currency,0100,2020,Y
 01 Oct 2018,2019-05-31,Ordinary Dividend,11 Oct 2018,26 Oct 2018,0.006,Currency,0100,2019,Y
 08 Sep 2017,2018-05-31,Ordinary Dividend,03 Oct 2017,20 Oct 2017,0.006,Currency,0100,2018,Y
+03 Oct 2023,2023-03-31,Final Dividend,19 Oct 2023,17 Nov 2023,0.005,Currency,5081,2023,Y
 03 Oct 2022,2022-03-31,Final Dividend,18 Oct 2022,18 Nov 2022,0.005,Currency,5081,2022,Y
 25 Nov 2021,2022-03-31,Interim Dividend,16 Dec 2021,14 Jan 2022,0.005,Currency,5081,2022,Y
 05 Oct 2021,2021-03-31,Final Dividend,18 Oct 2021,19 Nov 2021,0.005,Currency,5081,2021,Y
@@ -1131,6 +1140,7 @@ Announced,Financial Year,Subject,EX Date,Payment Date,Amount,Indicator,Stock Cod
 28 May 2021,2020-12-31,Final Dividend,09 Sep 2021,27 Sep 2021,0.035,Currency,7249,2020,Y
 08 Oct 2020,2020-12-31,Interim Dividend,22 Oct 2020,06 Nov 2020,0.035,Currency,7249,2020,Y
 29 Apr 2019,2018-12-31,First and Final Dividend,22 Jul 2019,19 Aug 2019,0.005,Currency,7249,2018,Y
+31 Oct 2023,2023-06-30,Final Dividend,20 Dec 2023,05 Jan 2024,0.005,Currency,0065,2023,Y
 13 Mar 2023,2023-06-30,First Interim Dividend,14 Apr 2023,15 May 2023,0.005,Currency,0065,2023,Y
 29 Apr 2022,2021-12-31,Final Dividend,23 Jun 2022,14 Jul 2022,0.005,Currency,0065,2021,Y
 25 Nov 2021,2021-12-31,Second Interim Dividend,08 Dec 2021,23 Dec 2021,0.005,Currency,0065,2021,Y
@@ -1142,6 +1152,7 @@ Announced,Financial Year,Subject,EX Date,Payment Date,Amount,Indicator,Stock Cod
 22 Aug 2019,2019-12-31,First Interim Dividend,05 Sep 2019,19 Sep 2019,0.005,Currency,0065,2019,Y
 23 Nov 2018,2018-12-31,Second interim dividend,06 Dec 2018,20 Dec 2018,0.0075,Currency,0065,2018,Y
 28 Aug 2018,2018-12-31,Interim Dividend,12 Sep 2018,28 Sep 2018,0.0075,Currency,0065,2018,Y
+27 Oct 2023,2023-06-30,Final Dividend,28 Dec 2023,17 Jan 2024,0.017,Currency,2984,2023,Y
 23 Nov 2022,2023-06-30,Interim Dividend,29 Dec 2022,18 Jan 2023,0.026,Currency,2984,2023,Y
 29 Oct 2019,2019-06-30,Final Dividend,31 Dec 2019,16 Jan 2020,0.01,Currency,2984,2019,Y
 23 Nov 2022,2023-06-30,Interim Dividend,09 Dec 2022,28 Dec 2022,0.01,Currency,7047,2023,Y
@@ -1152,8 +1163,8 @@ Announced,Financial Year,Subject,EX Date,Payment Date,Amount,Indicator,Stock Cod
 23 Nov 2017,2018-06-30,Interim Dividend,11 Dec 2017,28 Dec 2017,0.015,Currency,7047,2018,Y
 27 Apr 2023,2022-12-31,Final Dividend,22 Jun 2023,06 Jul 2023,0.1,Currency,5029,2022,Y
 25 Nov 2022,2022-12-31,Interim Dividend,19 Dec 2022,10 Jan 2023,0.08,Currency,5029,2022,Y
-28 Apr 2022,2021-12-31,Final Dividend,22 Jun 2022,06 Jul 2022,0.05,Currency,5029,2021,Y
 28 Apr 2022,2021-12-31,Special Dividend,22 Jun 2022,06 Jul 2022,0.03,Currency,5029,2021,Y
+28 Apr 2022,2021-12-31,Final Dividend,22 Jun 2022,06 Jul 2022,0.05,Currency,5029,2021,Y
 25 Nov 2021,2021-12-31,Interim Dividend,09 Dec 2021,23 Dec 2021,0.05,Currency,5029,2021,Y
 28 Apr 2021,2020-12-31,Final Dividend,16 Jun 2021,30 Jun 2021,0.05,Currency,5029,2020,Y
 04 Dec 2020,2020-12-31,Interim Dividend,11 Dec 2020,22 Dec 2020,0.02,Currency,5029,2020,Y
@@ -1188,6 +1199,7 @@ Announced,Financial Year,Subject,EX Date,Payment Date,Amount,Indicator,Stock Cod
 25 Aug 2020,2020-09-30,Interim Dividend,09 Sep 2020,28 Sep 2020,0.01,Currency,6939,2020,Y
 21 Jan 2020,2019-09-30,Final Dividend,10 Mar 2020,03 Apr 2020,0.02,Currency,6939,2019,Y
 25 Jan 2019,2018-09-30,Final Dividend,11 Mar 2019,05 Apr 2019,0.0225,Currency,6939,2018,Y
+11 Oct 2023,2023-05-31,Final Dividend,07 Dec 2023,29 Dec 2023,0.0125,Currency,0149,2023,Y
 26 Sep 2022,2022-05-31,Final Dividend,07 Dec 2022,29 Dec 2022,0.0085,Currency,0149,2022,Y
 27 Sep 2021,2021-05-31,Final Dividend,07 Dec 2021,29 Dec 2021,0.0045,Currency,0149,2021,Y
 24 Sep 2020,2020-05-31,Final Dividend,07 Dec 2020,29 Dec 2020,0.0054,Currency,0149,2020,Y
@@ -1259,6 +1271,7 @@ Announced,Financial Year,Subject,EX Date,Payment Date,Amount,Indicator,Stock Cod
 28 Jan 2020,2020-06-30,Interim Dividend,13 Feb 2020,28 Feb 2020,0.012,Currency,5277,2020,Y
 22 Feb 2019,2019-06-30,Interim Dividend,08 Mar 2019,29 Mar 2019,0.01,Currency,5277,2019,Y
 21 May 2018,2018-06-30,Interim Dividend,06 Jun 2018,28 Jun 2018,0.01,Currency,5277,2018,Y
+03 May 2023,2023-09-30,Interim Dividend,17 May 2023,01 Jun 2023,0.27,Currency,3689,2023,Y
 16 Dec 2022,2022-09-30,Final Dividend,19 Jan 2023,10 Feb 2023,0.33,Currency,3689,2022,Y
 27 Apr 2022,2022-09-30,Interim Dividend,13 May 2022,31 May 2022,0.27,Currency,3689,2022,Y
 16 Dec 2021,2021-09-30,Final Dividend,20 Jan 2022,09 Feb 2022,0.33,Currency,3689,2021,Y
@@ -1290,8 +1303,8 @@ Announced,Financial Year,Subject,EX Date,Payment Date,Amount,Indicator,Stock Cod
 26 Nov 2020,2020-12-31,Interim Dividend,17 Dec 2020,07 Jan 2021,0.01,Currency,5226,2020,Y
 29 Nov 2019,2019-12-31,Interim Dividend,13 Dec 2019,09 Jan 2020,0.015,Currency,5226,2019,Y
 03 Dec 2018,2018-12-31,Interim Dividend,14 Dec 2018,10 Jan 2019,0.02,Currency,5226,2018,Y
-14 May 2018,2018-12-31,Special Dividend,28 May 2018,12 Jun 2018,0.01,Currency,5226,2018,Y
 14 May 2018,2018-12-31,Interim Dividend,28 May 2018,12 Jun 2018,0.02,Currency,5226,2018,Y
+14 May 2018,2018-12-31,Special Dividend,28 May 2018,12 Jun 2018,0.01,Currency,5226,2018,Y
 15 Nov 2022,2022-05-31,First and Final Dividend,23 Nov 2022,09 Dec 2022,0.007,Currency,9261,2022,Y
 29 Sep 2021,2021-05-31,First and Final Dividend,12 Nov 2021,03 Dec 2021,0.003,Currency,9261,2021,Y
 28 Sep 2020,2020-05-31,First and Final Dividend,19 Nov 2020,10 Dec 2020,0.01,Currency,9261,2020,Y
@@ -1362,8 +1375,8 @@ Announced,Financial Year,Subject,EX Date,Payment Date,Amount,Indicator,Stock Cod
 29 Apr 2019,2018-12-31,Final Dividend,27 Jun 2019,23 Jul 2019,0.05,Currency,4715,2018,Y
 27 Feb 2019,2018-12-31,Special Dividend,12 Mar 2019,04 Apr 2019,0.08,Currency,4715,2018,Y
 29 Aug 2018,2018-12-31,Interim Dividend,14 Sep 2018,10 Oct 2018,0.06,Currency,4715,2018,Y
-22 Feb 2023,2022-12-31,Final Dividend,09 Mar 2023,28 Mar 2023,0.04,Currency,2291,2022,Y
 22 Feb 2023,2022-12-31,Special Dividend,09 Mar 2023,28 Mar 2023,0.15,Currency,2291,2022,Y
+22 Feb 2023,2022-12-31,Final Dividend,09 Mar 2023,28 Mar 2023,0.04,Currency,2291,2022,Y
 24 Aug 2022,2022-12-31,Interim Dividend,09 Sep 2022,26 Sep 2022,0.15,Currency,2291,2022,Y
 01 Apr 2022,2021-12-31,Final Dividend,02 Jun 2022,22 Jun 2022,0.04,Currency,2291,2021,Y
 23 Feb 2022,2021-12-31,Special Dividend,10 Mar 2022,29 Mar 2022,0.15,Currency,2291,2021,Y
@@ -1395,45 +1408,39 @@ Announced,Financial Year,Subject,EX Date,Payment Date,Amount,Indicator,Stock Cod
 23 Jul 2020,2019-12-31,Final Dividend,13 Aug 2020,28 Aug 2020,0.0017,Currency,0039,2019,Y
 20 Jun 2019,2018-12-31,Final Dividend,04 Jul 2019,19 Jul 2019,0.011,Currency,0039,2018,Y
 29 Nov 2022,2022-12-31,Interim Dividend,13 Dec 2022,28 Dec 2022,0.025,Currency,0021,2022,Y
+10 Oct 2023,2023-06-30,Final Dividend,26 Oct 2023,20 Nov 2023,0.011,Currency,5220,2023,Y
 11 Oct 2022,2022-06-30,Final Dividend,27 Oct 2022,21 Nov 2022,0.018,Currency,5220,2022,Y
 15 Oct 2021,2021-06-30,Final Dividend,02 Nov 2021,26 Nov 2021,0.03,Currency,5220,2021,Y
-23 Feb 2023,2022-12-31,Special Dividend,10 Mar 2023,23 Mar 2023,0.01,Currency,7022,2022,Y
 23 Feb 2023,2022-12-31,Third Interim Dividend,10 Mar 2023,23 Mar 2023,0.01,Currency,7022,2022,Y
+23 Feb 2023,2022-12-31,Special Dividend,10 Mar 2023,23 Mar 2023,0.01,Currency,7022,2022,Y
 15 Nov 2022,2022-12-31,Second Interim Dividend,23 Nov 2022,07 Dec 2022,0.01,Currency,7022,2022,Y
 15 Nov 2022,2022-12-31,Special Dividend,23 Nov 2022,07 Dec 2022,0.01,Currency,7022,2022,Y
-16 Jun 2022,2022-12-31,Interim Dividend,04 Jul 2022,20 Jul 2022,0.01,Currency,7022,2022,Y
 16 Jun 2022,2022-12-31,Special Dividend,04 Jul 2022,20 Jul 2022,0.01,Currency,7022,2022,Y
+16 Jun 2022,2022-12-31,Interim Dividend,04 Jul 2022,20 Jul 2022,0.01,Currency,7022,2022,Y
 24 Feb 2022,2021-12-31,Third Interim Dividend,11 Mar 2022,24 Mar 2022,0.01,Currency,7022,2021,Y
 24 Feb 2022,2021-12-31,Special Dividend,11 Mar 2022,24 Mar 2022,0.02,Currency,7022,2021,Y
 01 Nov 2021,2021-12-31,Second Interim Dividend,17 Nov 2021,02 Dec 2021,0.01,Currency,7022,2021,Y
 01 Nov 2021,2021-12-31,Special Dividend,17 Nov 2021,02 Dec 2021,0.015,Currency,7022,2021,Y
 02 Jun 2021,2021-12-31,Interim Dividend,18 Jun 2021,05 Jul 2021,0.01,Currency,7022,2021,Y
 02 Jun 2021,2021-12-31,Special Dividend,18 Jun 2021,05 Jul 2021,0.01,Currency,7022,2021,Y
-25 Feb 2021,2020-12-31,Special Dividend,12 Mar 2021,25 Mar 2021,0.02,Currency,7022,2020,Y
 25 Feb 2021,2020-12-31,Third Interim Dividend,12 Mar 2021,25 Mar 2021,0.01,Currency,7022,2020,Y
+25 Feb 2021,2020-12-31,Special Dividend,12 Mar 2021,25 Mar 2021,0.02,Currency,7022,2020,Y
 02 Nov 2020,2020-12-31,Second Interim Dividend,17 Nov 2020,03 Dec 2020,0.01,Currency,7022,2020,Y
 02 Nov 2020,2020-12-31,Special Dividend,17 Nov 2020,03 Dec 2020,0.015,Currency,7022,2020,Y
 02 Jun 2020,2020-12-31,Interim Dividend,17 Jun 2020,02 Jul 2020,0.01,Currency,7022,2020,Y
 02 Jun 2020,2020-12-31,Special Dividend,17 Jun 2020,02 Jul 2020,0.01,Currency,7022,2020,Y
 27 Feb 2020,2019-12-31,Third Interim Dividend,13 Mar 2020,26 Mar 2020,0.01,Currency,7022,2019,Y
 27 Feb 2020,2019-12-31,Special Dividend,13 Mar 2020,26 Mar 2020,0.02,Currency,7022,2019,Y
-01 Nov 2019,2019-12-31,Special Dividend,15 Nov 2019,04 Dec 2019,0.015,Currency,7022,2019,Y
 01 Nov 2019,2019-12-31,Second interim dividend,15 Nov 2019,04 Dec 2019,0.01,Currency,7022,2019,Y
+01 Nov 2019,2019-12-31,Special Dividend,15 Nov 2019,04 Dec 2019,0.015,Currency,7022,2019,Y
 29 May 2019,2019-12-31,Special Dividend,19 Jun 2019,02 Jul 2019,0.01,Currency,7022,2019,Y
 29 May 2019,2019-12-31,Interim Dividend,19 Jun 2019,02 Jul 2019,0.01,Currency,7022,2019,Y
 26 Feb 2019,2018-12-31,Interim Dividend,11 Mar 2019,26 Mar 2019,0.01,Currency,7022,2018,Y
 26 Feb 2019,2018-12-31,Special Dividend,11 Mar 2019,26 Mar 2019,0.02,Currency,7022,2018,Y
 02 Nov 2018,2018-12-31,Special Dividend,19 Nov 2018,04 Dec 2018,0.02,Currency,7022,2018,Y
 02 Nov 2018,2018-12-31,Second interim dividend,19 Nov 2018,04 Dec 2018,0.01,Currency,7022,2018,Y
-12 Jun 2018,2018-12-31,Interim Dividend,27 Jun 2018,11 Jul 2018,0.01,Currency,7022,2018,Y
 12 Jun 2018,2018-12-31,Special Dividend,27 Jun 2018,11 Jul 2018,0.02,Currency,7022,2018,Y
-16 Aug 2023,2023-04-30,Final Dividend,13 Dec 2023,22 Dec 2023,0.0125,Currency,5020,2023,Y
-17 Aug 2022,2022-04-30,Final Dividend,16 Dec 2022,29 Dec 2022,0.015,Currency,5020,2022,Y
-07 Sep 2021,2021-04-30,Final Dividend,15 Dec 2021,28 Dec 2021,0.01,Currency,5020,2021,Y
-19 Aug 2020,2020-04-30,Final Dividend,16 Dec 2020,28 Dec 2020,0.01,Currency,5020,2020,Y
-07 Aug 2019,2019-04-30,Final Dividend,16 Dec 2019,27 Dec 2019,0.008,Currency,5020,2019,Y
-12 Sep 2018,2018-04-30,Final Dividend,14 Dec 2018,28 Dec 2018,0.015,Currency,5020,2018,Y
-24 Aug 2017,2018-06-30,Interim Dividend,08 Sep 2017,28 Sep 2017,0.01,Currency,7382,2018,Y
+12 Jun 2018,2018-12-31,Interim Dividend,27 Jun 2018,11 Jul 2018,0.01,Currency,7022,2018,Y
 27 Apr 2023,2022-12-31,Final Dividend,30 Jun 2023,14 Jul 2023,0.0125,Currency,5649,2022,Y
 30 Dec 2022,2022-12-31,First Interim Dividend,20 Jan 2023,09 Feb 2023,0.013,Currency,5649,2022,Y
 27 Apr 2022,2021-12-31,Final Dividend,30 Jun 2022,15 Jul 2022,0.009,Currency,5649,2021,Y
@@ -1494,6 +1501,7 @@ Announced,Financial Year,Subject,EX Date,Payment Date,Amount,Indicator,Stock Cod
 28 Aug 2019,2019-12-31,First Interim Dividend,12 Sep 2019,27 Sep 2019,0.005,Currency,5138,2019,Y
 26 Feb 2019,2018-12-31,Second interim dividend,11 Mar 2019,27 Mar 2019,0.01,Currency,5138,2018,Y
 28 Aug 2018,2018-12-31,First Interim Dividend,12 Sep 2018,28 Sep 2018,0.015,Currency,5138,2018,Y
+26 Oct 2023,2023-06-30,Final Dividend,29 Nov 2023,29 Dec 2023,0.03,Currency,2062,2023,Y
 27 Feb 2023,2023-06-30,First Interim Dividend,14 Mar 2023,31 Mar 2023,0.03,Currency,2062,2023,Y
 27 Oct 2022,2022-06-30,Final Dividend,29 Nov 2022,28 Dec 2022,0.025,Currency,2062,2022,Y
 26 Nov 2021,2022-06-30,First Interim Dividend,21 Dec 2021,10 Jan 2022,0.025,Currency,2062,2022,Y
@@ -1581,17 +1589,20 @@ Announced,Financial Year,Subject,EX Date,Payment Date,Amount,Indicator,Stock Cod
 13 Jul 2022,2023-03-31,Interim Dividend,28 Jul 2022,16 Aug 2022,0.4,Currency,5136,2023,Y
 27 Apr 2020,2021-03-31,Interim Dividend,13 May 2020,12 Jun 2020,0.16,Currency,5136,2021,Y
 18 Jul 2019,2020-03-31,First Interim Dividend,05 Aug 2019,26 Aug 2019,0.16,Currency,5136,2020,Y
+25 Oct 2023,2023-06-30,Final Dividend,04 Dec 2023,19 Dec 2023,0.05,Currency,3298,2023,Y
 25 Oct 2022,2022-06-30,Final Dividend,02 Dec 2022,19 Dec 2022,0.04,Currency,3298,2022,Y
 02 Dec 2021,2021-06-30,Final Dividend,02 Dec 2021,17 Dec 2021,0.075,Currency,3298,2021,Y
-27 Oct 2020,2020-06-30,Final Dividend,02 Dec 2020,18 Dec 2020,0.05,Currency,3298,2020,Y
 27 Oct 2020,2020-06-30,Special Dividend,02 Dec 2020,18 Dec 2020,0.025,Currency,3298,2020,Y
+27 Oct 2020,2020-06-30,Final Dividend,02 Dec 2020,18 Dec 2020,0.05,Currency,3298,2020,Y
 14 Oct 2019,2019-06-30,Final Dividend,04 Dec 2019,18 Dec 2019,0.05,Currency,3298,2019,Y
 03 Oct 2018,2018-06-30,First and Final Dividend,03 Dec 2018,18 Dec 2018,0.05,Currency,3298,2018,Y
+15 Nov 2023,2023-07-31,First and Final Dividend,04 Jan 2024,19 Jan 2024,0.005,Currency,5072,2023,Y
 16 Nov 2022,2022-07-31,First and Final Dividend,05 Jan 2023,20 Jan 2023,0.01,Currency,5072,2022,Y
 17 Nov 2021,2021-07-31,First and Final Dividend,05 Jan 2022,21 Jan 2022,0.01,Currency,5072,2021,Y
 13 Nov 2020,2020-07-31,First and Final Dividend,31 Dec 2020,25 Jan 2021,0.003,Currency,5072,2020,Y
 18 Nov 2019,2019-07-31,First and Final Dividend,31 Dec 2019,23 Jan 2020,0.005,Currency,5072,2019,Y
 16 Nov 2018,2018-07-31,First and Final Dividend,02 Jan 2019,25 Jan 2019,0.005,Currency,5072,2018,Y
+20 Oct 2023,2023-06-30,Final Dividend,03 Jan 2024,19 Jan 2024,0.0125,Currency,5199,2023,Y
 23 Aug 2023,2023-06-30,Third Interim Dividend,21 Sep 2023,20 Oct 2023,0.005,Currency,5199,2023,Y
 24 May 2023,2023-06-30,Second Interim Dividend,22 Jun 2023,21 Jul 2023,0.0075,Currency,5199,2023,Y
 16 Feb 2023,2023-06-30,First Interim Dividend,17 Mar 2023,18 Apr 2023,0.0075,Currency,5199,2023,Y
@@ -1613,6 +1624,7 @@ Announced,Financial Year,Subject,EX Date,Payment Date,Amount,Indicator,Stock Cod
 08 Jul 2019,2019-08-31,First Interim Dividend,29 Aug 2019,26 Sep 2019,0.02,Currency,5160,2019,Y
 27 Dec 2018,2018-08-31,Final Dividend,12 Feb 2019,08 Mar 2019,0.015,Currency,5160,2018,Y
 26 Jul 2018,2018-08-31,First Interim Dividend,28 Aug 2018,28 Sep 2018,0.01,Currency,5160,2018,Y
+29 Sep 2023,2023-06-30,Final Dividend,31 Oct 2023,22 Nov 2023,0.38,Currency,5819,2023,Y
 28 Feb 2023,2023-06-30,Interim Dividend,14 Mar 2023,28 Mar 2023,0.21,Currency,5819,2023,Y
 28 Sep 2022,2022-06-30,Final Dividend,01 Nov 2022,17 Nov 2022,0.37,Currency,5819,2022,Y
 28 Feb 2022,2022-06-30,Interim Dividend,14 Mar 2022,25 Mar 2022,0.18,Currency,5819,2022,Y
@@ -1624,11 +1636,13 @@ Announced,Financial Year,Subject,EX Date,Payment Date,Amount,Indicator,Stock Cod
 26 Feb 2019,2019-06-30,Interim Dividend,11 Mar 2019,27 Mar 2019,0.16,Currency,5819,2019,Y
 27 Sep 2018,2018-06-30,Final Dividend,01 Nov 2018,22 Nov 2018,0.32,Currency,5819,2018,Y
 26 Feb 2018,2018-06-30,Interim Dividend,12 Mar 2018,28 Mar 2018,0.16,Currency,5819,2018,Y
+27 Sep 2023,2023-06-30,Final Dividend,27 Oct 2023,21 Nov 2023,0.17,Currency,5274,2023,Y
 29 Sep 2022,2022-06-30,Final Dividend,02 Nov 2022,18 Nov 2022,0.19,Currency,5274,2022,Y
 27 Sep 2021,2021-06-30,Final Dividend,28 Oct 2021,16 Nov 2021,0.26,Currency,5274,2021,Y
 25 Sep 2020,2020-06-30,Final Dividend,02 Nov 2020,18 Nov 2020,0.23,Currency,5274,2020,Y
 01 Oct 2019,2019-06-30,Final Dividend,05 Nov 2019,21 Nov 2019,0.22,Currency,5274,2019,Y
 28 Sep 2018,2018-06-30,Final Dividend,02 Nov 2018,23 Nov 2018,0.19,Currency,5274,2018,Y
+02 Oct 2023,2023-06-30,Final Dividend,01 Nov 2023,23 Nov 2023,0.32,Currency,1082,2023,Y
 28 Feb 2023,2023-06-30,Interim Dividend,14 Mar 2023,30 Mar 2023,0.17,Currency,1082,2023,Y
 30 Sep 2022,2022-06-30,Final Dividend,04 Nov 2022,23 Nov 2022,0.31,Currency,1082,2022,Y
 28 Feb 2022,2022-06-30,Interim Dividend,14 Mar 2022,30 Mar 2022,0.15,Currency,1082,2022,Y
@@ -1736,12 +1750,12 @@ Announced,Financial Year,Subject,EX Date,Payment Date,Amount,Indicator,Stock Cod
 26 Feb 2021,2020-12-31,First and Final Dividend,30 Mar 2021,30 Apr 2021,0.04,Currency,5225,2020,Y
 28 Feb 2020,2019-12-31,First and Final Dividend,30 Mar 2020,30 Apr 2020,0.04,Currency,5225,2019,Y
 29 Apr 2019,2018-12-31,First and Final Dividend,27 Jun 2019,18 Jul 2019,0.03,Currency,5225,2018,Y
-29 May 2023,2023-03-31,Special Dividend,28 Jun 2023,21 Jul 2023,0.02,Currency,3336,2023,Y
 29 May 2023,2023-03-31,Second Interim Dividend,28 Jun 2023,21 Jul 2023,0.04,Currency,3336,2023,Y
+29 May 2023,2023-03-31,Special Dividend,28 Jun 2023,21 Jul 2023,0.02,Currency,3336,2023,Y
 25 Nov 2022,2023-03-31,First Interim Dividend,14 Dec 2022,30 Dec 2022,0.02,Currency,3336,2023,Y
 27 May 2022,2022-03-31,Second Interim Dividend,29 Jun 2022,22 Jul 2022,0.04,Currency,3336,2022,Y
-29 Nov 2021,2022-03-31,Special Dividend,14 Dec 2021,30 Dec 2021,0.15,Currency,3336,2022,Y
 29 Nov 2021,2022-03-31,First Interim Dividend,14 Dec 2021,30 Dec 2021,0.02,Currency,3336,2022,Y
+29 Nov 2021,2022-03-31,Special Dividend,14 Dec 2021,30 Dec 2021,0.15,Currency,3336,2022,Y
 27 May 2021,2021-03-31,Second Interim Dividend,29 Jun 2021,23 Jul 2021,0.04,Currency,3336,2021,Y
 25 Nov 2020,2021-03-31,First Interim Dividend,11 Dec 2020,30 Dec 2020,0.02,Currency,3336,2021,Y
 26 Jun 2020,2020-03-31,Second Interim Dividend,29 Jul 2020,21 Aug 2020,0.01,Currency,3336,2020,Y
@@ -1751,11 +1765,6 @@ Announced,Financial Year,Subject,EX Date,Payment Date,Amount,Indicator,Stock Cod
 30 May 2018,2018-03-31,Second interim dividend,27 Jun 2018,20 Jul 2018,0.03,Currency,3336,2018,Y
 28 Nov 2017,2018-03-31,First Interim Dividend,13 Dec 2017,28 Dec 2017,0.03,Currency,3336,2018,Y
 02 Apr 2021,2020-12-31,Interim Dividend,16 Apr 2021,30 Apr 2021,0.025,Currency,5614,2020,Y
-17 Oct 2022,2022-06-30,First and Final Dividend,30 Dec 2022,16 Jan 2023,0.035,Currency,7222,2022,Y
-15 Oct 2021,2021-06-30,First and Final Dividend,04 Jan 2022,20 Jan 2022,0.035,Currency,7222,2021,Y
-19 Oct 2020,2020-06-30,First and Final Dividend,05 Jan 2021,18 Jan 2021,0.035,Currency,7222,2020,Y
-21 Oct 2019,2019-06-30,First and Final Dividend,02 Jan 2020,15 Jan 2020,0.035,Currency,7222,2019,Y
-22 Oct 2018,2018-06-30,First and Final Dividend,31 Dec 2018,16 Jan 2019,0.035,Currency,7222,2018,Y
 29 Aug 2023,2023-06-30,Fourth Interim Dividend,14 Sep 2023,06 Oct 2023,0.02,Currency,0166,2023,Y
 25 May 2023,2023-06-30,Third Interim Dividend,15 Jun 2023,07 Jul 2023,0.014,Currency,0166,2023,Y
 24 Feb 2023,2023-06-30,Second Interim Dividend,15 Mar 2023,06 Apr 2023,0.022,Currency,0166,2023,Y
@@ -1798,8 +1807,8 @@ Announced,Financial Year,Subject,EX Date,Payment Date,Amount,Indicator,Stock Cod
 23 May 2022,2022-12-31,First Interim Dividend,09 Jun 2022,23 Jun 2022,0.06,Currency,6262,2022,Y
 25 Feb 2022,2021-12-31,Fourth Interim Dividend,17 Mar 2022,31 Mar 2022,0.06,Currency,6262,2021,Y
 25 Nov 2021,2021-12-31,Third Interim Dividend,14 Dec 2021,30 Dec 2021,0.06,Currency,6262,2021,Y
-26 Aug 2021,2021-12-31,Special Dividend,14 Sep 2021,30 Sep 2021,0.04,Currency,6262,2021,Y
 26 Aug 2021,2021-12-31,Second Interim Dividend,14 Sep 2021,30 Sep 2021,0.04,Currency,6262,2021,Y
+26 Aug 2021,2021-12-31,Special Dividend,14 Sep 2021,30 Sep 2021,0.04,Currency,6262,2021,Y
 09 Jun 2021,2021-12-31,First Interim Dividend,30 Jun 2021,23 Jul 2021,0.02,Currency,6262,2021,Y
 22 Feb 2021,2020-12-31,Second Interim Dividend,10 Mar 2021,26 Mar 2021,0.04,Currency,6262,2020,Y
 17 Aug 2020,2020-12-31,Interim Dividend,07 Oct 2020,03 Nov 2020,0.025,Currency,6262,2020,Y
@@ -1849,6 +1858,7 @@ Announced,Financial Year,Subject,EX Date,Payment Date,Amount,Indicator,Stock Cod
 28 Feb 2023,2023-06-30,First Interim Dividend,14 Mar 2023,30 Mar 2023,0.015,Currency,4383,2023,Y
 30 Aug 2022,2022-06-30,Interim Dividend,27 Sep 2022,18 Oct 2022,0.028,Currency,4383,2022,Y
 30 Oct 2018,2018-06-30,First and Final Dividend,30 Nov 2018,19 Dec 2018,0.005,Currency,4383,2018,Y
+29 Sep 2023,2023-07-31,Final Dividend,14 Dec 2023,29 Dec 2023,0.04,Currency,7152,2023,Y
 22 Mar 2023,2023-07-31,First Interim Dividend,05 Apr 2023,20 Apr 2023,0.02,Currency,7152,2023,Y
 29 Sep 2022,2022-07-31,Final Dividend,15 Dec 2022,30 Dec 2022,0.04,Currency,7152,2022,Y
 16 Jun 2022,2022-07-31,First Interim Dividend,14 Jul 2022,29 Jul 2022,0.02,Currency,7152,2022,Y
@@ -1955,6 +1965,7 @@ Announced,Financial Year,Subject,EX Date,Payment Date,Amount,Indicator,Stock Cod
 26 May 2023,2023-03-31,Third Interim Dividend,13 Jun 2023,04 Jul 2023,0.01,Currency,7077,2023,Y
 24 Feb 2023,2023-03-31,Second Interim Dividend,13 Mar 2023,30 Mar 2023,0.01,Currency,7077,2023,Y
 23 Aug 2022,2023-03-31,First Interim Dividend,08 Sep 2022,28 Sep 2022,0.01,Currency,7077,2023,Y
+26 Oct 2023,2023-07-31,First and Final Dividend,17 Jan 2024,08 Feb 2024,0.06,Currency,9334,2023,Y
 26 Oct 2022,2022-07-31,Final Dividend,18 Jan 2023,14 Feb 2023,0.06,Currency,9334,2022,Y
 14 Jul 2022,2022-07-31,Interim Dividend,28 Jul 2022,23 Aug 2022,0.015,Currency,9334,2022,Y
 26 Oct 2021,2021-07-31,Final Dividend,19 Jan 2022,15 Feb 2022,0.06,Currency,9334,2021,Y
@@ -2065,10 +2076,12 @@ Announced,Financial Year,Subject,EX Date,Payment Date,Amount,Indicator,Stock Cod
 15 Aug 2018,2018-12-31,Income Distribution,29 Aug 2018,28 Sep 2018,0.0565,Currency,5235SS,2018,Y
 16 May 2018,2018-12-31,Income Distribution,30 May 2018,29 Jun 2018,0.0572,Currency,5235SS,2018,Y
 16 May 2018,2018-12-31,Interim Dividend,30 May 2018,29 Jun 2018,0.0298,Currency,5235SS,2018,Y
-12 Oct 2022,2022-06-30,Others,22 Dec 2022,06 Jan 2023,0.017,Currency,2453,2022,Y
+05 Oct 2023,2023-06-30,First and Final Dividend,15 Dec 2023,02 Jan 2024,0.01,Currency,2453,2023,Y
+05 Oct 2023,2023-06-30,Others,15 Dec 2023,02 Jan 2024,0.017,Currency,2453,2023,Y
 12 Oct 2022,2022-06-30,First and Final Dividend,22 Dec 2022,06 Jan 2023,0.01,Currency,2453,2022,Y
-08 Oct 2021,2021-06-30,First and Final Dividend,15 Dec 2021,30 Dec 2021,0.01,Currency,2453,2021,Y
+12 Oct 2022,2022-06-30,Others,22 Dec 2022,06 Jan 2023,0.017,Currency,2453,2022,Y
 08 Oct 2021,2021-06-30,Others,15 Dec 2021,30 Dec 2021,0.0215,Currency,2453,2021,Y
+08 Oct 2021,2021-06-30,First and Final Dividend,15 Dec 2021,30 Dec 2021,0.01,Currency,2453,2021,Y
 08 Oct 2020,2020-06-30,First and Final Dividend,22 Dec 2020,08 Jan 2021,0.01,Currency,2453,2020,Y
 08 Oct 2019,2019-06-30,Special Dividend,11 Dec 2019,06 Jan 2020,0.05,Currency,2453,2019,Y
 08 Oct 2019,2019-06-30,First and Final Dividend,11 Dec 2019,06 Jan 2020,0.01,Currency,2453,2019,Y
@@ -2123,6 +2136,7 @@ Announced,Financial Year,Subject,EX Date,Payment Date,Amount,Indicator,Stock Cod
 07 May 2021,2020-12-31,Second Interim Dividend,28 May 2021,25 Jun 2021,0.01,Currency,1996,2020,Y
 30 Dec 2020,2020-12-31,Interim Dividend,15 Jan 2021,29 Jan 2021,0.01,Currency,1996,2020,Y
 29 Apr 2019,2018-12-31,Final Dividend,04 Jun 2019,14 Jun 2019,0.02,Currency,0176,2018,Y
+24 May 2023,2023-09-30,Interim Dividend,10 Jul 2023,01 Aug 2023,0.2,Currency,2445,2023,Y
 09 Dec 2022,2022-09-30,Final Dividend,17 Feb 2023,28 Feb 2023,0.8,Currency,2445,2022,Y
 24 May 2022,2022-09-30,Interim Dividend,08 Jul 2022,02 Aug 2022,0.2,Currency,2445,2022,Y
 10 Dec 2021,2021-09-30,Final Dividend,18 Feb 2022,01 Mar 2022,0.8,Currency,2445,2021,Y
@@ -2137,26 +2151,30 @@ Announced,Financial Year,Subject,EX Date,Payment Date,Amount,Indicator,Stock Cod
 30 Aug 2022,2022-06-30,First and Final Dividend,14 Sep 2022,13 Oct 2022,0.015,Currency,6874,2022,Y
 28 Oct 2021,2021-06-30,First and Final Dividend,16 Nov 2021,17 Dec 2021,0.015,Currency,6874,2021,Y
 27 Feb 2018,2018-12-31,Interim Dividend,12 Mar 2018,13 Apr 2018,0.01,Currency,6874,2018,Y
-12 Oct 2022,2022-06-30,Others,22 Dec 2022,06 Jan 2023,0.01,Currency,2186,2022,Y
+05 Oct 2023,2023-06-30,Others,15 Dec 2023,02 Jan 2024,0.015,Currency,2186,2023,Y
+05 Oct 2023,2023-06-30,First and Final Dividend,15 Dec 2023,02 Jan 2024,0.01,Currency,2186,2023,Y
 12 Oct 2022,2022-06-30,First and Final Dividend,22 Dec 2022,06 Jan 2023,0.01,Currency,2186,2022,Y
-08 Oct 2021,2021-06-30,First and Final Dividend,15 Dec 2021,30 Dec 2021,0.01,Currency,2186,2021,Y
+12 Oct 2022,2022-06-30,Others,22 Dec 2022,06 Jan 2023,0.01,Currency,2186,2022,Y
 08 Oct 2021,2021-06-30,Others,15 Dec 2021,30 Dec 2021,0.0075,Currency,2186,2021,Y
+08 Oct 2021,2021-06-30,First and Final Dividend,15 Dec 2021,30 Dec 2021,0.01,Currency,2186,2021,Y
 08 Oct 2020,2020-06-30,First and Final Dividend,22 Dec 2020,08 Jan 2021,0.01,Currency,2186,2020,Y
 08 Oct 2020,2020-06-30,Others,22 Dec 2020,08 Jan 2021,0.0015,Currency,2186,2020,Y
-08 Oct 2019,2019-06-30,Others,11 Dec 2019,06 Jan 2020,0.004,Currency,2186,2019,Y
 08 Oct 2019,2019-06-30,First and Final Dividend,11 Dec 2019,06 Jan 2020,0.01,Currency,2186,2019,Y
+08 Oct 2019,2019-06-30,Others,11 Dec 2019,06 Jan 2020,0.004,Currency,2186,2019,Y
 16 Oct 2018,2018-06-30,Others,12 Dec 2018,07 Jan 2019,0.009,Currency,2186,2018,Y
-16 Oct 2018,2018-06-30,First and Final Dividend,12 Dec 2018,07 Jan 2019,0.001,Currency,2186,2018,Y
 16 Oct 2018,2018-06-30,Special Dividend,12 Dec 2018,07 Jan 2019,0.04,Currency,2186,2018,Y
-19 May 2023,2023-03-31,Interim Dividend,03 Aug 2023,18 Aug 2023,0.09,Currency,6491,2023,Y
+16 Oct 2018,2018-06-30,First and Final Dividend,12 Dec 2018,07 Jan 2019,0.001,Currency,2186,2018,Y
 19 May 2023,2023-03-31,Special Dividend,03 Aug 2023,18 Aug 2023,0.03,Currency,6491,2023,Y
-30 May 2022,2022-03-31,Interim Dividend,04 Aug 2022,22 Aug 2022,0.09,Currency,6491,2022,Y
+19 May 2023,2023-03-31,Interim Dividend,03 Aug 2023,18 Aug 2023,0.09,Currency,6491,2023,Y
 30 May 2022,2022-03-31,Special Dividend,04 Aug 2022,22 Aug 2022,0.06,Currency,6491,2022,Y
-30 Jun 2021,2021-03-31,Interim Dividend,27 Aug 2021,17 Sep 2021,0.09,Currency,6491,2021,Y
+30 May 2022,2022-03-31,Interim Dividend,04 Aug 2022,22 Aug 2022,0.09,Currency,6491,2022,Y
 30 Jun 2021,2021-03-31,Special Dividend,27 Aug 2021,17 Sep 2021,0.03,Currency,6491,2021,Y
+30 Jun 2021,2021-03-31,Interim Dividend,27 Aug 2021,17 Sep 2021,0.09,Currency,6491,2021,Y
 23 Jun 2020,2020-03-31,Interim Dividend,27 Aug 2020,14 Sep 2020,0.09,Currency,6491,2020,Y
 26 Jul 2019,2019-03-31,Final Dividend,17 Sep 2019,07 Oct 2019,0.09,Currency,6491,2019,Y
 30 Jul 2018,2018-03-31,Final Dividend,18 Sep 2018,05 Oct 2018,0.09,Currency,6491,2018,Y
+25 Sep 2023,2023-10-31,Interim Dividend,10 Oct 2023,23 Oct 2023,0.02,Currency,7033,2023,Y
+07 Feb 2023,2023-10-31,Interim Dividend,23 Feb 2023,10 Mar 2023,0.01,Currency,7033,2023,Y
 26 Sep 2022,2022-10-31,Interim Dividend,12 Oct 2022,28 Oct 2022,0.02,Currency,7033,2022,Y
 26 Jan 2022,2022-10-31,Interim Dividend,14 Feb 2022,03 Mar 2022,0.01,Currency,7033,2022,Y
 28 Sep 2021,2021-10-31,Interim Dividend,12 Oct 2021,28 Oct 2021,0.015,Currency,7033,2021,Y
@@ -2202,8 +2220,8 @@ Announced,Financial Year,Subject,EX Date,Payment Date,Amount,Indicator,Stock Cod
 27 Feb 2018,2018-12-31,Interim Dividend,02 May 2018,21 May 2018,0.03,Currency,8494,2018,Y
 18 Apr 2023,2022-12-31,Final Dividend,29 Aug 2023,14 Sep 2023,0.0125,Currency,5789,2022,Y
 18 Apr 2023,2022-12-31,First Interim Dividend,28 Jun 2023,17 Jul 2023,0.012,Currency,5789,2022,Y
-15 Apr 2022,2021-12-31,First Interim Dividend,29 Jun 2022,14 Jul 2022,0.0085,Currency,5789,2021,Y
 15 Apr 2022,2021-12-31,Final Dividend,29 Aug 2022,15 Sep 2022,0.01,Currency,5789,2021,Y
+15 Apr 2022,2021-12-31,First Interim Dividend,29 Jun 2022,14 Jul 2022,0.0085,Currency,5789,2021,Y
 17 May 2021,2020-12-31,First and Final Dividend,26 Aug 2021,22 Sep 2021,0.0145,Currency,5789,2020,Y
 29 Apr 2019,2018-12-31,First and Final Dividend,29 Aug 2019,27 Sep 2019,0.018,Currency,5789,2018,Y
 15 Jun 2022,2022-12-31,Interim Dividend,29 Jun 2022,18 Jul 2022,0.015,Currency,9881,2022,Y
@@ -2245,6 +2263,7 @@ Announced,Financial Year,Subject,EX Date,Payment Date,Amount,Indicator,Stock Cod
 22 Nov 2018,2018-12-31,Interim Dividend,10 Dec 2018,27 Dec 2018,0.035,Currency,7089,2018,Y
 23 Aug 2018,2018-12-31,Second interim dividend,06 Sep 2018,27 Sep 2018,0.035,Currency,7089,2018,Y
 24 May 2018,2018-12-31,First Interim Dividend,11 Jun 2018,29 Jun 2018,0.025,Currency,7089,2018,Y
+25 May 2023,2023-09-30,Interim Dividend,02 Jun 2023,16 Jun 2023,0.0092,Currency,03047,2023,Y
 28 Mar 2023,2022-09-30,Final Dividend,05 Apr 2023,17 Apr 2023,0.0013,Currency,03047,2022,Y
 28 Nov 2022,2022-09-30,Second Interim Dividend,09 Dec 2022,28 Dec 2022,0.0235,Currency,03047,2022,Y
 24 May 2022,2022-09-30,Interim Dividend,10 Jun 2022,28 Jun 2022,0.0105,Currency,03047,2022,Y
@@ -2300,6 +2319,7 @@ Announced,Financial Year,Subject,EX Date,Payment Date,Amount,Indicator,Stock Cod
 29 Apr 2019,2018-12-31,Final Dividend,05 Jul 2019,22 Jul 2019,0.07,Currency,9199,2018,Y
 09 Jul 2019,2019-12-31,First Interim Dividend,23 Jul 2019,20 Aug 2019,0.06,Currency,1198,2019,Y
 09 Mar 2018,2018-12-31,First Interim Dividend,22 Mar 2018,25 Apr 2018,0.03,Currency,1198,2018,Y
+31 Oct 2023,2023-06-30,Final Dividend,03 Jan 2024,24 Jan 2024,0.001,Currency,0095,2023,Y
 26 Jun 2023,2023-04-30,Fourth Interim Dividend,10 Jul 2023,25 Jul 2023,0.025,Currency,7087,2023,Y
 08 Mar 2023,2023-04-30,Third Interim Dividend,24 Mar 2023,12 Apr 2023,0.02,Currency,7087,2023,Y
 12 Dec 2022,2023-04-30,Second Interim Dividend,27 Dec 2022,11 Jan 2023,0.023,Currency,7087,2023,Y
@@ -2323,8 +2343,8 @@ Announced,Financial Year,Subject,EX Date,Payment Date,Amount,Indicator,Stock Cod
 12 Sep 2018,2019-04-30,Interim Dividend,10 Oct 2018,26 Oct 2018,0.05,Currency,7087,2019,Y
 30 Aug 2018,2018-04-30,Special Dividend,10 Oct 2018,26 Oct 2018,0.02,Currency,7087,2018,Y
 30 Aug 2018,2018-04-30,Final Dividend,10 Oct 2018,26 Oct 2018,0.03,Currency,7087,2018,Y
-15 Mar 2018,2018-04-30,Interim Dividend,28 Mar 2018,12 Apr 2018,0.03,Currency,7087,2018,Y
 15 Mar 2018,2018-04-30,Special Dividend,28 Mar 2018,12 Apr 2018,0.04,Currency,7087,2018,Y
+15 Mar 2018,2018-04-30,Interim Dividend,28 Mar 2018,12 Apr 2018,0.03,Currency,7087,2018,Y
 12 Dec 2017,2018-04-30,Interim Dividend,27 Dec 2017,12 Jan 2018,0.045,Currency,7087,2018,Y
 15 Sep 2017,2018-04-30,Interim Dividend,11 Oct 2017,27 Oct 2017,0.035,Currency,7087,2018,Y
 28 Feb 2023,2022-12-31,Fourth Interim Dividend,14 Mar 2023,31 Mar 2023,0.015,Currency,3859,2022,Y
@@ -2393,8 +2413,8 @@ Announced,Financial Year,Subject,EX Date,Payment Date,Amount,Indicator,Stock Cod
 19 May 2021,2020-12-31,First and Final Dividend,02 Jul 2021,23 Jul 2021,0.01,Currency,5916,2020,Y
 03 Aug 2020,2019-12-31,First and Final Dividend,15 Sep 2020,30 Sep 2020,0.02,Currency,5916,2019,Y
 29 Apr 2019,2018-12-31,First and Final Dividend,12 Jun 2019,28 Jun 2019,0.02,Currency,5916,2018,Y
-08 Dec 2022,2022-12-31,Special Dividend,21 Dec 2022,05 Jan 2023,0.035,Currency,5077,2022,Y
 08 Dec 2022,2022-12-31,Special Dividend,21 Dec 2022,05 Jan 2023,0.065,Currency,5077,2022,Y
+08 Dec 2022,2022-12-31,Special Dividend,21 Dec 2022,05 Jan 2023,0.035,Currency,5077,2022,Y
 24 Dec 2019,2019-06-30,Special Dividend,09 Jan 2020,21 Jan 2020,0.22,Currency,0155,2019,Y
 18 May 2023,2023-06-30,Second Interim Dividend,01 Jun 2023,21 Jun 2023,0.25,Currency,3867,2023,Y
 23 Nov 2022,2023-06-30,Interim Dividend,07 Dec 2022,21 Dec 2022,0.1,Currency,3867,2023,Y
@@ -2436,6 +2456,7 @@ Announced,Financial Year,Subject,EX Date,Payment Date,Amount,Indicator,Stock Cod
 27 May 2020,2020-12-31,Interim Dividend,10 Jun 2020,24 Jun 2020,0.04,Currency,7029,2020,Y
 27 Mar 2019,2019-12-31,Interim Dividend,18 Apr 2019,10 May 2019,0.02,Currency,7029,2019,Y
 05 Apr 2018,2018-12-31,Interim Dividend,18 Apr 2018,08 May 2018,0.015,Currency,7029,2018,Y
+23 Oct 2023,2023-06-30,First and Final Dividend,15 Dec 2023,08 Jan 2024,0.0016,Currency,0189,2023,Y
 21 Oct 2022,2022-06-30,First and Final Dividend,16 Dec 2022,09 Jan 2023,0.0022,Currency,0189,2022,Y
 25 Oct 2021,2021-06-30,First and Final Dividend,16 Dec 2021,07 Jan 2022,0.002,Currency,0189,2021,Y
 26 Oct 2020,2020-06-30,First and Final Dividend,17 Dec 2020,08 Jan 2021,0.0015,Currency,0189,2020,Y
@@ -2457,8 +2478,8 @@ Announced,Financial Year,Subject,EX Date,Payment Date,Amount,Indicator,Stock Cod
 20 Feb 2020,2020-03-31,Third Interim Dividend,26 Mar 2020,15 Apr 2020,0.03,Currency,5236,2020,Y
 20 Nov 2019,2020-03-31,Interim Dividend,19 Dec 2019,08 Jan 2020,0.03,Currency,5236,2020,Y
 29 Aug 2019,2020-03-31,Interim Dividend,19 Sep 2019,09 Oct 2019,0.03,Currency,5236,2020,Y
-31 May 2019,2019-03-31,Interim Dividend,20 Jun 2019,10 Jul 2019,0.03,Currency,5236,2019,Y
 31 May 2019,2019-03-31,Special Dividend,20 Jun 2019,10 Jul 2019,0.0025,Currency,5236,2019,Y
+31 May 2019,2019-03-31,Interim Dividend,20 Jun 2019,10 Jul 2019,0.03,Currency,5236,2019,Y
 20 Feb 2019,2019-03-31,Interim Dividend,19 Mar 2019,10 Apr 2019,0.03,Currency,5236,2019,Y
 14 Nov 2018,2019-03-31,Interim Dividend,19 Dec 2018,09 Jan 2019,0.0325,Currency,5236,2019,Y
 27 Aug 2018,2019-03-31,Interim Dividend,19 Sep 2018,10 Oct 2018,0.0325,Currency,5236,2019,Y
@@ -2508,6 +2529,7 @@ Announced,Financial Year,Subject,EX Date,Payment Date,Amount,Indicator,Stock Cod
 29 Apr 2019,2018-12-31,Final Dividend,13 Jun 2019,28 Jun 2019,0.06,Currency,5983,2018,Y
 24 Jan 2019,2018-12-31,Second interim dividend,11 Feb 2019,25 Feb 2019,0.03,Currency,5983,2018,Y
 04 Sep 2018,2018-12-31,First Interim Dividend,19 Sep 2018,05 Oct 2018,0.03,Currency,5983,2018,Y
+27 Sep 2023,2023-07-31,Second Interim Dividend,13 Oct 2023,30 Oct 2023,0.03,Currency,7004,2023,Y
 29 May 2023,2023-07-31,Interim Dividend,13 Jun 2023,23 Jun 2023,0.025,Currency,7004,2023,Y
 29 May 2023,2023-03-31,Interim Dividend,19 Jun 2023,07 Jul 2023,0.0067,Currency,5090,2023,Y
 26 May 2022,2022-03-31,Interim Dividend,17 Jun 2022,08 Jul 2022,0.0063,Currency,5090,2022,Y
@@ -2557,8 +2579,8 @@ Announced,Financial Year,Subject,EX Date,Payment Date,Amount,Indicator,Stock Cod
 28 Apr 2022,2021-12-31,Final Dividend,27 Jun 2022,20 Jul 2022,0.0049,Currency,7595,2021,Y
 22 Feb 2022,2021-12-31,First Interim Dividend,09 Mar 2022,30 Mar 2022,0.0042,Currency,7595,2021,Y
 31 Mar 2023,2022-12-31,Special Dividend,17 Apr 2023,09 May 2023,0.03,Currency,5026,2022,Y
-30 Mar 2022,2022-12-31,Special Dividend,15 Apr 2022,10 May 2022,0.02,Currency,5026,2022,Y
 30 Mar 2022,2022-12-31,Interim Dividend,15 Apr 2022,10 May 2022,0.02,Currency,5026,2022,Y
+30 Mar 2022,2022-12-31,Special Dividend,15 Apr 2022,10 May 2022,0.02,Currency,5026,2022,Y
 30 Mar 2022,2021-12-31,Special Dividend,15 Apr 2022,10 May 2022,0.02,Currency,5026,2021,Y
 07 Apr 2021,2021-12-31,Interim Dividend,22 Apr 2021,21 May 2021,0.02,Currency,5026,2021,Y
 07 Apr 2021,2021-12-31,Special Dividend,22 Apr 2021,21 May 2021,0.02,Currency,5026,2021,Y
@@ -2577,6 +2599,7 @@ Announced,Financial Year,Subject,EX Date,Payment Date,Amount,Indicator,Stock Cod
 23 Aug 2022,2023-03-31,Interim Dividend,08 Sep 2022,30 Sep 2022,0.005,Currency,0126,2023,Y
 27 Nov 2020,2021-03-31,Interim Dividend,11 Dec 2020,12 Jan 2021,0.01,Currency,0126,2021,Y
 13 Jul 2020,2020-03-31,Interim Dividend,28 Jul 2020,26 Aug 2020,0.01,Currency,0126,2020,Y
+30 Oct 2023,2023-06-30,Final Dividend,21 Dec 2023,10 Jan 2024,0.0005,Currency,0112,2023,Y
 27 Oct 2022,2022-06-30,Final Dividend,15 Dec 2022,05 Jan 2023,0.0005,Currency,0112,2022,Y
 27 Oct 2021,2021-06-30,Final Dividend,21 Dec 2021,11 Jan 2022,0.0005,Currency,0112,2021,Y
 28 Oct 2020,2020-06-30,Final Dividend,02 Dec 2020,22 Dec 2020,0.0005,Currency,0112,2020,Y
@@ -2596,8 +2619,8 @@ Announced,Financial Year,Subject,EX Date,Payment Date,Amount,Indicator,Stock Cod
 17 Nov 2020,2020-12-31,Interim Dividend,02 Dec 2020,15 Dec 2020,0.07,Currency,3816,2020,Y
 13 Aug 2020,2020-12-31,Interim Dividend,27 Aug 2020,15 Sep 2020,0.07,Currency,3816,2020,Y
 08 May 2020,2020-12-31,Interim Dividend,22 May 2020,09 Jun 2020,0.07,Currency,3816,2020,Y
-18 Feb 2020,2019-12-31,Interim Dividend,02 Mar 2020,17 Mar 2020,0.09,Currency,3816,2019,Y
 18 Feb 2020,2019-12-31,Special Dividend,02 Mar 2020,17 Mar 2020,0.03,Currency,3816,2019,Y
+18 Feb 2020,2019-12-31,Interim Dividend,02 Mar 2020,17 Mar 2020,0.09,Currency,3816,2019,Y
 13 Nov 2019,2019-12-31,Interim Dividend,26 Nov 2019,10 Dec 2019,0.07,Currency,3816,2019,Y
 14 Aug 2019,2019-12-31,Interim Dividend,27 Aug 2019,18 Sep 2019,0.07,Currency,3816,2019,Y
 24 May 2019,2019-12-31,Interim Dividend,10 Jun 2019,25 Jun 2019,0.07,Currency,3816,2019,Y
@@ -2674,18 +2697,22 @@ Announced,Financial Year,Subject,EX Date,Payment Date,Amount,Indicator,Stock Cod
 29 Apr 2019,2018-09-30,Final Dividend,06 May 2019,05 Jun 2019,0.014,Currency,0138,2018,Y
 27 Feb 2018,2018-06-30,First Interim Dividend,24 Apr 2018,25 May 2018,0.005,Currency,0138,2018,Y
 29 Jun 2022,2022-06-30,Interim Dividend,21 Jul 2022,19 Aug 2022,0.03,Currency,5087,2022,Y
+12 Oct 2023,2022-12-31,Income Distribution,01 Nov 2023,14 Nov 2023,0.017,Currency,0821EA,2022,Y
 27 Oct 2022,2021-12-31,Income Distribution,11 Nov 2022,25 Nov 2022,0.0181,Currency,0821EA,2021,Y
 26 Feb 2021,2020-12-31,Income Distribution,12 Mar 2021,12 Apr 2021,0.0237,Currency,0821EA,2020,Y
 25 Feb 2020,2019-12-31,Income Distribution,11 Mar 2020,09 Apr 2020,0.0181,Currency,0821EA,2019,Y
 21 Feb 2019,2018-12-31,Income Distribution,11 Mar 2019,08 Apr 2019,0.0244,Currency,0821EA,2018,Y
+12 Oct 2023,2022-12-31,Income Distribution,01 Nov 2023,14 Nov 2023,0.021,Currency,0824EA,2022,Y
 27 Oct 2022,2021-12-31,Income Distribution,11 Nov 2022,25 Nov 2022,0.022,Currency,0824EA,2021,Y
 26 Feb 2021,2020-12-31,Income Distribution,12 Mar 2021,12 Apr 2021,0.0253,Currency,0824EA,2020,Y
 25 Feb 2020,2019-12-31,Income Distribution,11 Mar 2020,09 Apr 2020,0.0296,Currency,0824EA,2019,Y
 21 Feb 2019,2018-12-31,Income Distribution,11 Mar 2019,08 Apr 2019,0.0276,Currency,0824EA,2018,Y
+12 Oct 2023,2022-12-31,Income Distribution,01 Nov 2023,14 Nov 2023,0.0115,Currency,0825EA,2022,Y
 27 Oct 2022,2021-12-31,Income Distribution,11 Nov 2022,25 Nov 2022,0.013,Currency,0825EA,2021,Y
 26 Feb 2021,2020-12-31,Income Distribution,12 Mar 2021,12 Apr 2021,0.0186,Currency,0825EA,2020,Y
 25 Feb 2020,2019-12-31,Income Distribution,11 Mar 2020,09 Apr 2020,0.0217,Currency,0825EA,2019,Y
 21 Feb 2019,2018-12-31,Income Distribution,11 Mar 2019,08 Apr 2019,0.0199,Currency,0825EA,2018,Y
+03 Oct 2023,2023-10-31,Interim Dividend,17 Oct 2023,09 Nov 2023,0.005,Currency,5275,2023,Y
 17 Jul 2019,2019-10-31,First Interim Dividend,01 Aug 2019,15 Aug 2019,0.01,Currency,5275,2019,Y
 11 Jul 2018,2018-10-31,First Interim Dividend,25 Jul 2018,15 Aug 2018,0.01,Currency,5275,2018,Y
 27 Feb 2023,2022-12-31,Second Interim Dividend,14 Mar 2023,30 Mar 2023,0.01,Currency,0108,2022,Y
@@ -2705,8 +2732,8 @@ Announced,Financial Year,Subject,EX Date,Payment Date,Amount,Indicator,Stock Cod
 29 Apr 2019,2018-12-31,Final Dividend,04 Jul 2019,19 Jul 2019,0.005,Currency,0056,2018,Y
 29 Nov 2022,2022-12-31,Second Interim Dividend,14 Dec 2022,30 Dec 2022,0.04,Currency,2038,2022,Y
 29 Nov 2022,2022-12-31,Special Dividend,14 Dec 2022,30 Dec 2022,0.03,Currency,2038,2022,Y
-30 May 2022,2022-12-31,First Interim Dividend,15 Jun 2022,30 Jun 2022,0.04,Currency,2038,2022,Y
 30 May 2022,2022-12-31,Special Dividend,15 Jun 2022,30 Jun 2022,0.06,Currency,2038,2022,Y
+30 May 2022,2022-12-31,First Interim Dividend,15 Jun 2022,30 Jun 2022,0.04,Currency,2038,2022,Y
 26 Nov 2021,2021-12-31,Second Interim Dividend,13 Dec 2021,31 Dec 2021,0.03,Currency,2038,2021,Y
 26 Nov 2021,2021-12-31,Special Dividend,13 Dec 2021,31 Dec 2021,0.04,Currency,2038,2021,Y
 22 Jun 2021,2021-12-31,Special Dividend,07 Jul 2021,30 Jul 2021,0.04,Currency,2038,2021,Y
@@ -2750,14 +2777,15 @@ Announced,Financial Year,Subject,EX Date,Payment Date,Amount,Indicator,Stock Cod
 24 Dec 2019,2019-12-31,First Interim Dividend,02 Jan 2020,17 Jan 2020,0.002,Currency,03006,2019,Y
 28 Jun 2019,2018-12-31,Final Dividend,15 Jul 2019,08 Aug 2019,0.002,Currency,03006,2018,Y
 12 Dec 2018,2018-12-31,First Interim Dividend,26 Dec 2018,18 Jan 2019,0.004,Currency,03006,2018,Y
+05 Oct 2023,2023-06-30,Final Dividend,30 Nov 2023,08 Dec 2023,0.0125,Currency,0201,2023,Y
 22 Feb 2023,2023-06-30,Special Dividend,08 Mar 2023,16 Mar 2023,0.012,Currency,0201,2023,Y
 22 Feb 2023,2023-06-30,Interim Dividend,08 Mar 2023,16 Mar 2023,0.0085,Currency,0201,2023,Y
 23 Nov 2022,2022-06-30,Final Dividend,30 Nov 2022,08 Dec 2022,0.0125,Currency,0201,2022,Y
 22 Feb 2022,2022-06-30,Special Dividend,08 Mar 2022,16 Mar 2022,0.012,Currency,0201,2022,Y
 22 Feb 2022,2022-06-30,Interim Dividend,08 Mar 2022,16 Mar 2022,0.008,Currency,0201,2022,Y
 15 Oct 2021,2021-06-30,Final Dividend,30 Nov 2021,08 Dec 2021,0.012,Currency,0201,2021,Y
-09 Feb 2021,2021-06-30,Special Dividend,25 Feb 2021,05 Mar 2021,0.012,Currency,0201,2021,Y
 09 Feb 2021,2021-06-30,Interim Dividend,25 Feb 2021,05 Mar 2021,0.006,Currency,0201,2021,Y
+09 Feb 2021,2021-06-30,Special Dividend,25 Feb 2021,05 Mar 2021,0.012,Currency,0201,2021,Y
 16 Oct 2020,2020-06-30,Final Dividend,01 Dec 2020,09 Dec 2020,0.0088,Currency,0201,2020,Y
 25 Feb 2020,2020-06-30,Interim Dividend,09 Mar 2020,17 Mar 2020,0.0055,Currency,0201,2020,Y
 25 Oct 2019,2019-06-30,Final Dividend,11 Dec 2019,19 Dec 2019,0.006,Currency,0201,2019,Y
@@ -2857,8 +2885,8 @@ Announced,Financial Year,Subject,EX Date,Payment Date,Amount,Indicator,Stock Cod
 28 Apr 2022,2021-12-31,Final Dividend,29 Jun 2022,14 Jul 2022,0.1,Currency,4006,2021,Y
 25 Feb 2022,2021-12-31,Second Interim Dividend,14 Mar 2022,29 Mar 2022,0.2,Currency,4006,2021,Y
 23 Nov 2021,2021-12-31,Interim Dividend,30 Dec 2021,20 Jan 2022,0.1,Currency,4006,2021,Y
-04 Jun 2021,2020-12-31,Special Dividend,29 Jun 2021,15 Jul 2021,0.06,Currency,4006,2020,Y
 04 Jun 2021,2020-12-31,Second Interim Dividend,29 Jun 2021,15 Jul 2021,0.08,Currency,4006,2020,Y
+04 Jun 2021,2020-12-31,Special Dividend,29 Jun 2021,15 Jul 2021,0.06,Currency,4006,2020,Y
 26 Nov 2020,2020-12-31,Interim Dividend,30 Dec 2020,21 Jan 2021,0.06,Currency,4006,2020,Y
 22 Jun 2020,2019-12-31,Special Dividend,22 Jul 2020,07 Aug 2020,0.1,Currency,4006,2019,Y
 22 Jun 2020,2019-12-31,Final Dividend,22 Jul 2020,07 Aug 2020,0.08,Currency,4006,2019,Y
@@ -2867,6 +2895,7 @@ Announced,Financial Year,Subject,EX Date,Payment Date,Amount,Indicator,Stock Cod
 29 Apr 2019,2018-12-31,Final Dividend,27 Jun 2019,11 Jul 2019,0.08,Currency,4006,2018,Y
 11 Mar 2019,2018-12-31,Second interim dividend,27 Mar 2019,11 Apr 2019,0.06,Currency,4006,2018,Y
 08 Oct 2018,2018-12-31,Interim Dividend,24 Oct 2018,22 Nov 2018,0.06,Currency,4006,2018,Y
+26 Oct 2023,2023-08-31,Interim Dividend,14 Dec 2023,29 Dec 2023,0.05,Currency,5827,2023,Y
 25 Oct 2022,2022-08-31,Interim Dividend,15 Dec 2022,30 Dec 2022,0.05,Currency,5827,2022,Y
 25 Oct 2021,2021-08-31,Interim Dividend,16 Dec 2021,31 Dec 2021,0.035,Currency,5827,2021,Y
 19 Nov 2020,2020-08-31,Interim Dividend,16 Dec 2020,31 Dec 2020,0.08,Currency,5827,2020,Y
@@ -2895,10 +2924,13 @@ Announced,Financial Year,Subject,EX Date,Payment Date,Amount,Indicator,Stock Cod
 27 Apr 2022,2022-12-31,Interim Dividend,26 May 2022,20 Jun 2022,0.07,Currency,7095,2022,Y
 21 Apr 2021,2020-12-31,First and Final Dividend,27 May 2021,18 Jun 2021,0.024,Currency,7095,2020,Y
 21 Apr 2021,2020-12-31,Others,27 May 2021,18 Jun 2021,0.026,Currency,7095,2020,Y
-19 May 2020,2019-12-31,Others,04 Jun 2020,19 Jun 2020,0.026,Currency,7095,2019,Y
 19 May 2020,2019-12-31,Interim Dividend,04 Jun 2020,19 Jun 2020,0.024,Currency,7095,2019,Y
-29 Apr 2019,2018-12-31,First and Final Dividend,30 May 2019,19 Jun 2019,0.024,Currency,7095,2018,Y
+19 May 2020,2019-12-31,Others,04 Jun 2020,19 Jun 2020,0.026,Currency,7095,2019,Y
 29 Apr 2019,2018-12-31,Special Dividend,30 May 2019,19 Jun 2019,0.026,Currency,7095,2018,Y
+29 Apr 2019,2018-12-31,First and Final Dividend,30 May 2019,19 Jun 2019,0.024,Currency,7095,2018,Y
+26 Apr 2023,2023-09-30,Interim Dividend,16 May 2023,25 May 2023,0.012,Currency,6009,2023,Y
+28 Feb 2023,2023-09-30,Interim Dividend,15 Mar 2023,28 Mar 2023,0.012,Currency,6009,2023,Y
+20 Dec 2022,2023-09-30,Interim Dividend,09 Jan 2023,20 Jan 2023,0.012,Currency,6009,2023,Y
 21 Oct 2022,2022-09-30,Interim Dividend,09 Nov 2022,23 Nov 2022,0.012,Currency,6009,2022,Y
 21 Jul 2022,2022-09-30,Interim Dividend,05 Aug 2022,25 Aug 2022,0.018,Currency,6009,2022,Y
 26 Apr 2022,2022-09-30,Interim Dividend,12 May 2022,25 May 2022,0.018,Currency,6009,2022,Y
@@ -2938,8 +2970,8 @@ Announced,Financial Year,Subject,EX Date,Payment Date,Amount,Indicator,Stock Cod
 26 Feb 2020,2020-06-30,Third Interim Dividend,12 Mar 2020,30 Mar 2020,0.025,Currency,7052,2020,Y
 27 Nov 2019,2020-06-30,Second interim dividend,12 Dec 2019,31 Dec 2019,0.025,Currency,7052,2020,Y
 27 Aug 2019,2020-06-30,First Interim Dividend,12 Sep 2019,30 Sep 2019,0.025,Currency,7052,2020,Y
-28 May 2019,2019-06-30,Interim Dividend,13 Jun 2019,28 Jun 2019,0.025,Currency,7052,2019,Y
 28 May 2019,2019-06-30,Special Dividend,13 Jun 2019,28 Jun 2019,0.015,Currency,7052,2019,Y
+28 May 2019,2019-06-30,Interim Dividend,13 Jun 2019,28 Jun 2019,0.025,Currency,7052,2019,Y
 27 Feb 2019,2019-06-30,Interim Dividend,13 Mar 2019,29 Mar 2019,0.025,Currency,7052,2019,Y
 29 Nov 2018,2019-06-30,Second interim dividend,12 Dec 2018,28 Dec 2018,0.025,Currency,7052,2019,Y
 27 Aug 2018,2019-06-30,First Interim Dividend,12 Sep 2018,28 Sep 2018,0.025,Currency,7052,2019,Y
@@ -3043,10 +3075,6 @@ Announced,Financial Year,Subject,EX Date,Payment Date,Amount,Indicator,Stock Cod
 27 Sep 2022,2022-05-31,Final Dividend,29 Nov 2022,15 Dec 2022,0.0125,Currency,9997,2022,Y
 28 Sep 2021,2021-05-31,Final Dividend,15 Dec 2021,31 Dec 2021,0.01,Currency,9997,2021,Y
 26 Jan 2021,2021-05-31,Interim Dividend,22 Feb 2021,15 Mar 2021,0.0125,Currency,9997,2021,Y
-31 May 2023,2022-12-31,Final Dividend,13 Jul 2023,28 Jul 2023,0.02,Currency,7160,2022,Y
-31 May 2022,2021-12-31,Final Dividend,07 Jul 2022,22 Jul 2022,0.02,Currency,7160,2021,Y
-11 Jun 2021,2020-12-31,Final Dividend,15 Jul 2021,30 Jul 2021,0.015,Currency,7160,2020,Y
-15 Jul 2020,2019-12-31,Final Dividend,30 Jul 2020,21 Aug 2020,0.015,Currency,7160,2019,Y
 23 Nov 2022,2022-12-31,Fourth Interim Dividend,02 Feb 2023,22 Feb 2023,0.0075,Currency,0186,2022,Y
 16 Aug 2022,2022-12-31,Third Interim Dividend,27 Oct 2022,15 Nov 2022,0.0075,Currency,0186,2022,Y
 23 May 2022,2022-12-31,Second Interim Dividend,03 Aug 2022,22 Aug 2022,0.0075,Currency,0186,2022,Y
@@ -3104,8 +3132,8 @@ Announced,Financial Year,Subject,EX Date,Payment Date,Amount,Indicator,Stock Cod
 13 Aug 2019,2019-12-31,Interim Dividend,27 Aug 2019,13 Sep 2019,0.11,Currency,5183,2019,Y
 25 Feb 2019,2018-12-31,Second interim dividend,08 Mar 2019,27 Mar 2019,0.18,Currency,5183,2018,Y
 15 Aug 2018,2018-12-31,Interim Dividend,29 Aug 2018,20 Sep 2018,0.14,Currency,5183,2018,Y
-22 Feb 2023,2022-12-31,Special Dividend,08 Mar 2023,23 Mar 2023,0.14,Currency,5681,2022,Y
 22 Feb 2023,2022-12-31,Interim Dividend,08 Mar 2023,23 Mar 2023,0.26,Currency,5681,2022,Y
+22 Feb 2023,2022-12-31,Special Dividend,08 Mar 2023,23 Mar 2023,0.14,Currency,5681,2022,Y
 28 Nov 2022,2022-12-31,Interim Dividend,13 Dec 2022,27 Dec 2022,0.2,Currency,5681,2022,Y
 24 Aug 2022,2022-12-31,Interim Dividend,08 Sep 2022,22 Sep 2022,0.11,Currency,5681,2022,Y
 26 May 2022,2022-12-31,Interim Dividend,10 Jun 2022,24 Jun 2022,0.05,Currency,5681,2022,Y
@@ -3117,8 +3145,8 @@ Announced,Financial Year,Subject,EX Date,Payment Date,Amount,Indicator,Stock Cod
 17 Nov 2020,2020-12-31,Interim Dividend,01 Dec 2020,16 Dec 2020,0.11,Currency,5681,2020,Y
 25 Aug 2020,2020-12-31,Interim Dividend,09 Sep 2020,24 Sep 2020,0.05,Currency,5681,2020,Y
 18 May 2020,2020-12-31,Interim Dividend,03 Jun 2020,17 Jun 2020,0.05,Currency,5681,2020,Y
-25 Feb 2020,2019-12-31,Interim Dividend,10 Mar 2020,26 Mar 2020,0.25,Currency,5681,2019,Y
 25 Feb 2020,2019-12-31,Special Dividend,10 Mar 2020,26 Mar 2020,0.15,Currency,5681,2019,Y
+25 Feb 2020,2019-12-31,Interim Dividend,10 Mar 2020,26 Mar 2020,0.25,Currency,5681,2019,Y
 22 Nov 2019,2019-12-31,Interim Dividend,06 Dec 2019,20 Dec 2019,0.16,Currency,5681,2019,Y
 23 Aug 2019,2019-12-31,Interim Dividend,10 Sep 2019,20 Sep 2019,0.14,Currency,5681,2019,Y
 28 May 2019,2019-12-31,Interim Dividend,13 Jun 2019,27 Jun 2019,0.15,Currency,5681,2019,Y
@@ -3135,8 +3163,8 @@ Announced,Financial Year,Subject,EX Date,Payment Date,Amount,Indicator,Stock Cod
 22 Nov 2021,2021-12-31,Third Interim Dividend,06 Dec 2021,20 Dec 2021,0.18,Currency,6033,2021,Y
 23 Aug 2021,2021-12-31,Second Interim Dividend,07 Sep 2021,20 Sep 2021,0.16,Currency,6033,2021,Y
 25 May 2021,2021-12-31,First Interim Dividend,10 Jun 2021,21 Jun 2021,0.16,Currency,6033,2021,Y
-22 Feb 2021,2020-12-31,Special Dividend,09 Mar 2021,22 Mar 2021,0.05,Currency,6033,2020,Y
 22 Feb 2021,2020-12-31,Fourth Interim Dividend,09 Mar 2021,22 Mar 2021,0.22,Currency,6033,2020,Y
+22 Feb 2021,2020-12-31,Special Dividend,09 Mar 2021,22 Mar 2021,0.05,Currency,6033,2020,Y
 19 Nov 2020,2020-12-31,Third Interim Dividend,04 Dec 2020,22 Dec 2020,0.18,Currency,6033,2020,Y
 19 Aug 2020,2020-12-31,Second Interim Dividend,08 Sep 2020,01 Oct 2020,0.16,Currency,6033,2020,Y
 19 Aug 2020,2020-12-31,Special Dividend,08 Sep 2020,01 Oct 2020,0.5,Currency,6033,2020,Y
@@ -3197,6 +3225,8 @@ Announced,Financial Year,Subject,EX Date,Payment Date,Amount,Indicator,Stock Cod
 20 Aug 2019,2019-12-31,First Interim Dividend,11 Sep 2019,02 Oct 2019,0.01,Currency,7172,2019,Y
 26 Feb 2019,2018-12-31,Second interim dividend,25 Mar 2019,18 Apr 2019,0.01,Currency,7172,2018,Y
 15 Aug 2018,2018-12-31,First Interim Dividend,04 Sep 2018,20 Sep 2018,0.01,Currency,7172,2018,Y
+26 Sep 2023,2023-10-31,Second Interim Dividend,12 Oct 2023,27 Oct 2023,0.02,Currency,7088,2023,Y
+26 Jun 2023,2023-10-31,First Interim Dividend,12 Jul 2023,27 Jul 2023,0.03,Currency,7088,2023,Y
 23 Feb 2023,2022-10-31,Final Dividend,06 Apr 2023,20 Apr 2023,0.02,Currency,7088,2022,Y
 31 Oct 2022,2022-10-31,Third Interim Dividend,14 Dec 2022,10 Jan 2023,0.02,Currency,7088,2022,Y
 29 Sep 2022,2022-10-31,Second Interim Dividend,13 Oct 2022,28 Oct 2022,0.02,Currency,7088,2022,Y
@@ -3258,8 +3288,8 @@ Announced,Financial Year,Subject,EX Date,Payment Date,Amount,Indicator,Stock Cod
 25 Aug 2022,2022-12-31,Interim Dividend,08 Sep 2022,28 Sep 2022,0.12,Currency,4065,2022,Y
 28 Feb 2022,2021-12-31,Final Dividend,13 May 2022,01 Jun 2022,0.25,Currency,4065,2021,Y
 26 Aug 2021,2021-12-31,Interim Dividend,09 Sep 2021,28 Sep 2021,0.1,Currency,4065,2021,Y
-25 Feb 2021,2020-12-31,Special Dividend,12 May 2021,01 Jun 2021,0.16,Currency,4065,2020,Y
 25 Feb 2021,2020-12-31,Final Dividend,12 May 2021,01 Jun 2021,0.22,Currency,4065,2020,Y
+25 Feb 2021,2020-12-31,Special Dividend,12 May 2021,01 Jun 2021,0.16,Currency,4065,2020,Y
 27 Aug 2020,2020-12-31,Interim Dividend,10 Sep 2020,29 Sep 2020,0.08,Currency,4065,2020,Y
 06 Apr 2020,2019-12-31,Second Interim Dividend,15 May 2020,02 Jun 2020,0.23,Currency,4065,2019,Y
 29 Aug 2019,2019-12-31,Interim Dividend,13 Sep 2019,02 Oct 2019,0.08,Currency,4065,2019,Y
@@ -3353,8 +3383,8 @@ Announced,Financial Year,Subject,EX Date,Payment Date,Amount,Indicator,Stock Cod
 13 Nov 2018,2018-12-31,Interim Dividend,27 Nov 2018,13 Dec 2018,0.02,Currency,5272,2018,Y
 09 Aug 2018,2018-12-31,Interim Dividend,23 Aug 2018,06 Sep 2018,0.02,Currency,5272,2018,Y
 23 May 2023,2023-03-31,Second Interim Dividend,14 Jun 2023,28 Jun 2023,0.07,Currency,9296,2023,Y
-21 Nov 2022,2023-03-31,Special Dividend,16 Dec 2022,30 Dec 2022,0.18,Currency,9296,2023,Y
 21 Nov 2022,2023-03-31,First Interim Dividend,16 Dec 2022,30 Dec 2022,0.05,Currency,9296,2023,Y
+21 Nov 2022,2023-03-31,Special Dividend,16 Dec 2022,30 Dec 2022,0.18,Currency,9296,2023,Y
 30 May 2022,2022-03-31,Second Interim Dividend,16 Jun 2022,30 Jun 2022,0.04,Currency,9296,2022,Y
 09 Nov 2021,2022-03-31,First Interim Dividend,23 Nov 2021,06 Dec 2021,0.07,Currency,9296,2022,Y
 25 May 2021,2021-03-31,Second Interim Dividend,15 Jul 2021,29 Jul 2021,0.07,Currency,9296,2021,Y
@@ -3415,6 +3445,7 @@ Announced,Financial Year,Subject,EX Date,Payment Date,Amount,Indicator,Stock Cod
 06 May 2020,2019-12-31,Final Dividend,02 Jul 2020,15 Jul 2020,0.01,Currency,5278,2019,Y
 29 Apr 2019,2018-12-31,Final Dividend,02 Jul 2019,15 Jul 2019,0.02,Currency,5278,2018,Y
 15 Jan 2019,2018-12-31,First Interim Dividend,29 Jan 2019,13 Feb 2019,0.01,Currency,5278,2018,Y
+12 Oct 2023,2023-06-30,Final Dividend,20 Dec 2023,12 Jan 2024,0.03,Currency,7006,2023,Y
 23 Feb 2023,2023-06-30,First Interim Dividend,13 Apr 2023,12 May 2023,0.01,Currency,7006,2023,Y
 11 Oct 2022,2022-06-30,Final Dividend,22 Dec 2022,13 Jan 2023,0.05,Currency,7006,2022,Y
 24 Feb 2022,2022-06-30,First Interim Dividend,14 Apr 2022,13 May 2022,0.01,Currency,7006,2022,Y
@@ -3425,14 +3456,14 @@ Announced,Financial Year,Subject,EX Date,Payment Date,Amount,Indicator,Stock Cod
 27 Sep 2019,2019-06-30,Final Dividend,28 Nov 2019,20 Dec 2019,0.03,Currency,7006,2019,Y
 27 Feb 2019,2019-06-30,First Interim Dividend,17 Apr 2019,15 May 2019,0.03,Currency,7006,2019,Y
 09 Oct 2018,2018-06-30,Final Dividend,28 Nov 2018,21 Dec 2018,0.06,Currency,7006,2018,Y
-02 Dec 2022,2022-12-31,Special Dividend,06 Jan 2023,03 Feb 2023,0.17,Currency,2542,2022,Y
 02 Dec 2022,2022-12-31,Interim Dividend,06 Jan 2023,03 Feb 2023,0.03,Currency,2542,2022,Y
+02 Dec 2022,2022-12-31,Special Dividend,06 Jan 2023,03 Feb 2023,0.17,Currency,2542,2022,Y
 24 Jun 2022,2022-12-31,Interim Dividend,07 Jul 2022,29 Jul 2022,0.03,Currency,2542,2022,Y
 24 Jun 2022,2022-12-31,Special Dividend,07 Jul 2022,29 Jul 2022,0.17,Currency,2542,2022,Y
-02 Jul 2021,2021-12-31,Interim Dividend,16 Jul 2021,02 Aug 2021,0.02,Currency,2542,2021,Y
 02 Jul 2021,2021-12-31,Special Dividend,16 Jul 2021,02 Aug 2021,0.02,Currency,2542,2021,Y
-18 Dec 2020,2020-12-31,Interim Dividend,08 Jan 2021,05 Feb 2021,0.02,Currency,2542,2020,Y
+02 Jul 2021,2021-12-31,Interim Dividend,16 Jul 2021,02 Aug 2021,0.02,Currency,2542,2021,Y
 18 Dec 2020,2020-12-31,Special Dividend,08 Jan 2021,05 Feb 2021,0.08,Currency,2542,2020,Y
+18 Dec 2020,2020-12-31,Interim Dividend,08 Jan 2021,05 Feb 2021,0.02,Currency,2542,2020,Y
 14 Aug 2020,2020-12-31,First Interim Dividend,03 Sep 2020,25 Sep 2020,0.01,Currency,2542,2020,Y
 30 Dec 2019,2019-12-31,Interim Dividend,03 Jan 2020,24 Jan 2020,0.01,Currency,2542,2019,Y
 17 May 2019,2019-12-31,Interim Dividend,04 Jun 2019,28 Jun 2019,0.02,Currency,2542,2019,Y
@@ -3514,6 +3545,7 @@ Announced,Financial Year,Subject,EX Date,Payment Date,Amount,Indicator,Stock Cod
 28 May 2020,2020-12-31,First Interim Dividend,14 Jul 2020,06 Aug 2020,0.05,Currency,5135,2020,Y
 17 May 2019,2019-12-31,First Interim Dividend,11 Jul 2019,08 Aug 2019,0.05,Currency,5135,2019,Y
 15 May 2018,2018-12-31,First Interim Dividend,28 May 2018,11 Jun 2018,0.05,Currency,5135,2018,Y
+30 Oct 2023,2023-08-31,Second Interim Dividend,14 Dec 2023,03 Jan 2024,0.0025,Currency,5252,2023,Y
 18 Apr 2023,2023-08-31,Interim Dividend,15 May 2023,30 May 2023,0.005,Currency,5252,2023,Y
 29 Jul 2019,2019-03-31,First and Final Dividend,16 Oct 2019,05 Nov 2019,0.01,Currency,5207,2019,Y
 24 Feb 2023,2022-12-31,Interim Dividend,10 Mar 2023,24 Mar 2023,0.01,Currency,0158,2022,Y
@@ -3648,6 +3680,7 @@ Announced,Financial Year,Subject,EX Date,Payment Date,Amount,Indicator,Stock Cod
 28 Aug 2019,2019-12-31,Interim Dividend,31 Oct 2019,21 Nov 2019,0.03,Currency,5517,2019,Y
 29 Apr 2019,2018-12-31,Final Dividend,14 Jun 2019,15 Jul 2019,0.12,Currency,5517,2018,Y
 29 Aug 2018,2018-12-31,Interim Dividend,31 Oct 2018,23 Nov 2018,0.03,Currency,5517,2018,Y
+31 Oct 2023,2023-06-30,Final Dividend,30 Nov 2023,15 Dec 2023,0.03,Currency,5173,2023,Y
 31 Oct 2022,2022-06-30,Final Dividend,07 Dec 2022,15 Dec 2022,0.0125,Currency,5173,2022,Y
 27 Jul 2023,2023-03-31,Final Dividend,10 Oct 2023,25 Oct 2023,0.12,Currency,6017,2023,Y
 28 Jul 2022,2022-03-31,Final Dividend,11 Oct 2022,26 Oct 2022,0.09,Currency,6017,2022,Y
@@ -3664,12 +3697,12 @@ Announced,Financial Year,Subject,EX Date,Payment Date,Amount,Indicator,Stock Cod
 23 Feb 2023,2023-06-30,First Interim Dividend,09 Mar 2023,31 Mar 2023,0.03,Currency,4197,2023,Y
 17 Aug 2022,2022-06-30,Second Interim Dividend,07 Sep 2022,30 Sep 2022,0.075,Currency,4197,2022,Y
 16 Feb 2022,2022-06-30,First Interim Dividend,25 Apr 2022,11 May 2022,0.04,Currency,4197,2022,Y
-25 Aug 2021,2021-06-30,Special Dividend,10 Sep 2021,30 Sep 2021,0.01,Currency,4197,2021,Y
 25 Aug 2021,2021-06-30,Second Interim Dividend,10 Sep 2021,30 Sep 2021,0.08,Currency,4197,2021,Y
+25 Aug 2021,2021-06-30,Special Dividend,10 Sep 2021,30 Sep 2021,0.01,Currency,4197,2021,Y
 25 Feb 2021,2021-06-30,First Interim Dividend,23 Apr 2021,11 May 2021,0.02,Currency,4197,2021,Y
 25 Feb 2021,2021-06-30,Special Dividend,23 Apr 2021,11 May 2021,0.04,Currency,4197,2021,Y
-27 Aug 2020,2020-06-30,Special Dividend,02 Oct 2020,30 Oct 2020,0.01,Currency,4197,2020,Y
 27 Aug 2020,2020-06-30,Second Interim Dividend,02 Oct 2020,30 Oct 2020,0.07,Currency,4197,2020,Y
+27 Aug 2020,2020-06-30,Special Dividend,02 Oct 2020,30 Oct 2020,0.01,Currency,4197,2020,Y
 26 Feb 2020,2020-06-30,Interim Dividend,24 Apr 2020,12 May 2020,0.02,Currency,4197,2020,Y
 27 Aug 2019,2019-06-30,Second interim dividend,30 Sep 2019,31 Oct 2019,0.07,Currency,4197,2019,Y
 27 Aug 2019,2019-06-30,Special Dividend,30 Sep 2019,31 Oct 2019,0.01,Currency,4197,2019,Y
@@ -3683,8 +3716,8 @@ Announced,Financial Year,Subject,EX Date,Payment Date,Amount,Indicator,Stock Cod
 18 Aug 2021,2021-12-31,Interim Dividend,27 Oct 2021,12 Nov 2021,0.079,Currency,5285,2021,Y
 12 Apr 2021,2020-12-31,Special Dividend (with Dividend Re-Investment Plan),03 May 2021,03 Jun 2021,0.0213,Currency,5285,2020,Y
 18 Feb 2021,2020-12-31,Final Dividend,27 Apr 2021,12 May 2021,0.0542,Currency,5285,2020,Y
-27 Aug 2020,2020-12-31,Special Dividend,16 Nov 2020,26 Nov 2020,0.0145,Currency,5285,2020,Y
 27 Aug 2020,2020-12-31,Interim Dividend,16 Nov 2020,26 Nov 2020,0.0257,Currency,5285,2020,Y
+27 Aug 2020,2020-12-31,Special Dividend,16 Nov 2020,26 Nov 2020,0.0145,Currency,5285,2020,Y
 28 Feb 2020,2019-12-31,Final Dividend,08 May 2020,22 May 2020,0.01,Currency,5285,2019,Y
 29 Apr 2019,2018-12-31,Final Dividend,09 May 2019,21 May 2019,0.017,Currency,5285,2018,Y
 22 Nov 2018,2018-06-30,Final Dividend (with Dividend Re-Investment Plan),05 Dec 2018,07 Jan 2019,0.11,Currency,5285,2018,Y
@@ -3800,6 +3833,8 @@ Announced,Financial Year,Subject,EX Date,Payment Date,Amount,Indicator,Stock Cod
 27 Nov 2018,2019-06-30,Interim Dividend,18 Dec 2018,16 Jan 2019,0.01,Currency,7207,2019,Y
 28 May 2018,2018-06-30,Special Dividend,11 Jun 2018,25 Jun 2018,0.015,Currency,7207,2018,Y
 10 Oct 2017,2018-06-30,Interim Dividend (with Dividend Re-Investment Plan),30 Oct 2017,29 Nov 2017,0.05,Currency,7207,2018,Y
+05 Oct 2023,2023-06-30,Others,15 Dec 2023,02 Jan 2024,0.05,Currency,2569,2023,Y
+05 Oct 2023,2023-06-30,First and Final Dividend,15 Dec 2023,02 Jan 2024,0.02,Currency,2569,2023,Y
 12 Oct 2022,2022-06-30,First and Final Dividend,22 Dec 2022,06 Jan 2023,0.02,Currency,2569,2022,Y
 12 Oct 2022,2022-06-30,Others,22 Dec 2022,06 Jan 2023,0.05,Currency,2569,2022,Y
 08 Oct 2021,2021-06-30,First and Final Dividend,15 Dec 2021,30 Dec 2021,0.02,Currency,2569,2021,Y
@@ -3881,6 +3916,7 @@ Announced,Financial Year,Subject,EX Date,Payment Date,Amount,Indicator,Stock Cod
 30 Oct 2018,2018-06-30,Final Dividend,28 Nov 2018,18 Dec 2018,0.02,Currency,7106,2018,Y
 28 May 2018,2018-06-30,Interim Dividend,11 Jun 2018,28 Jun 2018,0.03,Currency,7106,2018,Y
 14 Feb 2018,2018-06-30,Interim Dividend,13 Mar 2018,28 Mar 2018,0.03,Currency,7106,2018,Y
+11 May 2023,2023-09-30,First Interim Dividend,02 Jun 2023,20 Jun 2023,0.0085,Currency,03018,2023,Y
 29 Nov 2022,2022-12-30,Second Interim Dividend,29 Dec 2022,17 Jan 2023,0.0207,Currency,03018,2022,Y
 30 May 2022,2022-09-30,First Interim Dividend,09 Jun 2022,24 Jun 2022,0.0085,Currency,03018,2022,Y
 29 Nov 2021,2021-09-30,Second Interim Dividend,30 Dec 2021,26 Jan 2022,0.0208,Currency,03018,2021,Y
@@ -3983,6 +4019,7 @@ Announced,Financial Year,Subject,EX Date,Payment Date,Amount,Indicator,Stock Cod
 17 Dec 2021,2021-12-31,Interim Dividend,30 Dec 2021,14 Jan 2022,0.0029,Currency,2054,2021,Y
 11 May 2021,2020-12-31,Final Dividend,07 Jul 2021,22 Jul 2021,0.0023,Currency,2054,2020,Y
 25 Mar 2021,2020-12-31,Interim Dividend,08 Apr 2021,19 Apr 2021,0.0029,Currency,2054,2020,Y
+27 Oct 2023,2023-06-30,Final Dividend,30 Nov 2023,15 Dec 2023,0.0075,Currency,5289,2023,Y
 28 Oct 2022,2022-06-30,Final Dividend,29 Dec 2022,17 Jan 2023,0.005,Currency,5289,2022,Y
 26 Aug 2021,2021-06-30,Second Interim Dividend,10 Sep 2021,30 Sep 2021,0.005,Currency,5289,2021,Y
 25 Nov 2020,2021-06-30,First Interim Dividend,21 Dec 2020,18 Jan 2021,0.01,Currency,5289,2021,Y
@@ -4017,8 +4054,10 @@ Announced,Financial Year,Subject,EX Date,Payment Date,Amount,Indicator,Stock Cod
 10 Sep 2019,2019-12-31,Interim Dividend,27 Sep 2019,11 Oct 2019,0.3,Currency,5347,2019,Y
 13 Mar 2019,2018-12-31,Final Dividend,27 Mar 2019,11 Apr 2019,0.23,Currency,5347,2018,Y
 06 Sep 2018,2018-12-31,Interim Dividend,26 Sep 2018,11 Oct 2018,0.3027,Currency,5347,2018,Y
-27 Oct 2022,2022-06-30,Special Dividend,06 Dec 2022,21 Dec 2022,0.03,Currency,9369,2022,Y
+25 Oct 2023,2023-06-30,Special Dividend,29 Nov 2023,13 Dec 2023,0.03,Currency,9369,2023,Y
+25 Oct 2023,2023-06-30,Final Dividend,29 Nov 2023,13 Dec 2023,0.05,Currency,9369,2023,Y
 27 Oct 2022,2022-06-30,Final Dividend,06 Dec 2022,21 Dec 2022,0.05,Currency,9369,2022,Y
+27 Oct 2022,2022-06-30,Special Dividend,06 Dec 2022,21 Dec 2022,0.03,Currency,9369,2022,Y
 27 Oct 2021,2021-06-30,Final Dividend,07 Dec 2021,22 Dec 2021,0.03,Currency,9369,2021,Y
 26 Nov 2020,2021-06-30,Interim Dividend,10 Dec 2020,23 Dec 2020,0.03,Currency,9369,2021,Y
 25 Oct 2019,2019-06-30,Special Dividend,03 Dec 2019,18 Dec 2019,0.035,Currency,9369,2019,Y
@@ -4054,8 +4093,8 @@ Announced,Financial Year,Subject,EX Date,Payment Date,Amount,Indicator,Stock Cod
 29 Jun 2020,2019-12-31,Final Dividend,27 Aug 2020,18 Sep 2020,0.09,Currency,7034,2019,Y
 29 Apr 2019,2018-12-31,Final Dividend,07 Aug 2019,28 Aug 2019,0.08,Currency,7034,2018,Y
 24 Nov 2022,2022-12-31,Interim Dividend,08 Dec 2022,21 Dec 2022,0.025,Currency,0012,2022,Y
-17 Nov 2021,2021-12-31,Special Dividend,01 Dec 2021,15 Dec 2021,0.008,Currency,0012,2021,Y
 17 Nov 2021,2021-12-31,Interim Dividend,01 Dec 2021,15 Dec 2021,0.022,Currency,0012,2021,Y
+17 Nov 2021,2021-12-31,Special Dividend,01 Dec 2021,15 Dec 2021,0.008,Currency,0012,2021,Y
 03 Nov 2020,2020-12-31,Interim Dividend,17 Nov 2020,03 Dec 2020,0.022,Currency,0012,2020,Y
 19 Nov 2019,2019-12-31,Interim Dividend,05 Dec 2019,20 Dec 2019,0.02,Currency,0012,2019,Y
 26 Nov 2018,2018-12-31,Interim Dividend,12 Dec 2018,27 Dec 2018,0.02,Currency,0012,2018,Y
@@ -4078,13 +4117,13 @@ Announced,Financial Year,Subject,EX Date,Payment Date,Amount,Indicator,Stock Cod
 26 Feb 2021,2020-12-31,Interim Dividend,16 Mar 2021,30 Mar 2021,0.206,Currency,5031,2020,Y
 28 Feb 2020,2019-12-31,Interim Dividend,17 Mar 2020,31 Mar 2020,0.0995,Currency,5031,2019,Y
 28 Feb 2020,2019-12-31,Interim Dividend,17 Mar 2020,31 Mar 2020,0.1908,Currency,5031,2019,Y
-28 Feb 2019,2018-12-31,Interim Dividend,15 Mar 2019,29 Mar 2019,0.1131,Currency,5031,2018,Y
 28 Feb 2019,2018-12-31,Interim Dividend,15 Mar 2019,29 Mar 2019,0.0925,Currency,5031,2018,Y
+28 Feb 2019,2018-12-31,Interim Dividend,15 Mar 2019,29 Mar 2019,0.1131,Currency,5031,2018,Y
 23 Jul 2021,2021-03-31,Final Dividend,30 Aug 2021,22 Sep 2021,0.01,Currency,8397,2021,Y
 29 Oct 2019,2019-06-30,Final Dividend,11 Dec 2019,26 Dec 2019,0.0015,Currency,5239,2019,Y
 30 Oct 2018,2018-06-30,Final Dividend,12 Dec 2018,27 Dec 2018,0.0025,Currency,5239,2018,Y
-22 Aug 2023,2023-06-30,Special Dividend,05 Dec 2023,03 Jan 2024,0.0041,Currency,0101,2023,Y
 22 Aug 2023,2023-06-30,Final Dividend,05 Dec 2023,03 Jan 2024,0.0041,Currency,0101,2023,Y
+22 Aug 2023,2023-06-30,Special Dividend,05 Dec 2023,03 Jan 2024,0.0041,Currency,0101,2023,Y
 23 Aug 2022,2022-06-30,Final Dividend,05 Dec 2022,03 Jan 2023,0.0027,Currency,0101,2022,Y
 02 Dec 2021,2021-06-30,Final Dividend,06 Dec 2021,03 Jan 2022,0.0022,Currency,0101,2021,Y
 25 Aug 2020,2020-06-30,Final Dividend,04 Dec 2020,04 Jan 2021,0.0017,Currency,0101,2020,Y
@@ -4201,8 +4240,8 @@ Announced,Financial Year,Subject,EX Date,Payment Date,Amount,Indicator,Stock Cod
 27 Jan 2021,2020-09-30,Final Dividend,12 Mar 2021,29 Mar 2021,0.06,Currency,7137,2020,Y
 23 Jan 2020,2019-09-30,Special Dividend,10 Mar 2020,27 Mar 2020,0.04,Currency,7137,2019,Y
 22 Jan 2020,2019-09-30,Final Dividend,10 Mar 2020,27 Mar 2020,0.06,Currency,7137,2019,Y
-30 Jan 2019,2018-09-30,Final Dividend,12 Mar 2019,29 Mar 2019,0.06,Currency,7137,2018,Y
 30 Jan 2019,2018-09-30,Special Dividend,12 Mar 2019,29 Mar 2019,0.04,Currency,7137,2018,Y
+30 Jan 2019,2018-09-30,Final Dividend,12 Mar 2019,29 Mar 2019,0.06,Currency,7137,2018,Y
 24 Feb 2023,2022-12-31,Interim Dividend,16 Mar 2023,31 Mar 2023,0.03,Currency,7227,2022,Y
 25 Feb 2022,2021-12-31,Interim Dividend,16 Mar 2022,31 Mar 2022,0.03,Currency,7227,2021,Y
 25 Feb 2021,2020-12-31,Interim Dividend,16 Mar 2021,31 Mar 2021,0.03,Currency,7227,2020,Y
@@ -4246,8 +4285,8 @@ Announced,Financial Year,Subject,EX Date,Payment Date,Amount,Indicator,Stock Cod
 02 Aug 2018,2018-12-31,Interim Dividend,20 Aug 2018,07 Sep 2018,0.025,Currency,5005,2018,Y
 28 Jun 2023,2023-04-30,Second Interim Dividend,26 Jul 2023,18 Aug 2023,0.07,Currency,2593,2023,Y
 27 Dec 2022,2023-04-30,First Interim Dividend,11 Jan 2023,20 Jan 2023,0.05,Currency,2593,2023,Y
-28 Jun 2022,2022-04-30,Special Dividend,26 Jul 2022,19 Aug 2022,0.05,Currency,2593,2022,Y
 28 Jun 2022,2022-04-30,Second Interim Dividend,26 Jul 2022,19 Aug 2022,0.05,Currency,2593,2022,Y
+28 Jun 2022,2022-04-30,Special Dividend,26 Jul 2022,19 Aug 2022,0.05,Currency,2593,2022,Y
 17 Dec 2021,2022-04-30,First Interim Dividend,06 Jan 2022,21 Jan 2022,0.05,Currency,2593,2022,Y
 24 Jun 2021,2021-04-30,Second Interim Dividend,22 Jul 2021,16 Aug 2021,0.07,Currency,2593,2021,Y
 15 Dec 2020,2021-04-30,First Interim Dividend,14 Jan 2021,04 Feb 2021,0.03,Currency,2593,2021,Y
@@ -4260,21 +4299,21 @@ Announced,Financial Year,Subject,EX Date,Payment Date,Amount,Indicator,Stock Cod
 27 Feb 2023,2022-12-31,Final Dividend,02 May 2023,17 May 2023,0.7,Currency,2089,2022,Y
 27 Feb 2023,2022-12-31,Special Dividend,02 May 2023,17 May 2023,0.3,Currency,2089,2022,Y
 15 Nov 2022,2022-12-31,Interim Dividend,21 Nov 2022,05 Dec 2022,0.4,Currency,2089,2022,Y
-28 Feb 2022,2021-12-31,Final Dividend,28 Apr 2022,18 May 2022,0.65,Currency,2089,2021,Y
 28 Feb 2022,2021-12-31,Special Dividend,28 Apr 2022,18 May 2022,0.2,Currency,2089,2021,Y
+28 Feb 2022,2021-12-31,Final Dividend,28 Apr 2022,18 May 2022,0.65,Currency,2089,2021,Y
 08 Nov 2021,2021-12-31,Interim Dividend,19 Nov 2021,03 Dec 2021,0.3,Currency,2089,2021,Y
 22 Feb 2021,2020-12-31,Special Dividend,26 Apr 2021,07 May 2021,0.5,Currency,2089,2020,Y
 22 Feb 2021,2020-12-31,Final Dividend,26 Apr 2021,07 May 2021,0.15,Currency,2089,2020,Y
-09 Nov 2020,2020-12-31,Interim Dividend,20 Nov 2020,04 Dec 2020,0.15,Currency,2089,2020,Y
 09 Nov 2020,2020-12-31,Special Dividend,20 Nov 2020,04 Dec 2020,0.05,Currency,2089,2020,Y
+09 Nov 2020,2020-12-31,Interim Dividend,20 Nov 2020,04 Dec 2020,0.15,Currency,2089,2020,Y
 10 Apr 2020,2019-12-31,Second Interim Dividend,27 Apr 2020,08 May 2020,0.2,Currency,2089,2019,Y
 10 Apr 2020,2019-12-31,Special Dividend,27 Apr 2020,08 May 2020,0.85,Currency,2089,2019,Y
-11 Nov 2019,2019-12-31,Special Dividend,22 Nov 2019,06 Dec 2019,0.1,Currency,2089,2019,Y
 11 Nov 2019,2019-12-31,Interim Dividend,22 Nov 2019,06 Dec 2019,0.2,Currency,2089,2019,Y
+11 Nov 2019,2019-12-31,Special Dividend,22 Nov 2019,06 Dec 2019,0.1,Currency,2089,2019,Y
 25 Feb 2019,2018-12-31,Special Dividend,25 Apr 2019,15 May 2019,0.9,Currency,2089,2018,Y
 25 Feb 2019,2018-12-31,Final Dividend,25 Apr 2019,15 May 2019,0.2,Currency,2089,2018,Y
-12 Nov 2018,2018-12-31,Interim Dividend,23 Nov 2018,12 Dec 2018,0.2,Currency,2089,2018,Y
 12 Nov 2018,2018-12-31,Special Dividend,23 Nov 2018,12 Dec 2018,0.1,Currency,2089,2018,Y
+12 Nov 2018,2018-12-31,Interim Dividend,23 Nov 2018,12 Dec 2018,0.2,Currency,2089,2018,Y
 15 Nov 2022,2022-12-31,Fourth Interim Dividend,23 Nov 2022,15 Dec 2022,0.015,Currency,7133,2022,Y
 10 Aug 2022,2022-12-31,Third Interim Dividend,24 Aug 2022,15 Sep 2022,0.015,Currency,7133,2022,Y
 08 Jun 2022,2022-12-31,Second Interim Dividend,22 Jun 2022,08 Jul 2022,0.01,Currency,7133,2022,Y
@@ -4309,6 +4348,7 @@ Announced,Financial Year,Subject,EX Date,Payment Date,Amount,Indicator,Stock Cod
 07 Sep 2021,2021-07-31,Interim Dividend,22 Sep 2021,08 Oct 2021,0.0167,Currency,5292,2021,Y
 03 Sep 2020,2020-07-31,Interim Dividend,21 Sep 2020,08 Oct 2020,0.02,Currency,5292,2020,Y
 15 Nov 2019,2019-07-31,Final Dividend,14 Jan 2020,30 Jan 2020,0.03,Currency,5292,2019,Y
+26 Sep 2023,2023-07-31,Fourth Interim Dividend,12 Oct 2023,27 Oct 2023,0.005,Currency,6963,2023,Y
 15 Jun 2023,2023-07-31,Third Interim Dividend,11 Jul 2023,28 Jul 2023,0.004,Currency,6963,2023,Y
 22 Mar 2023,2023-07-31,Second Interim Dividend,13 Apr 2023,28 Apr 2023,0.003,Currency,6963,2023,Y
 16 Dec 2022,2023-07-31,First Interim Dividend,16 Feb 2023,03 Mar 2023,0.005,Currency,6963,2023,Y
@@ -4350,12 +4390,13 @@ Announced,Financial Year,Subject,EX Date,Payment Date,Amount,Indicator,Stock Cod
 02 Dec 2019,2019-12-31,Interim Dividend,30 Dec 2019,17 Jan 2020,0.015,Currency,0097,2019,Y
 29 Apr 2019,2018-12-31,Final Dividend,27 Jun 2019,18 Jul 2019,0.04,Currency,0097,2018,Y
 03 Dec 2018,2018-12-31,Interim Dividend,27 Dec 2018,18 Jan 2019,0.0175,Currency,0097,2018,Y
+16 Oct 2023,2023-06-30,Final Dividend,30 Nov 2023,15 Dec 2023,0.0032,Currency,0232,2023,Y
 04 Apr 2023,2023-06-30,Interim Dividend,17 Apr 2023,03 May 2023,0.013,Currency,0232,2023,Y
 26 Apr 2022,2021-12-31,First and Final Dividend,09 Jun 2022,24 Jun 2022,0.013,Currency,0232,2021,Y
 21 Feb 2023,2022-12-31,Second Interim Dividend,27 Apr 2023,16 May 2023,0.037,Currency,5162,2022,Y
 23 Nov 2022,2022-12-31,First Interim Dividend,21 Dec 2022,18 Jan 2023,0.025,Currency,5162,2022,Y
-22 Feb 2022,2021-12-31,Second Interim Dividend,20 Apr 2022,11 May 2022,0.037,Currency,5162,2021,Y
 22 Feb 2022,2021-12-31,Special Dividend,20 Apr 2022,11 May 2022,0.005,Currency,5162,2021,Y
+22 Feb 2022,2021-12-31,Second Interim Dividend,20 Apr 2022,11 May 2022,0.037,Currency,5162,2021,Y
 19 Aug 2021,2021-12-31,Interim Dividend,29 Sep 2021,27 Oct 2021,0.015,Currency,5162,2021,Y
 24 Feb 2021,2020-12-31,Second Interim Dividend,27 Apr 2021,21 May 2021,0.045,Currency,5162,2020,Y
 05 Nov 2020,2020-12-31,Interim Dividend,02 Dec 2020,16 Dec 2020,0.025,Currency,5162,2020,Y
@@ -4376,6 +4417,9 @@ Announced,Financial Year,Subject,EX Date,Payment Date,Amount,Indicator,Stock Cod
 24 Aug 2022,2022-12-31,Interim Dividend,09 Sep 2022,19 Sep 2022,0.005,Currency,0197,2022,Y
 29 Jun 2020,2019-12-31,Final Dividend,13 Aug 2020,28 Aug 2020,0.005,Currency,0197,2019,Y
 29 Apr 2019,2018-12-31,Final Dividend,13 Jun 2019,05 Jul 2019,0.005,Currency,0197,2018,Y
+21 Aug 2023,2023-09-30,Third Interim Dividend,13 Sep 2023,21 Sep 2023,0.022,Currency,7231,2023,Y
+30 May 2023,2023-09-30,Second Interim Dividend,14 Jun 2023,22 Jun 2023,0.018,Currency,7231,2023,Y
+24 Feb 2023,2023-09-30,First Interim Dividend,16 Mar 2023,24 Mar 2023,0.014,Currency,7231,2023,Y
 30 Nov 2022,2022-09-30,Special Dividend,14 Dec 2022,23 Dec 2022,0.01,Currency,7231,2022,Y
 30 Nov 2022,2022-09-30,Fourth Interim Dividend,14 Dec 2022,23 Dec 2022,0.016,Currency,7231,2022,Y
 22 Aug 2022,2022-09-30,Third Interim Dividend,06 Sep 2022,23 Sep 2022,0.016,Currency,7231,2022,Y
@@ -4454,6 +4498,7 @@ Announced,Financial Year,Subject,EX Date,Payment Date,Amount,Indicator,Stock Cod
 29 Mar 2018,2018-01-31,Special Dividend,21 May 2018,08 Jun 2018,0.04,Currency,7293,2018,Y
 27 Sep 2017,2018-01-31,Interim Dividend,28 Nov 2017,22 Dec 2017,0.04,Currency,7293,2018,Y
 28 Sep 2020,2019-12-31,Final Dividend,24 Nov 2020,24 Dec 2020,0.025,Currency,3158,2019,Y
+23 Oct 2023,2023-06-30,Final Dividend,20 Dec 2023,18 Jan 2024,0.04,Currency,5159,2023,Y
 25 May 2023,2023-06-30,Interim Dividend,27 Jun 2023,25 Jul 2023,0.035,Currency,5159,2023,Y
 20 Oct 2022,2022-06-30,Final Dividend,21 Dec 2022,19 Jan 2023,0.03,Currency,5159,2022,Y
 26 May 2022,2022-06-30,Interim Dividend,27 Jun 2022,21 Jul 2022,0.03,Currency,5159,2022,Y

@@ -96,7 +96,7 @@ def edit_user(id):
             # Update user details based on the submitted form data
             edituser.email = request.form['email']
             edituser.first_name = request.form['firstName']
-            edituser.admin_user = bool(request.form.get('admin'))
+            edituser.subscribed = bool(request.form.get('subscribed'))
         if password1 and password2:
             # Check if the passwords match
             if password1 == password2:

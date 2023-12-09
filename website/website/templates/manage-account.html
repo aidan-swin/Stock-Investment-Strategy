@@ -41,18 +41,18 @@
                                 <th>ID</th>
                                 <th>Email</th>
                                 <th>First Name</th>
-                                <th>Admin User</th>
+                                <th>Subscribed</th>
                                 <th>Action</th>
                             </tr>
                         </thead>
                         <tbody>
                             {% for user in users %}
-                                {% if user.admin_user != 1 or current_user.id == 1 or user.id == current_user.id %}
+                                {% if user.admin_user != 1 and current_user.id == 1 or user.id == current_user.id %}
                                     <tr>
                                         <td>{{ user.id }}</td>
                                         <td>{{ user.email }}</td>
                                         <td>{{ user.first_name }}</td>
-                                        <td>{{ user.admin_user }}</td>
+                                        <td>{{ user.subscribed }}</td>
                                         <td>
                                             <a href="{{ url_for('auth.edit_user', id=user.id) }}" class="btn btn-primary">Edit</a>
                                         </td>

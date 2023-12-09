@@ -4,7 +4,7 @@
 <style>
   .container {
       margin-top: 20px;
-      max-width: max-content;
+      max-width: 1800px;
   border-radius: 5px;
       justify-content: center;
       align-items: flex-start;
@@ -21,6 +21,7 @@
       background-color: rgb(208, 35, 35)!important;
       border-color: rgb(208, 35, 35)!important;
       margin-top: 10px;
+      
   }
   .btn-primary:hover {
       background-color: rgb(175, 46, 46)!important;
@@ -36,6 +37,14 @@
 
 <!-- Chart code -->
 <div class="container" style="text-align: center;">
+  {% if user.subscribed == False %}
+  <div class="alert alert-danger alert-dismissable fade show" role="alert">
+    Portfolio only Available to Subscribed Users
+    <button type="button" class="close" data-dismiss="alert">
+      <span area-hidden="true">&times;</span>
+    </button>
+  </div>
+  {% else %}
   <div class="chart-container" style="max-width: 100%; overflow: auto;">
     <canvas id="LineChart" width="1600" height="600"></canvas>
   </div>
@@ -53,12 +62,14 @@
     <th class="red-themed">Purchase Date</th>
     <th class="red-themed">Purchase Price</th>
     <th class="red-themed">Latest Price</th>
-    <th class="red-themed">Price Difference</th>
+    <th class="red-themed">Price Diff</th>
     <th class="red-themed">Purchase Value</th>
     <th class="red-themed">Latest Value</th>
+    <th class="red-themed">Value Diff</th>
     <th class="red-themed">Value Percentage</th>
     <th class="red-themed">Dividend Amount</th>
     <th class="red-themed">Dividend Yield</th>
+    <th class="red-themed"></th>
 
 </tr>
 </thead>
@@ -74,9 +85,16 @@
     <td>{{ calculation_result.price_diff }}</td>
     <td>{{ calculation_result.purchase_amount }}</td>
     <td>{{ calculation_result.latest_amount }}</td>
-    <td>{{ calculation_result.amount_perc }}</td>
+    <td>{{ calculation_result.amount_diff }}</td>
+    <b><td>{{ calculation_result.amount_perc }}</td></b>
     <td>{{ calculation_result.dividend_amount }}</td>
-    <td>{{ calculation_result.dividend_yield }}</td>
+    <b><td>{{ (calculation_result.dividend_yield*100)|round(3) }}</td></b>
+    <td>
+      <form method="POST" action="/delete_portfolio/{{ portfolio[0].id }}">
+          <button type="submit" class="btn btn-danger" style="width:80px">Delete</button>
+      </form>
+      <a href="{{ url_for('views.detail', id=portfolio[0].stock_code) }}" class="btn btn-primary" style="width:80px">View</a>
+  </td>
 </tr>
 {% endfor %}
 </tbody>
@@ -87,6 +105,7 @@
 <form method="POST" action="/export_csv">
   <input type="hidden" id="tableData" name="table_data" value="">
   <button type="submit" class="btn btn-primary" id="exportButton">Export to CSV</button>
+  {%endif%}
 </div>    
 
         <script type="text/javascript">
@@ -94,6 +113,7 @@
                 $('#example2').DataTable();
             });
         </script>
+
 </div>
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/chartjs-adapter-date-fns/dist/chartjs-adapter-date-fns.bundle.min.js"></script>
@@ -107,6 +127,7 @@
         table2.rows().every(function() {
             var data = this.data();
             // Exclude the last column (containing the delete button)
+            data.splice(-1, 1);
             tableData += data.join(',') + '\n'; // Append the data to the tableData
         });
     
@@ -126,7 +147,7 @@
             data: {
                 //labels: labels,
                 datasets: [{
-                    label: 'Average Close Price',
+                    label: 'Price Difference',
                     data: price_diff_x_y,
                     backgroundColor: [
           'rgba(255, 26, 104, 0.2)',

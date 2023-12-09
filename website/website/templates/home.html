@@ -4,7 +4,7 @@
 <style>
   .container {
       margin-top: 20px;
-      max-width: max-content;
+      max-width: 80%;
   border-radius: 5px;
       justify-content: center;
       align-items: flex-start;
@@ -43,6 +43,9 @@
                         <th>City</th>
                         <th>Industry</th>
                         <th>Sector</th>
+                        {% if user.subscribed == True %}
+                        <th>Class</th>
+                        {%endif%}
                         <th>Action</t>
                     </tr>
                 </thead>
@@ -54,6 +57,9 @@
                         <td>{{company.city}}</td>
                         <td>{{company.industry}}</td>
                         <td>{{company.sector}}</td>
+                        {% if user.subscribed == True %}
+                        <td>{{company.stockratios[-1].rClass}}</td>
+                        {%endif%}
                         <td>
                             <a href="{{ url_for('views.detail', id=company.stock_code) }}" class="btn btn-primary">View</a>
                         </td>
@@ -61,17 +67,75 @@
                     {% endfor %}
                 </tbody>
                 </table>
-                <div class="text-center">
+                <!-- <div class="text-center">
                     <form method="POST">
                         <button type="submit" class="btn btn-primary">Export to CSV</button>
                     </form>
-                </div>
+                </div> -->
             </div>
         </div>
     </div>
+    <div class="container">
+        {% if user.subscribed == False %}
+        <div class="alert alert-danger alert-dismissable fade show" style="text-align: center;"role="alert">
+          Recommendation only Available to Subscribed Users
+          <button type="button" class="close" data-dismiss="alert">
+            <span area-hidden="true">&times;</span>
+          </button>
+        </div>
+        {% elif user.is_authenticated == False %}
+        <div class="alert alert-danger alert-dismissable fade show" style="text-align: center;"role="alert">
+          Recommendation only Available to Subscribed Users
+          <button type="button" class="close" data-dismiss="alert">
+            <span area-hidden="true">&times;</span>
+          </button>
+        </div>
+        {% else %}
+        <div class="card">
+            <div class="card-header">
+                <h5 class="mb-0 text-white">Attention</h5>
+            </div>
+            <div class="card-body table-responsive">
+              <table id="example2" class="table table-striped table-hover " style="width:100%">
+                <thead>
+                    <tr>
+                        <th>Code</th>
+                        <th>Company Name</th>
+                        <th>City</th>
+                        <th>Industry</th>
+                        <th>Sector</th>
+                        <th>Class</th>
+                        <th>Action</t>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for company in attention %}
+                    <tr>
+                        <td>{{company.stock_code}}</td>
+                        <td>{{company.stock_name}}</td>
+                        <td>{{company.city}}</td>
+                        <td>{{company.industry}}</td>   
+                        <td>{{company.sector}}</td>
+                        <td>{{company.stockratios[-1].rClass}}</td>
+                        <td>
+                            <a href="{{ url_for('views.detail', id=company.stock_code) }}" class="btn btn-primary">View</a>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    {%endif%}
         <script type="text/javascript">
             $(document).ready(function() {
                 $('#example').DataTable();
+            });
+        </script>
+         <script type="text/javascript">
+            $(document).ready(function() {
+                $('#example2').DataTable();
             });
         </script>
 </div>
