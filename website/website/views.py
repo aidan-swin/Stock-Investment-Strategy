@@ -735,7 +735,7 @@ def SMA(values, n):
     """
     return pd.Series(values).rolling(n).mean()
 
-class SingleSma(Strategy):
+class SingleSma100(Strategy):
     # Define the moving average lag as a *class variable*
     n = 100
     
@@ -755,8 +755,50 @@ class SingleSma(Strategy):
         elif crossover(self.sma, self.data.Close):
             self.position.close()
             self.sell()
+            
+class SingleSma50(Strategy):
+    # Define the moving average lag as a *class variable*
+    n = 50
+    
+    def init(self):
+        # Precompute the moving average
+        self.sma = self.I(SMA, self.data.Close, self.n)
+    
+    def next(self):
+        # If the close price crosses above the 200-day moving average,
+        # close any existing short trades, and buy the asset
+        if crossover(self.data.Close, self.sma):
+            self.position.close()
+            self.buy()
 
-@views.route('/technical_analysis/<stock_code>', methods=['GET'])
+        # Else, if the close price crosses below the 200-day moving average,
+        # close any existing long trades, and sell the asset
+        elif crossover(self.sma, self.data.Close):
+            self.position.close()
+            self.sell()
+
+class SingleSma20(Strategy):
+    # Define the moving average lag as a *class variable*
+    n = 20
+    
+    def init(self):
+        # Precompute the moving average
+        self.sma = self.I(SMA, self.data.Close, self.n)
+    
+    def next(self):
+        # If the close price crosses above the 200-day moving average,
+        # close any existing short trades, and buy the asset
+        if crossover(self.data.Close, self.sma):
+            self.position.close()
+            self.buy()
+
+        # Else, if the close price crosses below the 200-day moving average,
+        # close any existing long trades, and sell the asset
+        elif crossover(self.sma, self.data.Close):
+            self.position.close()
+            self.sell()
+
+@views.route('/technical_analysis/<stock_code>', methods=['POST'])
 @login_required
 def technical_analysis(stock_code):
     # Query historical prices for the selected stock code
@@ -776,7 +818,14 @@ def technical_analysis(stock_code):
     historical_prices_df['Date'] = to_datetime(historical_prices_df['Date'])
     historical_prices_df.set_index('Date', inplace=True)
 
-    bt = Backtest(historical_prices_df, SingleSma, cash=10000, commission=0)
+    selected_days = int(request.form.get('number_of_days'))
+    if (selected_days == 20):
+        bt = Backtest(historical_prices_df, SingleSma20, cash=10000, commission=0)
+    elif (selected_days == 50):
+        bt = Backtest(historical_prices_df, SingleSma50, cash=10000, commission=0)
+    elif (selected_days == 100):
+        bt = Backtest(historical_prices_df, SingleSma100, cash=10000, commission=0)
+
     stats = bt.run()
     print(stats)
 
